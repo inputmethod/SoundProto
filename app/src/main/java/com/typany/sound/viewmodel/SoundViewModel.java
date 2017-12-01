@@ -2,10 +2,10 @@ package com.typany.sound.viewmodel;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
-import android.content.Context;
 
 import com.typany.debug.SLog;
 import com.typany.http.toolbox.RequestUtil;
+import com.typany.ime.IMEApplicationContext;
 import com.typany.network.NetworkBoundResource;
 import com.typany.network.Response;
 import com.typany.network.StatefulResource;
@@ -24,7 +24,6 @@ public class SoundViewModel extends ViewModel {
     private static final String TAG = SoundViewModel.class.getSimpleName();
 
     SoundBoundItem selectedItem;
-    Context appCopntext;
 
     public SoundViewModel() {
     }
@@ -84,7 +83,8 @@ public class SoundViewModel extends ViewModel {
             @Override
             protected LiveData<Response<SoundPersistentRepository.SoundInfoRepository>> createCall() {
                 // TODO: complete the API URI with formal url
-                return RequestUtil.observalbeRequestProtobuf("http://10.134.73.228/api/soundres?proto=1", appCopntext,
+                return RequestUtil.observalbeRequestProtobuf("http://10.134.73.228/api/soundres?proto=1",
+                        IMEApplicationContext.context,
                         SoundPersistentRepository.SoundInfoRepository.parser());
             }
 

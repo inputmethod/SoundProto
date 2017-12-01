@@ -1,5 +1,6 @@
 package com.typany.sound.views;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -70,18 +71,25 @@ public class SoundFragment extends Fragment {
         soundAdapter = new SoundAdapter(mOptions, soundItemClickCallback, false);
         mRecyclerView.setAdapter(soundAdapter);
 
-        ProcessScopeViewModelProviders.of(getActivity().getApplication()).get(SoundViewModel.class)
-                .loadFullRepository().observe(this, new Observer<StatefulResource<List<SoundBoundItem>>>() {
+        LiveData<StatefulResource<List<SoundBoundItem>>> liveData = ProcessScopeViewModelProviders.of(getActivity().getApplication()).get(SoundViewModel.class)
+                .loadFullRepository();
+
+        liveData.observe(this, new Observer<StatefulResource<List<SoundBoundItem>>>() {
             @Override
             public void onChanged(@Nullable StatefulResource<List<SoundBoundItem>> soundRemoteRepositoryStatefulResource) {
-                if (soundRemoteRepositoryStatefulResource.status == StatefulResource.Status.LOADING)
+                if (soundRemoteRepositoryStatefulResource.status == StatefulResource.Status.LOADING) {
                     drawLoading();
-                else if (soundRemoteRepositoryStatefulResource.status == StatefulResource.Status.SUCCESS)
+                } else if (soundRemoteRepositoryStatefulResource.status == StatefulResource.Status.SUCCESS) {
                     soundAdapter.setSoundItemList(soundRemoteRepositoryStatefulResource.data);
-                else
+                } else {
                     Log.e(TAG, "onChanged: blabla");
+                }
             }
         });
+
+        if (null != liveData.getValue() && null != liveData.getValue().data && !liveData.getValue().data.isEmpty()) {
+            soundAdapter.setSoundItemList(liveData.getValue().data);
+        }
 
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
         ft.add(R.id.fl_container, mLoadingFragment);
