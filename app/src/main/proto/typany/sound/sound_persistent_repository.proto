@@ -1,0 +1,52 @@
+
+syntax = "proto3";
+
+package com.typany.sound;
+
+// local use
+message KeyRow
+{
+	repeated uint32 oggId = 1;
+}
+
+// map := [KeyType -> OggId]
+message VocalPosition
+{
+	repeated KeyRow normalKey = 1;
+	map<uint32, uint32> functionKey = 2;
+}
+
+message PositionInfo
+{
+	VocalPosition vocalPosition = 1;
+}
+
+// soundInfo里包含用于显示的基本信息，名字，预览图和是否被选中
+message SoundBasicInfo
+{
+	string bundleName = 1;
+	bool select = 2;
+	string previewIconUrl = 3;
+}
+
+// 随包的
+message SoundInfoRepository
+{
+    repeated SoundBasicInfo basicInfo = 1;
+}
+
+//
+// 获取sound 列表，内容只有名字和预览icon
+// url : get_remote_list
+// return : SoundInfoRepository
+//
+
+// 下载某一个具体的sound
+// url : http://ime.sogou.com/download_sound/{sound_name}
+// param : bundle name
+// return : SoundBundleContent
+message SoundBundleContent {
+    PositionInfo positionInfo = 1;
+	map<uint32, bytes> oggs = 2;
+}
+

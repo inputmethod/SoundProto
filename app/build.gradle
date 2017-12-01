@@ -1,0 +1,81 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.protobuf'
+
+android {
+    useLibrary 'org.apache.http.legacy'
+
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.typany.soundproto"
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+
+protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.3.0'
+    }
+    plugins {
+        javalite {
+            artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0"
+        }
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:1.4.0"
+        }
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.plugins {
+                javalite {}
+                grpc {
+                    // Options added to --grpc_out
+                    option 'lite'
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:design:26.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+
+    // livedata lifecycle
+    implementation "android.arch.lifecycle:extensions:1.0.0"
+    // room
+    implementation "android.arch.persistence.room:runtime:1.0.0"
+    annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
+    // paging
+    implementation "android.arch.paging:runtime:1.0.0-alpha3"
+    // zt-zip
+    compile 'org.zeroturnaround:zt-zip:1.12'
+
+
+    // gRPC
+    implementation "io.grpc:grpc-okhttp:1.4.0"
+    implementation "io.grpc:grpc-protobuf-lite:1.4.0"
+    implementation "io.grpc:grpc-stub:1.4.0"
+    implementation 'javax.annotation:javax.annotation-api:1.2'
+    protobuf 'com.google.protobuf:protobuf-java:3.3.1'
+
+    implementation 'com.github.bumptech.glide:glide:3.8.0'
+//    annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
+}

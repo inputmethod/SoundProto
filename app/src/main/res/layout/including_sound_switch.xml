@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<Switch xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:thumb="@drawable/switch_thumb"-->
+    <!--android:track="@drawable/switch_track"-->
+    <!--android:thumbTextPadding="10dp"-->
+    <!--android:switchMinWidth="38dp"-->
+    <!--android:showText="false"-->
+    <!--android:textOn=""-->
+    <!--android:textOff=""-->
+    <!--/>-->
+<!--<CheckBox xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="38.33dp"-->
+    <!--android:layout_height="28.33dp"-->
+    <!--android:button="@null"-->
+    <!--android:drawableRight="@drawable/sound_panel_check_bg"-->
+    <!--android:checked="false" />-->
+<com.typany.ui.skinui.custom.fixcrash.FlatCheckView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="38.33dp"
+    android:layout_height="28.33dp"
+    android:layout_marginLeft="18dp"
+    android:layout_marginStart="18dp"
+    android:layout_centerVertical="true"
+    android:layout_gravity="center"
+    />

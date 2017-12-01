@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LatinRow">
+        <attr name="rowEdgeFlags" format="integer" >
+            <flag name="top" value="4" />
+            <flag name="bottom" value="8" />
+        </attr>
+        <attr name="topMargin" format="integer"/>
+        <attr name="bottomMargin" format="integer"/>
+        <attr name="isAlign" format="boolean"/>
+        <attr name="isWeight" format="boolean"/>
+    </declare-styleable>
+    <declare-styleable name="KeyboardData">
+        <attr name="keyWidth" format="integer" />
+        <attr name="keyHeight" format="integer" />
+        <attr name="horizontalGap" format="integer" />
+        <attr name="verticalGap" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="LatinKey">
+        <attr name="id" format="integer" />
+        <attr name="showPreview" format="boolean" />
+        <attr name="edgeAlign" format="boolean" />
+        <attr name="isRepeatable" format="boolean" />
+        <attr name="colorSpecial" format="boolean" />
+        <attr name="smallText" format="string" />
+        <attr name="keyLabel" format="string" />
+        <attr name="smallKeyCode" format="integer" />
+        <attr name="keyIcon" format="reference" />
+        <attr name="keyEdgeFlags" format="integer" >
+            <flag name="left" value="1" />
+            <flag name="right" value="2" />
+        </attr>
+        <attr name="codes" format="integer" />
+        <attr name="normalTextYOffset" format="float" />
+        <attr name="smallTextXOffset" format="integer" />
+        <attr name="smallTextYOffset" format="float" />
+        <attr name="leftMargin" format="integer"/>
+        <attr name="rightMargin" format="integer"/>
+        <attr name="leftAlign" format="integer"/>
+        <attr name="leftAlignRatio" format="float"/>
+        <attr name="rightAlign" format="integer"/>
+        <attr name="rightAlignRatio" format="float"/>
+        <attr name="weight" format="float"/>
+    </declare-styleable>
+    <declare-styleable name="ScrollBar">
+        <attr name="android:background"/>
+        <attr name="android:clickable"/>
+        <attr name="android:contentDescription"/>
+        <attr name="android:drawingCacheQuality"/>
+        <attr name="android:duplicateParentState"/>
+        <attr name="android:fadeScrollbars"/>
+        <attr name="android:fadingEdge"/>
+        <attr name="android:fadingEdgeLength"/>
+        <attr name="android:fitsSystemWindows"/>
+        <attr name="android:focusable"/>
+        <attr name="android:focusableInTouchMode"/>
+        <attr name="android:hapticFeedbackEnabled"/>
+        <attr name="android:id"/>
+        <attr name="android:isScrollContainer"/>
+        <attr name="android:keepScreenOn"/>
+        <attr name="android:longClickable"/>
+        <attr name="android:minHeight"/>
+        <attr name="android:minWidth"/>
+        <attr name="android:nextFocusDown"/>
+        <attr name="android:nextFocusLeft"/>
+        <attr name="android:nextFocusRight"/>
+        <attr name="android:nextFocusUp"/>
+        <attr name="android:onClick"/>
+        <attr name="android:padding"/>
+        <attr name="android:paddingBottom"/>
+        <attr name="android:paddingLeft"/>
+        <attr name="android:paddingRight"/>
+        <attr name="android:paddingTop"/>
+        <attr name="android:saveEnabled"/>
+        <attr name="android:scrollX"/>
+        <attr name="android:scrollY"/>
+        <attr name="android:scrollbarAlwaysDrawHorizontalTrack"/>
+        <attr name="android:scrollbarAlwaysDrawVerticalTrack"/>
+        <attr name="android:scrollbarDefaultDelayBeforeFade"/>
+        <attr name="android:scrollbarFadeDuration"/>
+        <attr name="android:scrollbarSize"/>
+        <attr name="android:scrollbarStyle"/>
+        <attr name="android:scrollbarThumbHorizontal"/>
+        <attr name="android:scrollbarThumbVertical"/>
+        <attr name="android:scrollbarTrackHorizontal"/>
+        <attr name="android:scrollbarTrackVertical"/>
+        <attr name="android:scrollbars"/>
+        <attr name="android:soundEffectsEnabled"/>
+        <attr name="android:tag"/>
+        <attr name="android:visibility"/>
+    </declare-styleable>
+
+    <attr name="gravity">
+        <!-- Push object to the top of its container, not changing its size. -->
+        <flag name="top" value="0x30" />
+        <!-- Push object to the bottom of its container, not changing its size. -->
+        <flag name="bottom" value="0x50" />
+        <!-- Push object to the left of its container, not changing its size. -->
+        <flag name="left" value="0x03" />
+        <!-- Push object to the right of its container, not changing its size. -->
+        <flag name="right" value="0x05" />
+        <!-- Place object in the vertical center of its container, not changing its size. -->
+        <flag name="center_vertical" value="0x10" />
+        <!-- Grow the vertical size of the object if needed so it completely fills its container. -->
+        <flag name="fill_vertical" value="0x70" />
+        <!-- Place object in the horizontal center of its container, not changing its size. -->
+        <flag name="center_horizontal" value="0x01" />
+        <!-- Grow the horizontal size of the object if needed so it completely fills its container. -->
+        <flag name="fill_horizontal" value="0x07" />
+        <!-- Place the object in the center of its container in both the vertical and horizontal axis, not changing its size. -->
+        <flag name="center" value="0x11" />
+        <!-- Grow the horizontal and vertical size of the object if needed so it completely fills its container. -->
+        <flag name="fill" value="0x77" />
+        <!-- Additional option that can be set to have the top and/or bottom edges of
+             the child clipped to its container's bounds.
+             The clip will be based on the vertical gravity: a top gravity will clip the bottom
+             edge, a bottom gravity will clip the top edge, and neither will clip both edges. -->
+        <flag name="clip_vertical" value="0x80" />
+        <!-- Additional option that can be set to have the left and/or right edges of
+             the child clipped to its container's bounds.
+             The clip will be based on the horizontal gravity: a left gravity will clip the right
+             edge, a right gravity will clip the left edge, and neither will clip both edges. -->
+        <flag name="clip_horizontal" value="0x08" />
+    </attr>
+    <!-- Default GridView style. -->
+    <attr name="gridViewStyle" format="reference" />
+    <declare-styleable name="LinkButton">
+        <attr name="targetUrl" format="string"/>
+    </declare-styleable>
+    <declare-styleable name="DotView">
+        <attr name="dot_radius" format="dimension"/>
+    </declare-styleable>
+    <!-- CardView support -->
+    <declare-styleable name="CardView">
+        <!-- Background color for CardView. -->
+        <attr name="cardBackgroundColor" format="color"/>
+        <!-- Corner radius for CardView. -->
+        <attr name="cardCornerRadius" format="dimension"/>
+        <!-- Elevation for CardView. -->
+        <attr name="cardElevation" format="dimension"/>
+        <!-- Maximum Elevation for CardView. -->
+        <attr name="cardMaxElevation" format="dimension"/>
+        <!-- Add padding in API v21+ as well to have the same measurements with previous versions. -->
+        <attr name="cardUseCompatPadding" format="boolean"/>
+        <!-- Add padding to CardView on v20 and before to prevent intersections between the Card content and rounded corners. -->
+        <attr name="cardPreventCornerOverlap" format="boolean"/>
+        <!-- Inner padding between the edges of the Card and children of the CardView. -->
+        <attr name="contentPadding" format="dimension"/>
+        <!-- Inner padding between the left edge of the Card and children of the CardView. -->
+        <attr name="contentPaddingLeft" format="dimension"/>
+        <!-- Inner padding between the right edge of the Card and children of the CardView. -->
+        <attr name="contentPaddingRight" format="dimension"/>
+        <!-- Inner padding between the top edge of the Card and children of the CardView. -->
+        <attr name="contentPaddingTop" format="dimension"/>
+        <!-- Inner padding between the bottom edge of the Card and children of the CardView. -->
+        <attr name="contentPaddingBottom" format="dimension"/>
+        <attr name="shadowStartColor" format="color"/>
+        <attr name="shadowEndColor" format="color"/>
+        <attr name="shadowSize" format="dimension"/>
+    </declare-styleable>
+    <declare-styleable name="PagerSlidingTabStrip">
+        <attr name="pstsIndicatorColor" format="color" />
+        <attr name="pstsUnderlineColor" format="color" />
+        <attr name="pstsDividerColor" format="color" />
+        <attr name="pstsIndicatorHeight" format="dimension" />
+        <attr name="pstsUnderlineHeight" format="dimension" />
+        <attr name="pstsDividerPadding" format="dimension" />
+        <attr name="pstsTabPaddingLeftRight" format="dimension" />
+        <attr name="pstsScrollOffset" format="dimension" />
+        <attr name="pstsTabBackground" format="reference" />
+        <attr name="pstsShouldExpand" format="boolean" />
+        <attr name="pstsTextAllCaps" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="WeekView">
+        <attr name="firstDayOfWeek" format="enum">
+            <enum name="sunday" value="1"/>
+            <enum name="monday" value="2"/>
+            <enum name="tuesday" value="3"/>
+            <enum name="wednesday" value="4"/>
+            <enum name="thursday" value="5"/>
+            <enum name="friday" value="6"/>
+            <enum name="saturday" value="7"/>
+        </attr>
+        <attr name="hourHeight" format="dimension"/>
+        <attr name="minHourHeight" format="dimension"/>
+        <attr name="maxHourHeight" format="dimension"/>
+        <attr name="textSize" format="dimension"/>
+        <attr name="eventTextSize" format="dimension"/>
+        <attr name="headerColumnPadding" format="dimension"/>
+        <attr name="headerRowPadding" format="dimension"/>
+        <attr name="columnGap" format="dimension"/>
+        <attr name="headerColumnTextColor" format="color"/>
+        <attr name="noOfVisibleDays" format="integer"/>
+        <attr name="headerRowBackgroundColor" format="color"/>
+        <attr name="dayBackgroundColor" format="color"/>
+        <attr name="futureBackgroundColor" format="color"/>
+        <attr name="pastBackgroundColor" format="color"/>
+        <attr name="futureWeekendBackgroundColor" format="color"/>
+        <attr name="pastWeekendBackgroundColor" format="color"/>
+        <attr name="nowLineColor" format="color"/>
+        <attr name="nowLineThickness" format="dimension"/>
+        <attr name="useNewColoringStyle" format="boolean"/>
+        <attr name="hourSeparatorColor" format="color"/>
+        <attr name="todayBackgroundColor" format="color"/>
+        <attr name="todayHeaderTextColor" format="color"/>
+        <attr name="hourSeparatorHeight" format="dimension"/>
+        <attr name="eventTextColor" format="color"/>
+        <attr name="eventPadding" format="dimension"/>
+        <attr name="headerColumnBackground" format="color"/>
+        <attr name="dayNameLength" format="enum">
+            <enum name="length_short" value="1"/>
+            <enum name="length_long" value="2"/>
+        </attr>
+        <attr name="overlappingEventGap" format="dimension"/>
+        <attr name="eventMarginVertical" format="dimension"/>
+        <attr name="xScrollingSpeed" format="float"/>
+        <attr name="eventCornerRadius" format="dimension"/>
+    </declare-styleable>
+    <declare-styleable name="MaterialRippleLayout">
+        <attr name="mrl_rippleColor" format="color" localization="suggested" />
+        <attr name="mrl_rippleDimension" format="dimension" localization="suggested" />
+        <attr name="mrl_rippleOverlay" format="boolean" localization="suggested" />
+        <attr name="mrl_rippleAlpha" format="float" localization="suggested" />
+        <attr name="mrl_rippleDuration" format="integer" localization="suggested" />
+        <attr name="mrl_rippleFadeDuration" format="integer" localization="suggested" />
+        <attr name="mrl_rippleHover" format="boolean" localization="suggested" />
+        <attr name="mrl_rippleBackground" format="color" localization="suggested" />
+        <attr name="mrl_rippleDelayClick" format="boolean" localization="suggested" />
+        <attr name="mrl_ripplePersistent" format="boolean" localization="suggested" />
+        <attr name="mrl_rippleInAdapter" format="boolean" localization="suggested" />
+        <attr name="mrl_rippleRoundedCorners" format="dimension" localization="suggested" />
+    </declare-styleable>
+
+
+    <attr name="cropImageStyle" format="reference" />
+
+    <declare-styleable name="CropImageView">
+        <attr name="highlightColor" format="reference|color" />
+        <attr name="showThirds" format="boolean" />
+        <attr name="showCircle" format="boolean" />
+        <attr name="showHandles">
+            <enum name="changing" value="0" />
+            <enum name="always" value="1" />
+            <enum name="never" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <!-- RadioButton Attribute -->
+    <declare-styleable name="RadioButton">
+        <attr name="radio_color" format="color"/>
+        <attr name="radio_checked_color" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="SeekBarPreference">
+        <attr name="minValue" format="reference|integer"/>
+        <attr name="maxValue" format="reference|integer"/>
+        <attr name="interval" format="reference|integer"/>
+        <attr name="measurementUnit" format="reference|string"/>
+    </declare-styleable>
+
+    <declare-styleable name="CustomTheme">
+        <attr name="gifViewStyle" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="GifTextureView">
+        <attr name="gifSource" format="reference|string"/>
+        <attr name="isOpaque" format="boolean"/>
+    </declare-styleable>
+    <!--<declare-styleable name="GifView">-->
+        <!--<attr name="freezesAnimation" format="boolean"/>-->
+    <!--</declare-styleable>-->
+    <declare-styleable name="ShapeIndicatorView">
+        <attr name="horizontalSpace" format="reference|integer"></attr>
+        <attr name="fullColor" format="reference|color"></attr>
+        <attr name="radius" format="reference|integer"></attr>
+    </declare-styleable>
+    <declare-styleable name="TtfTextView">
+        <attr name="customFont" format="string" />
+    </declare-styleable>
+    <declare-styleable name="DragSortListView">
+        <attr name="collapsed_height" format="dimension" />
+        <attr name="drag_scroll_start" format="float" />
+        <attr name="max_drag_scroll_speed" format="float" />
+        <attr name="float_background_color" format="color" />
+        <attr name="remove_mode">
+            <enum name="clickRemove" value="0" />
+            <enum name="flingRemove" value="1" />
+        </attr>
+        <attr name="track_drag_sort" format="boolean"/>
+        <attr name="float_alpha" format="float"/>
+        <attr name="slide_shuffle_speed" format="float"/>
+        <attr name="remove_animation_duration" format="integer"/>
+        <attr name="drop_animation_duration" format="integer"/>
+        <attr name="drag_enabled" format="boolean" />
+        <attr name="sort_enabled" format="boolean" />
+        <attr name="remove_enabled" format="boolean" />
+        <attr name="drag_start_mode">
+            <enum name="onDown" value="0" />
+            <enum name="onMove" value="1" />
+            <enum name="onLongPress" value="2"/>
+        </attr>
+        <attr name="drag_handle_id" format="integer" />
+        <attr name="fling_handle_id" format="integer" />
+        <attr name="click_remove_id" format="integer" />
+        <attr name="use_default_controller" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="CirclesProgressBar">
+        <attr name="circlesWidth" format="dimension" />
+        <attr name="circlesColor" format="color" />
+        <attr name="textCrude" format="dimension" />
+        <attr name="textColor" format="color" />
+        <attr name="textFontSize" format="dimension" />
+        <attr name="currentProgressColor" format="color" />
+        <attr name="currentProgress" format="integer" />
+        <attr name="isPercent" format="boolean" />
+        <attr name="style" format="integer" />
+        <attr name="currentScheduleWidth" format="dimension" />
+    </declare-styleable>
+</resources>

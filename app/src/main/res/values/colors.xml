@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="setting_text_summary">#AFAEC3</color>
+    <color name="sound_volume_progress">#072553</color>
+    <color name="sound_volume_progress_blue">#01FAFF</color>
+    <color name="sound_volume_progress_dark">#01FAFF</color>
+    <color name="sound_volume_progress_white">#7768FE</color>
+    <color name="sound_switch_thumb_on_start_white">#876BFF</color>
+    <color name="sound_switch_thumb_on_end_white">#4683FF</color>
+    <color name="sound_switch_thumb_off_blue">#2994F5</color>
+    <color name="sound_switch_thumb_on_blue">#2F9CFF</color>
+    <color name="sound_switch_thumb_off_dark">#BFBDD3</color>
+    <color name="sound_switch_thumb_on_dark">#2F9CFF</color>
+
+
+    <color name="transparent">#00000000</color>
+    <color name="black_87">#C8000000</color>
+
+    <color name="bg_color_retry_start">#876BFF</color>
+    <color name="bg_color_retry_end">#4683FF</color>
+
+    <color name="item_bg_pressed_2_7">#24AFAEC3</color>
+</resources>

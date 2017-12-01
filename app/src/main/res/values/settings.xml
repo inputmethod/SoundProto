@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--string name="theme_list_url">http://input.shouji.sogou.com/SogouServlet</string-->
+    <!--string name="theme_list_url">http://54.174.190.243:8080/api/getthemelist</string-->
+    <string name="facebook_app_id">275932369410927</string>
+    <string name="adjust_token">tdlj69wzdm2o</string>
+    <string name="appflyer_token">QxhXXCYaRdNGoCnahMHGi7</string>
+    <!--<string name="theme_list_url">http://www.typany.com/api/getthemelist</string>-->
+    <!--<string name="theme_category_url">http://www.typany.com/api/getthemecatelist</string>-->
+    <string name="base_server_ip">http://34.196.136.247/api/</string>
+    <string name="base_server_url">http://www.typany.com/api/</string>
+    <string name="base_image_url">http://image.typany.com/media/</string>
+
+    <string name="cdn_domain">image.typany.com</string>
+    <string name="dict_update_url">checkjsondicts</string>
+    <string name="get_global_info_url">getconfig</string>
+    <string name="get_language_config_url">getkeyboardconfig</string>
+    <string name="stick_list_url">getsticklist</string>
+    <string name="emoji_maker_recommend_url">getemojilists</string>
+    <string name="stick_detail_url">getstickdetailimagelist</string>
+
+    <string name="feedback_uri">sendfeedback</string>
+    <string name="marketinfo_uri">getactivityinfo</string>
+    <string name="topnews_uri">topnews</string>
+    <string name="toppicks_uri">toppicks</string>
+
+    <string name="theme_notify_check_uri">isthemeupdate</string>
+
+    <string name="theme_guide_more_uri">getsugtheme</string>
+
+    <string name="emoji_update">getcombineexpr</string>
+    <!--string name="dict_download_url">http://10.134.247.222/OnLineDictList.xml</string-->
+    <string name="dict_download_url">getdictlist</string>
+    <string name="dict_suggest_url">getsuggestdict</string>
+
+    <string name="keyboard_list_url">getkeyboardlayout</string>
+    <string name="update_list_url">getlatestapk</string>
+    <string name="orc_dict_download_url">http://image.typany.com/OnLineORCDictList.xml</string>
+    <string name="settings_version">version</string>
+    <string name="settings_older_version">older_version</string>
+    <string name="last_rate_close_time">lastrateclose</string>
+    <string name="do_setting_entry_abtest">abtest_setting_entry</string>
+    <string name="en_builtin_dict_version">en_builtin_dict_version</string>
+    <string name="last_get_config_time">last_get_config_time</string>
+    <string name="last_get_lang_config_time">last_get_lang_config_time</string>
+    <string name="last_up_dict_time">last_up_dict_time</string>
+    <string name="last_up_emoji_time">last_up_emoji_time</string>
+    <string name="last_feedback_email">last_feedback_email</string>
+    <string name="last_get_patch_time">last_get_patch_time</string>
+    <string name="last_get_hotemoji_time">last_get_hotemoji_time</string>
+    <string name="hot_emoji_version">hot_emoji_version</string>
+    <string name="last_get_emojimaker_time">last_get_emojimaker_time</string>
+    <string name="emoji_maker_version">emoji_maker_version</string>
+    <string name="get_hotemoji_url">getsuggestemoji</string>
+    <string name="get_emojimaker_url">getemojimaker</string>
+    <string name="settings_last_modified">last_modifed</string>
+    <string name="get_adsstrategy_url">adsstrategy</string>
+    <!-- key name rule [group 1]_[group 2]_[name]_[value description], ex: keyboard_typing_sound_enable-->
+    <string name="typing_sound_volume">keyboard_typing_sound_volume</string>
+    <!--string name="typing_vibrate_enable">keyboard_typing_vibrate_enable</string-->
+    <string name="typing_vibrate_duration">keyboard_typing_vibrate_duration</string>
+
+    <string name="custom_skin_click">custom_skin_click</string>
+    <string name="dict_detector_result">dict_detector_result</string>
+    <string name="dict_detector_show">dict_detector_show</string>
+    <string name="emoji_maker_show_notice">emoji_maker_show_notice</string>
+    <string name="emoji_maker_show_guide">emoji_maker_show_guide</string>
+    <string name="fb_banner_type">fb_banner_type</string>
+
+    <string name="capitalization_sentence_enable">engine_capitalization_sentence_enable</string>
+    <string name="append_space_enable">engine_append_space_enable</string>
+    <string name="sentence_head_prediction_enable">engine_sentence_head_prediction_enable</string>
+
+    <string name="auto_match_pair_symbol">engine_auto_match_pair_symbol_enable</string>
+    <string name="emoji_prediction_enable">engine_emoji_prediction_enable</string>
+    <string name="space_mode_key">space_mode</string>
+    <string name="space_mode_b_key">space_mode_boolean</string>
+    <string name="keypress_key">keypress_mode</string>
+    <string name="keypress_effect_key">keypress_effect</string>
+    <string name="improgress_key">improgress</string>
+    <!--<string name="abbreviation_show_key">abbreviation_show</string>-->
+    <string name="correction_position_key">correction_position</string>
+    <string name="themes_key">themes</string>
+    <string name="sticker_key">Stickers</string>
+    <string name="language_key">Languages</string>
+    <string name="select_your_language">Select your languages</string>
+    <string name="customize_key">customize</string>
+    <string name="numberrow_key">numberrow</string>
+    <string name="fastinput_key">fastinput</string>
+    <string name="typingsound_key">typingsounds</string>
+
+    <string name="initialinput_key">initialinput</string>
+
+    <string name="input_bubble_show_key">inputbubbleshow</string>
+
+    <string name="typingvibration_key">vibration</string>
+    <string name="double_space_key">doublespace</string>
+    <string name="use_engine_key">useengine</string>
+
+    <string name="keys_setting_key">keyssetting</string>
+    <string name="typing_setting_key">typingsetting</string>
+
+    <string name="sound_default_key">sound_default_key</string>
+    <string name="vibrate_default_key">vibrate_default_key</string>
+
+    <string name="feedback_key">feedback</string>
+
+    <string name="rate_key">rate</string>
+
+    <string name="share_key">share</string>
+
+    <string name="about_key">About</string>
+
+    <string name="facebook_url">https://www.facebook.com/typany</string>
+    <string name="facebook_url_1">https://www.facebook.com/typany</string>
+    <string name="twitter_url">https://twitter.com/Typanykeyboard</string>
+    <string name="google_url">https://plus.google.com/b/114107438042423944698/dashboard/overview</string>
+    <string name="privacy_url">http://image.typany.com/about/PrivacyPolicy.htm</string>
+    <string name="terms_url">http://image.typany.com/about/TYPANY_TERMS.htm</string>
+    <string name="improgress_url">file:///android_asset/privacy/Improgress_Plan.htm</string>
+    <string name="skin_local_collect_url">themeapkdownload</string>
+
+
+    <string name="keyboard_height_portrait">keyboard.portrait_height</string>
+    <string name="keyboard_height_landscape">keyboard.landscape_height</string>
+
+    <string name="language_current">language.current</string>
+    <string name="language_list">language.local</string>
+    <string name="language_config">language.config</string>
+
+    <string name="current_language_token">current.language_token</string>
+    <string name="current_valid_language_tokens">current.valid_language_tokens</string>
+    <string name="current_delta_language_tokens">current.delta_language_tokens</string>
+    <string name="current_pending_language_tokens">current.pending_language_tokens</string>
+
+    <string name="current_valid_stickers">current.valid_stickers</string>
+    <string name="running_ispwdmode">running.ispwdmode</string>
+    <string name="running_calendar_visible">running.calendar_visible</string>
+
+    <string name="current_emoji_page">running.emoji_pagers</string>
+    <string name="notify_update_time">notify_update_time</string>
+    <string name="cdn_ip_list">cdn_ip_list</string>
+    <string name="current_keyboard_version">current_keyboard_version</string>
+    <string name="current_emoji_version">current_emoji_version</string>
+    <string name="current_valid_keyboards">current.valid_keyboards</string>
+    <string name="current_keyboard_token">current.keyboard_token</string>
+    <string name="current_keyboards_layout">current.keyboards_layout</string>
+    <string name="base_en_dict_md5">f341091e45633e4fe683c2807df5e39e</string>
+    <string name="welcome_agree_setting">agree</string>
+    <string name="start_main_page_first">mainpage_first</string>
+    <string name="typany_first_started">typany_started</string>
+    <string name="language_notice_setting">notice</string>
+    <string name="entry_night_mode">night_mode</string>
+    <string name="debug_mode">debug_mode</string>
+    <string name="rate_dialog_count">rate_dialog_count</string>
+    <string name="last_theme_check_time">last_theme_check_time</string>
+    <string name="theme_notify_needed">theme_notify_needed</string>
+    <string name="last_check_theme_time">last_check_theme_time</string>
+
+    <string name="custom_skin_tag_0">purple</string>
+    <string name="custom_skin_tag_1">selfie</string>
+    <string name="custom_skin_tag_2">cool</string>
+    <string name="custom_skin_tag_3">gold</string>
+    <string name="custom_skin_tag_4">classic</string>
+    <string name="custom_skin_tag_5">scenery</string>
+    <string name="custom_skin_tag_6">dark</string>
+    <string name="custom_skin_tag_7">red</string>
+    <string name="custom_skin_tag_8">animal</string>
+    <string name="custom_skin_tag_9">fashion</string>
+
+    <string name="silence_lan_down">silence_download</string>
+    <string name="silence_lan_apply">silence_applyed</string>
+
+    <string name="current_ime_height">current_ime_height</string>
+    <string name="current_ime_hor_height">current_ime_hor_height</string>
+
+    <string name="theme_using_times">theme_using_times</string>
+
+    <string name="forbidden_emoji_list" translatable="false">no_sync_forbidden_emoji_list_V1</string>
+    <string name="need_restart_for_patch">need_restart_for_patch</string>
+
+    <string name="slide_guide_page">slide_guide_page</string>
+    <string name="space_guide_page">space_guide_page</string>
+    <string name="banner_page_time">banner_page_time</string>
+
+    <string name="current_patch_config">current_patch_config</string>
+
+    <string name="patch_update_url">gethotfix</string>
+    <string name="can_upload_voice">canuploadvoice</string>
+
+    <string name="get_wizard_theme_url">getwizardthemelist</string>
+    <string name="builtin_dict_version">builtin_dict_version</string>
+
+    <string name="custom_skin_shared_id">custom_skin_shared_id</string>
+
+    <string name="last_get_giflist_time">last_get_giflist_time</string>
+    <string name="gif_list_version">gif_list_version</string>
+    <string name="gif_hot_version">gif_hot_version</string>
+    <string name="admob_id_feature">ca-app-pub-8951305594688305/3558141024</string>
+    <string name="admob_id_alltheme">ca-app-pub-8951305594688305/4787462213</string>
+    <string name="admob_id_sed_trending">ca-app-pub-8951305594688305/3446460385</string>
+    <string name="admob_id_sed_feature">ca-app-pub-8951305594688305/4350857254</string>
+    <string name="admob_id_sticker">ca-app-pub-8951305594688305/5006954061</string>
+
+    <string name="fb_ads_id_feature">275932369410927_476346219369540</string>
+    <string name="fb_ads_id_alltheme">275932369410927_476868012650694</string>
+    <string name="fb_ads_sed_trending">275932369410927_480979402239555</string>
+    <string name="fb_ads_sed_feature">275932369410927_480979545572874</string>
+    <string name="fb_ads_id_sticker">275932369410927_495093940828101</string>
+
+    <string name="last_received_notice_time">last_received_notice_time</string>
+    <string name="gif_notify_never_again">gif_notify_never_again</string>
+    <string name="skin_notify_shown">skin_notify_shown</string>
+
+    <string name="get_message_update_url">latestTopPickTime</string>
+
+    <string name="get_gif_search_url">oversea/search</string>
+    <string name="get_gif_hot_word_url">oversea/hotword</string>
+    <string name="get_gif_hot_gifs_url">oversea/board</string>
+
+    <string name="get_voice_token">getgv</string>
+
+    <!-- candidate mobvista ads -->
+    <string name="show_candidate_ads">show_candidate_ads</string>
+    <string name="candidate_ads_interval">candidate_ads_interval</string>
+    <string name="last_change_candidate_ads_icon_time">last_change_candidate_ads_icon_time</string>
+    <string name="current_candi_ads_index">current_candi_ads_index</string>
+    <string name="last_voice_input_config">last_voice_input_config</string>
+    <string name="voice_input_token">voice_input_token</string>
+    <string name="last_new_message_checking">last_new_message_checking</string>
+    <string name="last_get_new_message_checking">last_get_new_message_checking</string>
+    <string name="emoji_maker_add_notify">emoji_maker_add_notify</string>
+    <string name="emoji_maker_added_notify_shown">emoji_maker_added_notify_shown</string>
+    <string name="emoji_maker_recent_list">emoji_maker_recent_list</string>
+
+    <string name="translate_from_to">translate_from_to</string>
+    <string name="translate_api">translate</string>
+    <string name="translate_http_url">http://typany.com/oversea/</string>
+    <string name="translate_ip_url">http://10.152.102.239:8080/oversea</string>
+
+</resources>

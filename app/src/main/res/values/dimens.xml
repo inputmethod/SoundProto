@@ -1,0 +1,7 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="sound_panel_icon_size">40dp</dimen>
+    <dimen name="sound_fragment_icon_size">56.67dp</dimen>
+
+</resources>
