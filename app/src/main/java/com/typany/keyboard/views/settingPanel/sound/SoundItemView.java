@@ -30,7 +30,7 @@ import com.typany.soundproto.R;
  */
 
 public class SoundItemView extends RelativeLayout {
-    SoundBoundItem item;
+    private SoundBoundItem item;
 
     private Drawable mSeledImage4_4 = null;
     private Drawable mSeledImageCheck4_4 = null;
@@ -44,16 +44,6 @@ public class SoundItemView extends RelativeLayout {
             /*switch (soundItemResource.status) {
                 case SUCCESS:
                     // TODO
-                    if (soundItemResource.data.getSelect()) {
-                        soundViewModel.updateSelectedItem(item);
-                        if (!isSelected()) {
-                            setSelected(true);
-                        }
-                    } else {
-                        if (isSelected()) {
-                            setSelected(false);
-                        }
-                    }
                     break;
                 case LOADING:
                     break;
@@ -61,24 +51,12 @@ public class SoundItemView extends RelativeLayout {
                     break;
             }*/
 
-            SoundBundle item = soundBundleStatefulResource.data;
             switch (soundBundleStatefulResource.status) {
                 case LOADING:
-                    // draw downloading or update progress
-                    int progress = soundBundleStatefulResource.progress;
-                    // updateDownloadingProgress(progress);
+                    updateDownloadingProgress(soundBundleStatefulResource.progress);
                     break;
                 case SUCCESS:
-                    switch (item.getStatus()) {
-                        case INFO_LOADED:
-                            // TODO draw preview url
-                            drawSoundBundle(item);
-                            break;
-                        case DATA_LOADED:
-                            // TODO download finished
-                            playSoundBundle(item);
-                            break;
-                    }
+                    onViewDataChanged(soundBundleStatefulResource.data);
                     break;
                 case ERROR:
                     // TODO
@@ -86,6 +64,25 @@ public class SoundItemView extends RelativeLayout {
             }
         }
     };
+
+    private void onViewDataChanged(SoundBundle data) {
+        switch (data.getStatus()) {
+            case INFO_LOADED:
+                // TODO draw preview url
+                drawSoundBundle(data);
+                break;
+            case DATA_LOADED:
+                // TODO download finished
+                playSoundBundle(data);
+                break;
+        }
+
+        if (data.getSelect()) {
+            soundViewModel.updateSelectedItem(item);
+        }
+
+        setSelected(data.getSelect());
+    }
 
     protected void drawSoundBundle(SoundBundle item) {
         final String url;
@@ -226,5 +223,9 @@ public class SoundItemView extends RelativeLayout {
 
     protected void parseHolderViews() {
         previewImageView = (ImageView) findViewById(R.id.iv_skin);
+    }
+
+    // draw downloading or update progress
+    protected void updateDownloadingProgress(int progress) {
     }
 }
