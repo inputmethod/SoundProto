@@ -1,31 +1,17 @@
 package com.typany.sound.adapter;
 
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleOwner;
-import android.arch.lifecycle.LifecycleRegistry;
-import android.arch.lifecycle.Observer;
-import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.typany.network.StatefulResource;
-import com.typany.sound.callback.SoundItemClickCallback;
+import com.typany.keyboard.views.settingPanel.sound.SoundItemView;
 import com.typany.sound.service.SoundBoundItem;
-import com.typany.sound.service.SoundBundle;
-import com.typany.sound.views.ProgressBarView;
-import com.typany.soundproto.MainActivity;
 import com.typany.soundproto.R;
-import com.typany.ui.sticker.DictWidgets;
 
 import java.util.List;
 
@@ -35,15 +21,11 @@ import java.util.List;
 
 public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.ViewHolder> {
     private final boolean limit;
+    private final @LayoutRes int layoutId;
 
     private final DisplayImageOptions displayImageOptions;
-    private SoundItemClickCallback soundItemClickCallback;
 
     private List<SoundBoundItem> itemList;
-
-    private @LayoutRes int getItemLayoutId() {
-        return limit ? R.layout.item_sound_card_limit : R.layout.item_sound_card_full;
-    }
 
     private int getLimitedDataSize() {
         if (null == itemList || itemList.isEmpty()) {
@@ -65,24 +47,20 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.ViewHolder> 
         }
     }
 
-    private ViewHolder newViewHolderInstance(View view, DisplayImageOptions displayImageOptions, SoundItemClickCallback soundItemClickCallback) {
-        if (limit) {
-            return new ViewHolderLimit(view, displayImageOptions, soundItemClickCallback);
-        } else {
-            return new ViewHolderFull(view, displayImageOptions, soundItemClickCallback);
-        }
+    private ViewHolder newViewHolderInstance(View view, DisplayImageOptions displayImageOptions) {
+        return new ViewHolder(view, displayImageOptions);
     }
 
-    public SoundAdapter(DisplayImageOptions options, SoundItemClickCallback soundItemClickCallback, boolean limit) {
+    public SoundAdapter(DisplayImageOptions options, boolean limit) {
         this.displayImageOptions = options;
-        this.soundItemClickCallback = soundItemClickCallback;
         this.limit = limit;
+        layoutId = limit ? R.layout.item_sound_card_limit : R.layout.item_sound_card_full;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(getItemLayoutId(), parent, false);
-        final ViewHolder holder = newViewHolderInstance(view, displayImageOptions, soundItemClickCallback);
+        View view = LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false);
+        final ViewHolder holder = newViewHolderInstance(view, displayImageOptions);
         return holder;
     }
 
@@ -135,166 +113,17 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.ViewHolder> 
         }
     }
 
-    static abstract class ViewHolder extends RecyclerView.ViewHolder implements LifecycleOwner {
-        private final DisplayImageOptions imageOptions;
-        private final SoundItemClickCallback soundItemClickCallback;
-        private final ImageView previewImageView;
-        private final LifecycleRegistry lifecycleRegistry;
-
-        public ViewHolder(View itemView, DisplayImageOptions options, SoundItemClickCallback clickCallback) {
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        public ViewHolder(View itemView, DisplayImageOptions options) {
             super(itemView);
-            previewImageView = (ImageView) itemView.findViewById(R.id.iv_skin);
-            this.imageOptions = options;
-            this.soundItemClickCallback = clickCallback;
-            this.lifecycleRegistry = new LifecycleRegistry(this);
-        }
 
-        @Override
-        public LifecycleRegistry getLifecycle() {
-            return lifecycleRegistry;
+            SoundItemView.attach(itemView, options);
         }
 
         public void bind(final SoundBoundItem soundBoundItem) {
-            if (null == soundBoundItem) {
-                throw new IllegalArgumentException("unexpected data binding, null");
+            if (itemView instanceof SoundItemView) {
+                ((SoundItemView) itemView).setItem(soundBoundItem);
             }
-
-
-            itemView.setTag(R.id.skin_item_tag_key0, this);
-            itemView.setTag(soundBoundItem);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    SoundBoundItem item = (SoundBoundItem)view.getTag();
-                    soundItemClickCallback.onClick(item);
-                }
-            });
-
-            lifecycleRegistry.markState(Lifecycle.State.STARTED);
-            soundBoundItem.getAsLiveData().observe(this, new Observer<StatefulResource<SoundBundle>>() {
-                @Override
-                public void onChanged(@Nullable StatefulResource<SoundBundle> soundBundleStatefulResource) {
-                    SoundBundle item = soundBundleStatefulResource.data;
-                    switch (soundBundleStatefulResource.status) {
-                        case LOADING:
-                            // draw downloading or update progress
-                            int progress = soundBundleStatefulResource.progress;
-                            // updateDownloadingProgress(progress);
-                            break;
-                        case SUCCESS:
-                            switch (item.getStatus()) {
-                                case INFO_LOADED:
-                                    // TODO draw preview url
-                                    drawSoundBundle(item);
-                                    break;
-                                case DATA_LOAED:
-                                    // TODO download finished
-                                    // playSoundBundle(item);
-                                    break;
-                            }
-                            break;
-                        case ERROR:
-                            // TODO
-                            break;
-                    }
-                }
-            });
-
-            SoundBundle item = soundBoundItem.getAsLiveData().getValue().data;
-            drawSoundBundle(item);
-        }
-
-        protected void drawSoundBundle(SoundBundle item) {
-            if (null == item) {
-                return;
-            }
-
-            itemView.setSelected(item.getSelect());
-            drawSoundBundleIcon(item.previewUrl());
-        }
-
-        protected final void drawSoundBundleIcon(String url) {
-            ImageLoader.getInstance().displayImage(url, previewImageView, imageOptions);
-        }
-    }
-
-    static class ViewHolderLimit extends ViewHolder {
-        public ViewHolderLimit(View itemView, DisplayImageOptions options, SoundItemClickCallback clickCallback) {
-            super(itemView, options, clickCallback);
-        }
-
-        @Override
-        public void bind(final SoundBoundItem soundBoundItem) {
-            if (null == soundBoundItem) {
-                bindMoreOption();
-            } else {
-                super.bind(soundBoundItem);
-            }
-        }
-
-        private void bindMoreOption() {
-            // todo: apply icon drawable with skin.
-            drawSoundBundleIcon("drawable://" + R.drawable.sound_icon_more_white);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Context context = v.getContext();
-                    context.startActivity(new Intent(context, MainActivity.class)
-                            .putExtra("page_index", 3)
-                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                }
-            });
-        }
-    }
-
-    static class ViewHolderFull extends ViewHolder {
-        private View downloadingMask;
-        private View remoteIndicator;
-        private ProgressBarView progressBarView;
-
-        public ViewHolderFull(View itemView, DisplayImageOptions options, SoundItemClickCallback clickCallback) {
-            super(itemView, options, clickCallback);
-            downloadingMask = itemView.findViewById(R.id.downloading_layout);
-            progressBarView = (ProgressBarView) itemView.findViewById(R.id.view);
-            remoteIndicator = itemView.findViewById(R.id.sound_remote_indicator);
-        }
-
-        @Override
-        protected void drawSoundBundle(SoundBundle item) {
-            super.drawSoundBundle(item);
-
-            remoteIndicator.setVisibility(isRemotePreviewUrl(item.previewUrl()) ? View.VISIBLE : View.GONE);
-        }
-
-        private boolean isRemotePreviewUrl(String url) {
-            return null != url && url.startsWith("http://");
-        }
-
-        public void startLoading(SoundBundle model) {
-            downloadingMask.setVisibility(View.VISIBLE);
-            remoteIndicator.setVisibility(View.GONE);
-        }
-
-        public void updateProgress(int schedule) {
-            progressBarView.setCurrentProgress(schedule);
-        }
-
-        public void onDownloadCompleted() {
-            downloadingMask.setVisibility(View.GONE);
-        }
-
-        public void updateProgressState(int state) {
-            if (state == DictWidgets.STATUS_DOWNLOADING) {
-                downloadingMask.setVisibility(View.VISIBLE);
-            } else {
-                downloadingMask.setVisibility(View.GONE);
-            }
-        }
-
-        public void onDownloadFailed() {
-            downloadingMask.setVisibility(View.GONE);
-            remoteIndicator.setVisibility(View.VISIBLE);
         }
     }
 }

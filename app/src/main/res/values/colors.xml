@@ -24,4 +24,5 @@
     <color name="bg_color_retry_end">#4683FF</color>
 
     <color name="item_bg_pressed_2_7">#24AFAEC3</color>
+    <color name="white">#FFFFFF</color>
 </resources>

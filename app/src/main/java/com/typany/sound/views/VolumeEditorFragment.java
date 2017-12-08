@@ -26,14 +26,13 @@ import android.widget.EditText;
 import com.typany.debug.SLog;
 import com.typany.settings.RunningStatus;
 import com.typany.soundproto.R;
+import com.typany.utilities.CommonUtils;
 import com.typany.utilities.CompatibilityUtils;
 
 /**
  * Created by sunhang on 16-1-11.
  */
 public class VolumeEditorFragment extends Fragment {
-    private static final String TAG = VolumeEditorFragment.class.getCanonicalName();
-
     private View container;
     private View controller;
     private boolean mIsShow;
@@ -258,7 +257,7 @@ public class VolumeEditorFragment extends Fragment {
                     }
                 }
 
-                SLog.i(TAG, "EditorFragment onLayout 2 >> " + height + " " + lastHeight);
+                SLog.i(CommonUtils.TAG_SUN, "EditorFragment onLayout 2 >> " + height + " " + lastHeight);
 
                 lastHeight = height;
             }

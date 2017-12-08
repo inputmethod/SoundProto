@@ -13,6 +13,8 @@ import android.text.TextUtils;
 import com.typany.base.IMEThread;
 import com.typany.base.storage.ProtobufBasedStorage;
 import com.typany.debug.SLog;
+import com.typany.http.toolbox.RequestUtil;
+import com.typany.network.Response;
 import com.typany.sound.SoundPersistentRepository;
 import com.typany.utilities.FileUtils;
 
@@ -361,4 +363,9 @@ public class SoundStorage {
         return FileUtils.getChildFile(getDownloadedPath(context), SOUND_CONF_FILE_NAME);
     }
 
+    public LiveData<Response<SoundPersistentRepository.SoundInfoRepository>> createSoundInfoListRequest() {
+        // TODO: complete the API URI with formal url
+        return RequestUtil.observalbeRequestProtobuf("http://10.134.73.228/api/soundres?proto=1", context,
+                SoundPersistentRepository.SoundInfoRepository.parser());
+    }
 }

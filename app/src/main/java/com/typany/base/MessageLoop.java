@@ -31,6 +31,10 @@ class MessageLoop implements Runnable, Executor {
         mQueue = new LinkedBlockingQueue<>();
     }
 
+    public void ensureValidThread(final long threadId) {
+        mThreadId = threadId;
+    }
+
     public boolean calledOnValidThread() {
         if (mThreadId == INVALID_THREAD_ID) {
             mThreadId = Thread.currentThread().getId();

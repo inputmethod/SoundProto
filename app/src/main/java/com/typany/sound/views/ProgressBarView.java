@@ -12,6 +12,7 @@ import android.view.View;
 
 import com.typany.soundproto.R;
 
+
 /**
  * by 12406 on 2016/5/24.
  */

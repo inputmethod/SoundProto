@@ -14,4 +14,6 @@
     <string name="wizard_first_step_label">Enable Typany Keyboard</string>
     <!--<string name="wizard_first_step_label">Enable Sparkey Keyboard</string>-->
     <string name="wizard_first_step_button_text">Enable</string>
+
+    <string name="typingsound_title">Keypress Sounds</string>
 </resources>

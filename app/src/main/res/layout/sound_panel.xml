@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.typany.keyboard.setting.SettingPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:clickable="true"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        >
+
+        <TextView
+            android:id="@+id/iv_sound_title"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/back_button"
+            android:layout_toStartOf="@+id/back_button"
+            android:maxLines="1"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/typingsound_title"
+            />
+
+        <!--<include layout="@layout/including_setting_sound" />-->
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/sound_panel_btn_back"
+            android:src="@drawable/clipbd_back"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/control_layout"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:layout_below="@id/top_layout"
+        android:background="#F8F8F8"
+        android:gravity="center_vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="49dip"
+            android:layout_below="@+id/lv_dfault"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <include layout="@layout/including_sound_switch"
+                android:id="@+id/sv_switch" />
+
+            <include layout="@layout/including_sound_volume_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginStart="25dp"
+                android:layout_toRightOf="@id/sv_switch"
+                android:layout_toEndOf="@id/sv_switch" />
+
+        </LinearLayout>
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/control_layout"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp"
+        android:paddingLeft="4dp"
+        android:paddingStart="4dp"
+        android:paddingRight="4dp"
+        android:paddingEnd="4dp"
+        android:clipToPadding="false"
+        >
+    </android.support.v7.widget.RecyclerView>
+</com.typany.keyboard.setting.SettingPanelLayout>

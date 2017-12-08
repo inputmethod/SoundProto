@@ -3,6 +3,7 @@ package com.typany.base;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
@@ -45,6 +46,9 @@ public class IMEThread {
         // and CACHE depending on the usage.
         IO,
 
+        // This is the thread that has looper with it.
+        AD,
+
         // NOTE: do not add new threads here that are only used by a small number of
         // files. Instead you should just use a Thread class and pass its
         // task runner around. Named threads there are only for threads that
@@ -57,25 +61,37 @@ public class IMEThread {
     }
 
     // Main thread.
-    private static UIMessageHandler smUIMessageLoop = null;
+    private static MessageHandler smUIMessageLoop = null;
 
     // Worker threads.
     private static MessageLoop smFileMessageLoop = null;
     private static MessageLoop smIOMessageLoop = null;
 
+    // Worker threads with loop.
+    private static MessageHandler smADMessageLoop = null;
+
+    private static HandlerThread smADHandlerThread = null;
+
     private static boolean smInitialized = false;
 
-    private static class UIMessageHandler extends Handler implements Executor {
+    private static class MessageHandler extends Handler implements Executor {
 
         private static final int SCHEDULED_WORK = 1;
         private MessageLoop mMessageLoop = new MessageLoop();
         private boolean mScheduleWorkCalled = false;
 
-        private UIMessageHandler() {
+        private MessageHandler() {
             // Make sure we can pass unittest.
             super(Looper.getMainLooper());
             // Force messageLoop to have the right thread id.
-            mMessageLoop.calledOnValidThread();
+            mMessageLoop.ensureValidThread(Thread.currentThread().getId());
+        }
+
+        private MessageHandler(final Looper looper) {
+            // Make sure we can pass unittest.
+            super(looper);
+            // Force messageLoop to have the right thread id.
+            mMessageLoop.ensureValidThread(looper.getThread().getId());
         }
 
         /**
@@ -97,7 +113,7 @@ public class IMEThread {
         private void scheduleWork() {
             if (mScheduleWorkCalled)
                 return;
-            synchronized (UIMessageHandler.this) {
+            synchronized (MessageHandler.this) {
                 if (!mScheduleWorkCalled) {
                     mScheduleWorkCalled = true;
                     sendMessage(obtainAsyncMessage(SCHEDULED_WORK));
@@ -227,13 +243,17 @@ public class IMEThread {
             }
 
             // UI thread is a little bit different.
-            smUIMessageLoop = new UIMessageHandler();
+            smUIMessageLoop = new MessageHandler();
 
             // Create the loop first, then the thread.
             smFileMessageLoop = new MessageLoop();
             smIOMessageLoop = new MessageLoop();
             new Thread(smFileMessageLoop, "FileThread").start();
             new Thread(smIOMessageLoop, "IOThread").start();
+
+            smADHandlerThread = new HandlerThread("ADThread");
+            smADHandlerThread.start();
+            smADMessageLoop = new MessageHandler(smADHandlerThread.getLooper());
 
             smInitialized = true;
         }
@@ -263,6 +283,10 @@ public class IMEThread {
             case IO:
                 smIOMessageLoop.execute(ftask);
                 break;
+
+            case AD:
+                smADMessageLoop.execute(ftask);
+                break;
         }
 
         return ftask;
@@ -290,6 +314,8 @@ public class IMEThread {
             currentMessageLoop = smFileMessageLoop;
         else if (currThreadId == smIOMessageLoop.getThreadId())
             currentMessageLoop = smIOMessageLoop;
+        else if (currThreadId == smADHandlerThread.getThreadId())
+            currentMessageLoop = smADMessageLoop;
         else
             throw new RuntimeException("IMEThreadHandler::postTaskAndReply must called on named thread!");
 
@@ -306,6 +332,9 @@ public class IMEThread {
             case IO:
                 smIOMessageLoop.execute(ftask);
                 break;
+
+            case AD:
+                smADMessageLoop.execute(ftask);
         }
 
         return ftask;
@@ -332,6 +361,9 @@ public class IMEThread {
 
             case IO:
                 return smIOMessageLoop.getThreadId() == currThreadId;
+
+            case AD:
+                return smADHandlerThread.getThreadId() == currThreadId;
         }
 
         return false;
@@ -364,9 +396,19 @@ public class IMEThread {
             }
         });
 
+        final HandlerThread adHandlerThreadToDelete = smADHandlerThread;
+        smADMessageLoop.execute(new Runnable() {
+            @Override
+            public void run() {
+                adHandlerThreadToDelete.quit();
+            }
+        });
+
         smUIMessageLoop = null;
         smFileMessageLoop = null;
         smIOMessageLoop = null;
+        smADMessageLoop = null;
+        smADHandlerThread = null;
 
         smInitialized = false;
     }

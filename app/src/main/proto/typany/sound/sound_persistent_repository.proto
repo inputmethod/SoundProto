@@ -25,8 +25,7 @@ message PositionInfo
 message SoundBasicInfo
 {
 	string bundleName = 1;
-	bool select = 2;
-	string previewIconUrl = 3;
+	string previewIconUrl = 2;
 }
 
 // 随包的

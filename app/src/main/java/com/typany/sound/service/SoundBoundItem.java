@@ -25,14 +25,13 @@ public class SoundBoundItem extends NetworkBoundResource<SoundBundle, SoundPersi
     @Override
     @WorkerThread
     protected LiveData<SoundBundle> loadFromDisk(Object...params) {
-        MutableLiveData<SoundBundle> mutableItem = null;
+        MutableLiveData<SoundBundle> mutableItem = new MutableLiveData<>();
 
         StatefulResource<SoundBundle> item = getAsLiveData().getValue();
         SoundBundle soundBundle = null == item ? null : item.data;
 
         if (soundBundle == null) {
             // 说明是第一次进来，需要加载显示item用的信息，loadInfo
-            mutableItem = new MutableLiveData<>();
             if (params.length != 3) {
                 throw new IllegalArgumentException("SoundBoundItem should load with 3 parameters");
             }
@@ -42,17 +41,20 @@ public class SoundBoundItem extends NetworkBoundResource<SoundBundle, SoundPersi
             soundBundle = new SoundBundle(bundleName, select, previewUrl);
             StatefulResource<SoundBundle> initData = StatefulResource.loading(soundBundle);
             getAsLiveData().postValue(initData);
+            mutableItem.postValue(soundBundle);
+        } else {
+            switch (soundBundle.getStatus()) {
+                case INFO_LOADED:
+                    SoundStorage.get().loadSoundBundleData(soundBundle);
+                    // todo: always post even it is not changed?
+                    mutableItem.postValue(soundBundle);
+                    break;
+                case DATA_LOADED:
+                    // TODO
+                    break;
+            }
         }
 
-        switch (soundBundle.getStatus()) {
-            case INFO_LOADED:
-                mutableItem = new MutableLiveData<>();
-                mutableItem.postValue(SoundStorage.get().loadSoundBundleData(soundBundle));
-                break;
-            case DATA_LOAED:
-                // TODO
-                break;
-        }
         return mutableItem;
     }
 
@@ -68,7 +70,8 @@ public class SoundBoundItem extends NetworkBoundResource<SoundBundle, SoundPersi
         SoundBundle soundBundle = getAsLiveData().getValue().data;
 
         soundBundle.setBundleContent(data.getPositionInfo());
-        soundBundle.setSelect(true);
+//        soundBundle.setSelect(true);
+        setSelectAndUpdate(soundBundle, true);
         SoundStorage.get().saveBundleContent(soundBundle.bundleName(), data);
     }
 
@@ -89,7 +92,7 @@ public class SoundBoundItem extends NetworkBoundResource<SoundBundle, SoundPersi
             case INFO_LOADED:
                 reload();
                 break;
-            case DATA_LOAED:
+            case DATA_LOADED:
                 setSelectAndUpdate(soundBundle, true);
                 break;
         }

@@ -1,6 +1,5 @@
 package com.typany.sound.views;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -20,7 +19,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.typany.base.lifecycle.ProcessScopeViewModelProviders;
 import com.typany.network.StatefulResource;
 import com.typany.sound.adapter.SoundAdapter;
-import com.typany.sound.callback.SoundItemClickCallback;
 import com.typany.sound.service.SoundBoundItem;
 import com.typany.sound.viewmodel.SoundViewModel;
 import com.typany.soundproto.R;
@@ -68,28 +66,21 @@ public class SoundFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, GridLayoutManager.VERTICAL));
-        soundAdapter = new SoundAdapter(mOptions, soundItemClickCallback, false);
+        soundAdapter = new SoundAdapter(mOptions,false);
         mRecyclerView.setAdapter(soundAdapter);
 
-        LiveData<StatefulResource<List<SoundBoundItem>>> liveData = ProcessScopeViewModelProviders.of(getActivity().getApplication()).get(SoundViewModel.class)
-                .loadFullRepository();
-
-        liveData.observe(this, new Observer<StatefulResource<List<SoundBoundItem>>>() {
+        ProcessScopeViewModelProviders.of(getActivity().getApplication()).get(SoundViewModel.class)
+                .loadFullRepository().observe(this, new Observer<StatefulResource<List<SoundBoundItem>>>() {
             @Override
             public void onChanged(@Nullable StatefulResource<List<SoundBoundItem>> soundRemoteRepositoryStatefulResource) {
-                if (soundRemoteRepositoryStatefulResource.status == StatefulResource.Status.LOADING) {
+                if (soundRemoteRepositoryStatefulResource.status == StatefulResource.Status.LOADING)
                     drawLoading();
-                } else if (soundRemoteRepositoryStatefulResource.status == StatefulResource.Status.SUCCESS) {
+                else if (soundRemoteRepositoryStatefulResource.status == StatefulResource.Status.SUCCESS)
                     soundAdapter.setSoundItemList(soundRemoteRepositoryStatefulResource.data);
-                } else {
-                    Log.e(TAG, "onChanged: blabla");
-                }
+                else
+                    Log.e(TAG, "onChanged: status is " + soundRemoteRepositoryStatefulResource.status);
             }
         });
-
-        if (null != liveData.getValue() && null != liveData.getValue().data && !liveData.getValue().data.isEmpty()) {
-            soundAdapter.setSoundItemList(liveData.getValue().data);
-        }
 
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
         ft.add(R.id.fl_container, mLoadingFragment);
@@ -163,11 +154,4 @@ public class SoundFragment extends Fragment {
             mLoadingFragment.hide();
         }
     }
-
-    private SoundItemClickCallback soundItemClickCallback = new SoundItemClickCallback() {
-        @Override
-        public void onClick(final SoundBoundItem item) {
-            ProcessScopeViewModelProviders.of(getActivity().getApplication()).get(SoundViewModel.class).clickSoundItem(item);
-        }
-    };
 }

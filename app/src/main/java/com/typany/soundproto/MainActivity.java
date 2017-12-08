@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -26,6 +29,15 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        setupImageLoader();
+    }
+
+    private void setupImageLoader() {
+        ImageLoader mImageLoader = ImageLoader.getInstance();
+        if (!mImageLoader.isInited()) {
+            mImageLoader.init(ImageLoaderConfiguration.createDefault(this));
+        }
     }
 
     @Override

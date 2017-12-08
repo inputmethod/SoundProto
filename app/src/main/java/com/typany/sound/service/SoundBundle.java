@@ -1,6 +1,8 @@
 package com.typany.sound.service;
 
 
+import android.support.annotation.NonNull;
+
 import com.typany.sound.SoundPersistentRepository;
 
 import java.util.Map;
@@ -17,9 +19,14 @@ public class SoundBundle {
     private Status status = Status.INFO_LOADED;
     private Map<Integer, Integer> vocalPosition;
     private boolean select = false;
+    private boolean toLoadRemoteData = false;
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     public enum Status {
-        INFO_LOADED, DATA_LOAED
+        INFO_LOADED, DATA_LOADED
     }
 
     public SoundBundle(final String bundleName, final boolean select, final String previewUrl) {
@@ -39,19 +46,29 @@ public class SoundBundle {
     }
     public String previewUrl() { return previewUrl; }
 
-    public void setBundleContent(final SoundPersistentRepository.PositionInfo data) {
+    public boolean isToLoadRemoteData() {
+        return toLoadRemoteData;
+    }
+
+    public void setToLoadRemoteData(boolean toLoadRemoteData) {
+        this.toLoadRemoteData = toLoadRemoteData;
+    }
+
+    public void setBundleContent(final @NonNull SoundPersistentRepository.PositionInfo data) {
         if (null == data) {
             // do nothing while it is remote sound bundle, which will load and save
             // data later
+            toLoadRemoteData = true;
         } else {
             SoundPersistentRepository.VocalPosition vp = data.getVocalPosition();
             vocalPosition = vp.getFunctionKeyMap();
-            status = Status.DATA_LOAED;
+            status = Status.DATA_LOADED;
+            toLoadRemoteData = false;
         }
     }
 
     public boolean shouldFetch() {
-        return status == Status.INFO_LOADED;
+        return status == Status.INFO_LOADED && toLoadRemoteData;
     }
 
     public void setSelect(boolean select) {
