@@ -109,6 +109,6 @@ public class SoundBoundItem extends NetworkBoundResource<SoundBundle, SoundPersi
         }
 
         item.setSelect(select);
-        result.setValue(StatefulResource.success(item));
+        result.postValue(StatefulResource.success(item));
     }
 }
