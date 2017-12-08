@@ -252,7 +252,7 @@ public class SoundStorage {
             final Map<Integer, com.google.protobuf.ByteString> oggs = data.getOggsMap();
             final String oggFolder = getOggFolderPath(bundleName);
             for (Map.Entry<Integer, com.google.protobuf.ByteString> entry : oggs.entrySet()) {
-                final String oggFileName = FileUtils.joinFilePath(oggFolder, String.valueOf(entry.getKey()));
+                final String oggFileName = FileUtils.joinFilePath(oggFolder, entry.getKey() + ".ogg");
                 FileOutputStream oggFos = new FileOutputStream(oggFileName);
                 entry.getValue().writeTo(oggFos);
             }
