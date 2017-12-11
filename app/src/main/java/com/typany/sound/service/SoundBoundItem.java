@@ -46,8 +46,11 @@ public class SoundBoundItem extends NetworkBoundResource<SoundBundle, SoundPersi
             switch (soundBundle.getStatus()) {
                 case INFO_LOADED:
                     SoundStorage.get().loadSoundBundleData(soundBundle);
-                    // todo: always post even it is not changed?
-                    mutableItem.postValue(soundBundle);
+                    if (soundBundle.getStatus() == SoundBundle.Status.DATA_LOADED) {
+                        setSelectAndUpdate(soundBundle, true);
+                    } else {
+                        mutableItem.postValue(soundBundle);
+                    }
                     break;
                 case DATA_LOADED:
                     // TODO
@@ -103,12 +106,16 @@ public class SoundBoundItem extends NetworkBoundResource<SoundBundle, SoundPersi
         setSelectAndUpdate(soundBundle, false);
     }
 
-    public void setSelectAndUpdate(final SoundBundle item, boolean select) {
-        if (null == item) {
+    public void setSelectAndUpdate(final SoundBundle data, boolean select) {
+        if (null == data) {
             return;
         }
 
-        item.setSelect(select);
-        result.postValue(StatefulResource.success(item));
+        data.setSelect(select);
+        result.postValue(StatefulResource.success(data));
+    }
+
+    public void postClickResult() {
+        result.postValue(StatefulResource.success(getAsLiveData().getValue().data));
     }
 }

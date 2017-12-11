@@ -40,17 +40,6 @@ public class SoundItemView extends RelativeLayout {
     private Observer<StatefulResource<SoundBundle>> observer = new Observer<StatefulResource<SoundBundle>>() {
         @Override
         public void onChanged(@Nullable StatefulResource<SoundBundle> soundBundleStatefulResource) {
-            // TODO draw
-            /*switch (soundItemResource.status) {
-                case SUCCESS:
-                    // TODO
-                    break;
-                case LOADING:
-                    break;
-                case ERROR:
-                    break;
-            }*/
-
             switch (soundBundleStatefulResource.status) {
                 case LOADING:
                     updateDownloadingProgress(soundBundleStatefulResource.progress);
@@ -66,19 +55,13 @@ public class SoundItemView extends RelativeLayout {
     };
 
     private void onViewDataChanged(SoundBundle data) {
-        switch (data.getStatus()) {
-            case INFO_LOADED:
-                // TODO draw preview url
-                drawSoundBundle(data);
-                break;
-            case DATA_LOADED:
-                // TODO download finished
-                playSoundBundle(data);
-                break;
-        }
+        drawSoundBundle(data);
 
         if (data.getSelect()) {
-            soundViewModel.updateSelectedItem(item);
+            boolean lastClickedItem = soundViewModel.updateSelectedItem(item);
+            if (lastClickedItem) {
+                playSoundBundle(data);
+            }
         }
 
         setSelected(data.getSelect());
@@ -100,7 +83,7 @@ public class SoundItemView extends RelativeLayout {
     }
 
     private void playSoundBundle(SoundBundle item) {
-        // todo:
+        soundViewModel.clearLastClickedItem();
         Toast.makeText(getContext(), "playSoundBundle, " + item.bundleName(), Toast.LENGTH_SHORT).show();
     }
 
@@ -130,8 +113,7 @@ public class SoundItemView extends RelativeLayout {
             setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // 点击之后，model数据更新，然后会触发observer的重绘
-                    // TODO
+                    // 点击之后，model数据更新，然后会触发observer的重绘，播放预览音
                     soundViewModel.clickSoundItem(item);
                 }
             });

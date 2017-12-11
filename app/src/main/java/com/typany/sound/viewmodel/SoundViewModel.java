@@ -21,6 +21,10 @@ import java.util.List;
 public class SoundViewModel extends ViewModel {
     private static final String TAG = SoundViewModel.class.getSimpleName();
 
+    public void clearLastClickedItem() {
+        clickedItem = null;
+    }
+
     // local sound resource, which load local item only via loadFromDisk, and disable all other
     // remote requesting methods or make them empty.
     private static final class LocalSoundResource extends NetworkBoundResource<List<SoundBoundItem>, Integer> {
@@ -77,13 +81,20 @@ public class SoundViewModel extends ViewModel {
         }
     }
 
-    SoundBoundItem selectedItem;
+    // current selected item,
+    private SoundBoundItem selectedItem;
+    private SoundBoundItem clickedItem;
 
     public SoundViewModel() {
     }
 
+    // TODO: 已经选中的再次点击，不需要再走item.onClick流程, 但需要通知observer
+    // 进行后续播放预览音，显示控制面板等可能的动作
     public void clickSoundItem(final SoundBoundItem item) {
-        if (selectedItem != item) {
+        clickedItem = item;
+        if (selectedItem == item) {
+            item.postClickResult();
+        } else {
             item.onClick();
         }
     }
@@ -100,12 +111,15 @@ public class SoundViewModel extends ViewModel {
         return new FullSoundResource().getAsLiveData();
     }
 
-    public void updateSelectedItem(final SoundBoundItem item) {
+    public boolean updateSelectedItem(final SoundBoundItem item) {
         if (selectedItem != item) {
             if (null != selectedItem) {
                 selectedItem.unselect();
             }
+
             selectedItem = item;
         }
+
+        return clickedItem == item;
     }
 }
