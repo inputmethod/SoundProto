@@ -1,0 +1,53 @@
+
+syntax = "proto3";
+
+package com.typany.skin;
+
+// 线上皮肤单元, 名称，文件url和大小, 是否允许分享，预览图url，
+// 指示皮肤属性的图标的url列表(含音效，动画...), gplay可下载apk的url， 是否显示广告
+// 原ba, kt对应给indicatorIcon，ppu和wp由后台根据客户端版本给previewUrl，sdu和ws给fileUrl
+message SkinEntity
+{
+	string bundleName = 1;
+	string fileUrl = 2;
+	uint32 fileSize = 3;
+	bool canShare = 4;
+	string previewUrl = 5;
+	repeated string indicatorIcon = 6;
+	string apkUrl = 7;
+	bool adShow = 8;
+}
+
+// 皮肤类组，含一个皮肤列表，名称，可查看更多
+message SkinCategory
+{
+	repeated SkinEntity skinEntity = 1;
+	string bundleName = 2;
+	bool hasMore = 3;
+}
+
+// 皮肤类组的集合，含一个类组列表，名称，可查看更多，显示样式（一行小）
+message SkinCollectionInfo
+{
+	repeated SkinCategory skinCategory = 1;
+	string bundleName = 2;
+	bool hasMore = 3;
+	int32 displayColumn = 4;
+}
+
+message SkinHeadLineData
+{
+	repeated SkinCollectionInfo skinCollectionInfo = 1;
+	repeated SkinCategory skinCategory = 2;
+}
+
+//
+// 获取线上skin数据，内容
+// url :
+// return : SkinInfoRepository
+//
+message SkinInfoRepository
+{
+    repeated SkinHeadLineData skinHeadLineData = 1;
+	SkinCategory skinCategory = 2;
+}

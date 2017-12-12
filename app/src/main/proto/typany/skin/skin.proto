@@ -1,0 +1,145 @@
+syntax = "proto3";
+
+package typany.keyboard;
+
+import "typany/common/define.proto";
+
+message Line
+{
+	uint32 start = 1;
+	uint32 end = 2;
+}
+
+message NinePatch		// 点9图
+{
+	Line top = 1;		// 上面那条线
+	Line left = 2;		// 左边那条线
+}
+
+message Img
+{
+	string name = 1;			// 对应的资源名字
+	uint32 color = 2;			// 颜色 	因为这两个玩意用户可编辑，所以就放这
+	uint32 transparency = 3;	// 透明度
+	NinePatch ninePatch = 4;
+}
+
+message BorderImg
+{
+    Img background = 1;
+	uint32 borderColor = 2;
+}
+
+// 一个按键分两层，bg和text。bg指定资源，text目前只支持调颜色
+message KeySkin
+{
+	// 普通态
+	Img normalBackgournd = 1;				
+	uint32 normalFontColor = 2;				
+	
+	// 按下去态
+	Img pressedBackground = 3;				
+	uint32 pressedFontColor = 4;		
+}
+
+message KeyRowSkin
+{
+	repeated KeySkin row = 1;	// 一行，从左到右，不够就循环使用
+}
+
+// 一个弹出分两层，bg和text。bg指定资源，text目前只支持调颜色
+// 估计将来产品会调大小和位置，目前先写死
+message PopupSkin
+{
+	BorderImg background = 1;
+	KeySkin text = 2;
+}
+
+
+// 不管工具栏多高，按钮和工具栏一样高
+message PosAdjustableButtonSkin
+{
+	Img normalButtonIcon = 1;
+	Img pressedButtonIcon = 2;
+	Img normalBackground = 3;
+	Img pressedBackground = 4;
+	
+	uint32 xPos = 5;
+	uint32 xPercentage = 6;		// 这个按钮宽度（百分比）								
+}
+
+// 工具栏，可调节高度，以及里面每个按钮的位置
+// 注意，工具栏默认和图像一样高
+message ToolBarSkin
+{
+	Img background = 1;
+	PosAdjustableButtonSkin toolButton = 2;
+	PosAdjustableButtonSkin skinButton = 3;
+	PosAdjustableButtonSkin handDrawButton = 4;
+	PosAdjustableButtonSkin adButton = 5;
+	PosAdjustableButtonSkin hideButton = 6;
+}
+
+message CandidateBarSkin
+{
+	Img background = 1;
+	KeySkin text = 2;
+}
+
+message KeyboardSkin
+{
+	Img keyboardBg = 1;						// 键盘背景图
+	
+	repeated KeyRowSkin letterKeys = 2;		// 多行，从上到下，不够就循环使用
+
+	KeySkin funcExpression = 3;				// 表情
+	KeySkin funcShift = 4;					// shift
+	KeySkin funcSymbol = 5;					// 符号
+	KeySkin funcEnter = 6;					// 回车
+	KeySkin funcBackspace = 7;				// 退格
+	KeySkin funcSpace = 8;					// 空格
+	
+	PopupSkin shortPressingPopup = 9;			// 短按弹出气泡
+	PopupSkin longPressingPopup = 10;			// 长按弹出气泡
+}
+
+message SettingPanelSkin
+{
+	uint32 itemIconUpperColor = 1;      // icon上层填充色
+    uint32 itemIconLowerColor = 2;      // icon底层填充色
+    uint32 itemTitleColor = 3;          // 文字颜色
+    Img itemPressedBackground = 4;      // 按压时背景色
+
+	uint32 dividerLineColor = 5; 		// 分割线颜色
+	uint32 panelBackgroundColor = 6;	// panel背景色和箭头的颜色
+}
+
+message ClipboardSkin
+{
+    uint32 tipsColor = 1;
+    uint32 textColor = 2;
+    Img itemPressedBackground = 3;      // 按压时背景色
+
+    uint32 deleteIconColor = 4;
+    uint32 deleteNormalBackgroundColor = 5;
+    uint32 deletePressedBackgroundColor = 6;
+
+    uint32 titleBarTextColor = 7;
+	uint32 titleBarIconNormalColor = 8;
+	uint32 titleBarIconPressedColor = 9;
+    Img titleBarItemPressedBkg = 10;
+    Img titleBarBackground = 11;
+	uint32 backgroundColor = 12;
+	uint32 itemNormalBackgroundColor = 13;
+	uint32 dividerColor = 14;
+}
+
+message AllSkins
+{
+	KeyboardSkin full = 1;					// 26键，符号都用这个
+	KeyboardSkin soduku = 2;				// 九宫用这个
+	ToolBarSkin toolbar = 3;				// 工具栏
+	CandidateBarSkin candidateBar = 4;		// 候选栏
+    SettingPanelSkin settingPanel = 5;
+    ClipboardSkin clipboard = 6;
+}

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package typany.common;
+
+// [WuJian]
+// 这个Enum只能添加新字段，不许删除！！！！
+// Sound里的map用这个值做key，属于运营数据
+// 删除的人罚款10000元并且tjjtds
+
+
+enum KeyType
+{
+    NORMAL = 0; // 普通键
+    SHIFT = 1;
+    BACKSPACE = 2;
+    SYMBOL = 3;
+    STICKER = 4; // 表情
+    SPACE = 5;
+    ENTER = 6;
+    FULL = 7; // 切换到全键盘(ABC)
+    SODUKU = 8; // 切换到9宫(1234)
+    PADDING = 9; // 填充专用
+    NEXT = 10; // 翻页键 [wangyi]
+
+    //TODO 印地语的叠加也用功能实现
+    COMPOSITE_INPLACE = 11; // 动态字符
+    COMPOSITE = 12; // Amar字符拼写
+}
