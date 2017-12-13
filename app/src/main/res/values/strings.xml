@@ -2,6 +2,8 @@
     <string name="app_name">SoundProto</string>
     <string name="action_settings">Settings</string>
 
+    <string name="skin_name">Theme</string>
+
     <string name="sound_volume_edit_fragment" translatable="false">this_is_sound_picker</string>
     <string name="sound_panel_btn_back" translatable="false">sound_panel_btn_back</string>
     <string name="sound_volume_bar_low" translatable="false">sound_volume_bar_low</string>

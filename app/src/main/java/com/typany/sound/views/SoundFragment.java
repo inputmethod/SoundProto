@@ -2,15 +2,10 @@ package com.typany.sound.views;
 
 import android.arch.lifecycle.Observer;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.typany.base.lifecycle.ProcessScopeViewModelProviders;
@@ -18,10 +13,7 @@ import com.typany.network.StatefulResource;
 import com.typany.sound.adapter.SoundAdapter;
 import com.typany.sound.service.SoundBoundItem;
 import com.typany.sound.viewmodel.SoundViewModel;
-import com.typany.soundproto.R;
-import com.typany.ui.skinui.LoadingFragment;
 import com.typany.ui.skinui.interfaces.IVolumeEditor;
-import com.typany.utilities.universalimageloader.ImageLoaderHelper;
 import com.typany.views.RecyclerFragment;
 
 import java.util.List;
@@ -32,9 +24,6 @@ import java.util.List;
 @SuppressWarnings("DefaultFileTemplate")
 public class SoundFragment extends RecyclerFragment {
     private static final String TAG = SoundFragment.class.getSimpleName();
-
-    private DisplayImageOptions mOptions;
-    private LoadingFragment mLoadingFragment;
     private SoundAdapter soundAdapter;
 
     @Override
@@ -46,18 +35,9 @@ public class SoundFragment extends RecyclerFragment {
         }
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mOptions = ImageLoaderHelper.newOptions(getContext(), true, Bitmap.Config.ARGB_8888);
-        mLoadingFragment = new LoadingFragment();
-
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
-    protected RecyclerView.Adapter instanceAdapter() {
-        soundAdapter = new SoundAdapter(mOptions,false);
+    protected RecyclerView.Adapter instanceAdapter(DisplayImageOptions options) {
+        soundAdapter = new SoundAdapter(options,false);
         return soundAdapter;
     }
 
@@ -77,22 +57,13 @@ public class SoundFragment extends RecyclerFragment {
                     Log.e(TAG, "onChanged: status is " + soundRemoteRepositoryStatefulResource.status);
             }
         });
-
-        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-        ft.add(R.id.fl_container, mLoadingFragment);
-        ft.commit();
     }
-
-    public void drawLoading() {
-        // TODO
-    }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        showRecyclerView();
+//        showRecyclerView();
         update();
     }
 
@@ -133,19 +104,6 @@ public class SoundFragment extends RecyclerFragment {
     private void showSoundItemOption() {
         if (getEditorFragment() != null && !getActivity().isFinishing()) {
             getEditorFragment().show();
-        }
-    }
-
-
-    private void showRefreshingViews() {
-        if (mLoadingFragment != null && mLoadingFragment.isHidden()) {
-            mLoadingFragment.show(true);
-        }
-    }
-
-    private void showRecyclerView() {
-        if (mLoadingFragment != null) {
-            mLoadingFragment.hide();
         }
     }
 }
