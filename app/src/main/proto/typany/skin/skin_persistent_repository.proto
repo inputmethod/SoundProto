@@ -5,49 +5,72 @@ package com.typany.skin;
 
 // 线上皮肤单元, 名称，文件url和大小, 是否允许分享，预览图url，
 // 指示皮肤属性的图标的url列表(含音效，动画...), gplay可下载apk的url， 是否显示广告
-// 原ba, kt对应给indicatorIcon，ppu和wp由后台根据客户端版本给previewUrl，sdu和ws给fileUrl
+// 原api返回属性的ba, kt对应给indicatorIcon，ppu和wp由后台根据客户端版本给previewUrl，sdu和ws给fileUrl，rm对应hotFlag
 message SkinEntity
 {
 	string bundleName = 1;
-	string fileUrl = 2;
-	uint32 fileSize = 3;
-	bool canShare = 4;
-	string previewUrl = 5;
-	repeated string indicatorIcon = 6;
-	string apkUrl = 7;
-	bool adShow = 8;
+	string previewUrl = 2;
+	string fileUrl = 3;
+	uint32 fileSize = 4;
+	bool canShare = 5;
+	bool hotFlag = 6;
+	repeated string indicatorIcon = 7;
+	string apkUrl = 8;
+	bool adShow = 9;
 }
 
-// 皮肤类组，含一个皮肤列表，名称，可查看更多
+// 皮肤类组，含类组信息（名称+图片url)，是否可查看更多，一个皮肤列表，显示样式
+// 广告位：skinEntity和hasMore略过，bundleName为固定的广告标识串"ad-position"
+// 推广运营位：与广告位类似，如"typany-hotline"
 message SkinCategory
 {
-	repeated SkinEntity skinEntity = 1;
-	string bundleName = 2;
+	string bundleName = 1;
+	string previewUrl = 2;
 	bool hasMore = 3;
+	repeated SkinEntity skinEntity = 4;
+	int32 displayColumn = 5;
 }
 
-// 皮肤类组的集合，含一个类组列表，名称，可查看更多，显示样式（一行小）
+// 皮肤类组的集合，含一个类组信息列表(名称+图片url)，可查看更多，名称和显示样式（0一行小圆图片，1-n列每行列表）
+message CollectionItem
+{
+	string bundleName = 1;
+	string previewUrl = 2;
+}
 message SkinCollectionInfo
 {
-	repeated SkinCategory skinCategory = 1;
-	string bundleName = 2;
+	string bundleName = 1;
+	repeated CollectionItem collectionItem = 2;
 	bool hasMore = 3;
 	int32 displayColumn = 4;
 }
 
-message SkinHeadLineData
+message SkinHeadLineInfo
 {
 	repeated SkinCollectionInfo skinCollectionInfo = 1;
 	repeated SkinCategory skinCategory = 2;
 }
 
 //
-// 获取线上skin数据，内容
-// url :
+// 获取线上skin首页数据内容
+// url:
 // return : SkinInfoRepository
 //
 message SkinInfoRepository
 {
-    repeated SkinHeadLineData skinHeadLineData = 1;
+    repeated SkinHeadLineInfo skinHeadLineInfo = 1;
 	SkinCategory skinCategory = 2;
 }
+
+// 获取线上skin的Collection内容
+// url:
+// return SkinCollectionRepository
+message SkinCollectionRepository
+{
+	int32 displayColumn = 1;
+	repeated SkinCollectionInfo skinCollectionInfo = 2;
+}
+
+// 获取线上skin的Category内容
+// url:
+// return SkinCategory
