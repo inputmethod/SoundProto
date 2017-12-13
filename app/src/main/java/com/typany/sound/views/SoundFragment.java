@@ -5,11 +5,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +22,7 @@ import com.typany.soundproto.R;
 import com.typany.ui.skinui.LoadingFragment;
 import com.typany.ui.skinui.interfaces.IVolumeEditor;
 import com.typany.utilities.universalimageloader.ImageLoaderHelper;
+import com.typany.views.RecyclerFragment;
 
 import java.util.List;
 
@@ -32,10 +30,9 @@ import java.util.List;
  * Created by yangfeng on 2017/9/18.
  */
 @SuppressWarnings("DefaultFileTemplate")
-public class SoundFragment extends Fragment {
+public class SoundFragment extends RecyclerFragment {
     private static final String TAG = SoundFragment.class.getSimpleName();
 
-    private RecyclerView mRecyclerView;
     private DisplayImageOptions mOptions;
     private LoadingFragment mLoadingFragment;
     private SoundAdapter soundAdapter;
@@ -53,21 +50,20 @@ public class SoundFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mOptions = ImageLoaderHelper.newOptions(getContext(), true, Bitmap.Config.ARGB_8888);
-
-        final View view = View.inflate(getActivity(), R.layout.fragment_local_skin, null);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         mLoadingFragment = new LoadingFragment();
 
-        return view;
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    protected RecyclerView.Adapter instanceAdapter() {
+        soundAdapter = new SoundAdapter(mOptions,false);
+        return soundAdapter;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, GridLayoutManager.VERTICAL));
-        soundAdapter = new SoundAdapter(mOptions,false);
-        mRecyclerView.setAdapter(soundAdapter);
 
         ProcessScopeViewModelProviders.of(getActivity().getApplication()).get(SoundViewModel.class)
                 .loadFullRepository().observe(this, new Observer<StatefulResource<List<SoundBoundItem>>>() {
@@ -120,15 +116,13 @@ public class SoundFragment extends Fragment {
     }
 
     private void update() {
-        if (null == mRecyclerView) {
-            return;
-        }
-
         if (null != getEditorFragment() && getEditorFragment().isShow()) {
             getEditorFragment().refreshUi();
         }
 
-        mRecyclerView.getAdapter().notifyDataSetChanged();
+        if (null != soundAdapter) {
+            soundAdapter.notifyDataSetChanged();
+        }
     }
 
     private VolumeEditorFragment volumeEditorFragment;
