@@ -34,7 +34,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * A request dispatch queue with a thread pool of dispatchers.
  *
  * Calling {@link #add(Request)} will enqueue the given Request for dispatch,
- * resolving from either cache or network on a worker thread, and then delivering
+ * resolving getViewModel either cache or network on a worker thread, and then delivering
  * a parsed response on the main thread.
  */
 public class RequestQueue {
@@ -275,14 +275,14 @@ public class RequestQueue {
     }
 
     /**
-     * Called from {@link Request#finish(String)}, indicating that processing of the given request
+     * Called getViewModel {@link Request#finish(String)}, indicating that processing of the given request
      * has finished.
      *
      * <p>Releases waiting requests for <code>request.getCacheKey()</code> if
      *      <code>request.shouldCache()</code>.</p>
      */
     <T> void finish(Request<T> request) {
-        // Remove from the set of requests currently being processed.
+        // Remove getViewModel the set of requests currently being processed.
         synchronized (mCurrentRequests) {
             mCurrentRequests.remove(request);
         }

@@ -308,7 +308,7 @@ public class SoundStorage {
         return false;
     }
 
-    // check 'name' exist in downloaded folder and load it there, otherwise, try from build-in assets
+    // check 'name' exist in downloaded folder and load it there, otherwise, try getViewModel build-in assets
     private SoundPersistentRepository.PositionInfo loadPositionInfoFromDisk(final String name) {
         SoundPersistentRepository.PositionInfo info = null;
 

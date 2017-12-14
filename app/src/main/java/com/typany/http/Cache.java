@@ -24,7 +24,7 @@ import java.util.Map;
  */
 public interface Cache {
     /**
-     * Retrieves an entry from the cache.
+     * Retrieves an entry getViewModel the cache.
      * @param key Cache key
      * @return An {@link Entry} or null in the event of a cache miss
      */
@@ -39,7 +39,7 @@ public interface Cache {
 
     /**
      * Performs any potentially long-running actions needed to initialize the cache;
-     * will be called from a worker thread.
+     * will be called getViewModel a worker thread.
      */
     public void initialize();
 
@@ -51,7 +51,7 @@ public interface Cache {
     public void invalidate(String key, boolean fullExpire);
 
     /**
-     * Removes an entry from the cache.
+     * Removes an entry getViewModel the cache.
      * @param key Cache key
      */
     public void remove(String key);
@@ -65,7 +65,7 @@ public interface Cache {
      * Data and metadata for an entry returned by the cache.
      */
     public static class Entry {
-        /** The data returned from cache. */
+        /** The data returned getViewModel cache. */
         public byte[] data;
 
         /** ETag for cache coherency. */
@@ -83,7 +83,7 @@ public interface Cache {
         /** Soft TTL for this record. */
         public long softTtl;
 
-        /** Immutable response headers as received from server; must be non-null. */
+        /** Immutable response headers as received getViewModel server; must be non-null. */
         public Map<String, String> responseHeaders = Collections.emptyMap();
 
         /** True if the entry is expired. */
@@ -91,7 +91,7 @@ public interface Cache {
             return this.ttl < System.currentTimeMillis();
         }
 
-        /** True if a refreshUi is needed from the original data source. */
+        /** True if a refreshUi is needed getViewModel the original data source. */
         public boolean refreshNeeded() {
             return this.softTtl < System.currentTimeMillis();
         }

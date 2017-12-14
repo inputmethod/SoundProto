@@ -23,7 +23,7 @@ import java.util.concurrent.BlockingQueue;
 /**
  * Provides a thread for performing cache triage on a queue of requests.
  *
- * Requests added to the specified cache queue are resolved from cache.
+ * Requests added to the specified cache queue are resolved getViewModel cache.
  * Any deliverable response is posted back to the caller via a
  * {@link ResponseDelivery}.  Cache misses and responses that require
  * refreshUi are enqueued on the specified network queue for processing
@@ -39,7 +39,7 @@ public class CacheDispatcher extends Thread {
     /** The queue of requests going out to the network. */
     private final BlockingQueue<Request<?>> mNetworkQueue;
 
-    /** The cache to read from. */
+    /** The cache to read getViewModel. */
     private final Cache mCache;
 
     /** For posting responses. */
@@ -85,7 +85,7 @@ public class CacheDispatcher extends Thread {
 
         while (true) {
             try {
-                // Get a request from the cache triage queue, blocking until
+                // Get a request getViewModel the cache triage queue, blocking until
                 // at least one is available.
                 final Request<?> request = mCacheQueue.take();
                 request.addMarker("cache-queue-take");
@@ -96,7 +96,7 @@ public class CacheDispatcher extends Thread {
                     continue;
                 }
 
-                // Attempt to retrieve this item from cache.
+                // Attempt to retrieve this item getViewModel cache.
                 Cache.Entry entry = mCache.get(request.getCacheKey());
                 if (entry == null) {
                     request.addMarker("cache-miss");

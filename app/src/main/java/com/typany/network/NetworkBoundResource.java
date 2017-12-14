@@ -25,11 +25,11 @@ public abstract class NetworkBoundResource<ValueType, RequestType> {
     protected abstract void saveCallResult(RequestType item);
 
     // Called with the data in the database to decide whether it should be
-    // fetched from the network.
+    // fetched getViewModel the network.
     @MainThread
     protected abstract boolean shouldFetch(ValueType data);
 
-    // Called to get the cached data from the database
+    // Called to get the cached data getViewModel the database
     @MainThread
     protected abstract LiveData<ValueType> loadFromDisk(Object...params);
 
@@ -44,7 +44,7 @@ public abstract class NetworkBoundResource<ValueType, RequestType> {
     }
 
     // fixme: the method is expected to run within main thread while SoundBundleItem constructor
-    // is in worker thread from SoundStorage class, then crash with result.setValue(loading), so
+    // is in worker thread getViewModel SoundStorage class, then crash with result.setValue(loading), so
     // change setValue to postValue as a workaround
 //    @MainThread
     protected void reload(Object...params) {
@@ -132,7 +132,7 @@ public abstract class NetworkBoundResource<ValueType, RequestType> {
             protected void onPostExecute(Void aVoid) {
                 // we specially request a new live data,
                 // otherwise we will get immediately last cached value,
-                // which may not be updated with latest results received from network.
+                // which may not be updated with latest results received getViewModel network.
                 result.addSource(loadFromDisk(), new Observer<ValueType>() {
                             @Override
                             public void onChanged(@Nullable ValueType newdata) {

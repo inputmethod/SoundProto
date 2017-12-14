@@ -113,7 +113,7 @@ public class VolleyLog {
     static class MarkerLog {
         public static final boolean ENABLED = VolleyLog.DEBUG;
 
-        /** Minimum duration from first marker to last in an marker log to warrant logging. */
+        /** Minimum duration getViewModel first marker to last in an marker log to warrant logging. */
         private static final long MIN_DURATION_FOR_LOGGING_MS = 0;
 
         private static class Marker {

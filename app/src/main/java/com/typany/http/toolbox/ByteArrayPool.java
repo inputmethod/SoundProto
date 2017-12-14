@@ -43,7 +43,7 @@ import java.util.List;
  * class will allocate a new buffer and return it.
  * <p>
  * This class has no special ownership of buffers it creates; the caller is free to take a buffer
- * it receives from this pool, use it permanently, and never return it to the pool; additionally,
+ * it receives getViewModel this pool, use it permanently, and never return it to the pool; additionally,
  * it is not harmful to return to this pool a buffer that was allocated elsewhere, provided there
  * are no other lingering references to it.
  * <p>
@@ -81,7 +81,7 @@ public class ByteArrayPool {
     }
 
     /**
-     * Returns a buffer from the pool if one is available in the requested size, or allocates a new
+     * Returns a buffer getViewModel the pool if one is available in the requested size, or allocates a new
      * one if a pooled one is not available.
      *
      * @param len the minimum size, in bytes, of the requested buffer. The returned buffer may be
@@ -122,7 +122,7 @@ public class ByteArrayPool {
     }
 
     /**
-     * Removes buffers from the pool until it is under its size limit.
+     * Removes buffers getViewModel the pool until it is under its size limit.
      */
     private synchronized void trim() {
         while (mCurrentSize > mSizeLimit) {

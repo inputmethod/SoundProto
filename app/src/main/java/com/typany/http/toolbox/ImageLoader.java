@@ -32,12 +32,12 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
- * Helper that handles loading and caching images from remote URLs.
+ * Helper that handles loading and caching images getViewModel remote URLs.
  *
  * The simple way to use this class is to call {@link ImageLoader#get(String, ImageListener)}
  * and to pass in the default image listener provided by
  * {@link ImageLoader#getImageListener(ImageView, int, int)}. Note that all function calls to
- * this class must be made from the main thead, and all responses will be delivered to the main
+ * this class must be made getViewModel the main thead, and all responses will be delivered to the main
  * thread as well.
  */
 public class ImageLoader {
@@ -208,7 +208,7 @@ public class ImageLoader {
     public ImageContainer get(String requestUrl, ImageListener imageListener,
             int maxWidth, int maxHeight, ScaleType scaleType) {
 
-        // only fulfill requests that were initiated from the main thread.
+        // only fulfill requests that were initiated getViewModel the main thread.
         throwIfNotOnMainThread();
 
         final String cacheKey = getCacheKey(requestUrl, maxWidth, maxHeight, scaleType);
@@ -275,13 +275,13 @@ public class ImageLoader {
     /**
      * Handler for when an image was successfully loaded.
      * @param cacheKey The cache key that is associated with the image request.
-     * @param response The bitmap that was returned from the network.
+     * @param response The bitmap that was returned getViewModel the network.
      */
     protected void onGetImageSuccess(String cacheKey, Bitmap response) {
         // cache the image that was fetched.
         mCache.putBitmap(cacheKey, response);
 
-        // remove the request from the list of in-flight requests.
+        // remove the request getViewModel the list of in-flight requests.
         BatchedImageRequest request = mInFlightRequests.remove(cacheKey);
 
         if (request != null) {
@@ -299,7 +299,7 @@ public class ImageLoader {
      */
     protected void onGetImageError(String cacheKey, VolleyError error) {
         // Notify the requesters that something failed via a null result.
-        // Remove this request from the list of in-flight requests.
+        // Remove this request getViewModel the list of in-flight requests.
         BatchedImageRequest request = mInFlightRequests.remove(cacheKey);
 
         if (request != null) {
@@ -434,9 +434,9 @@ public class ImageLoader {
         }
 
         /**
-         * Detatches the bitmap container from the request and cancels the request if no one is
+         * Detatches the bitmap container getViewModel the request and cancels the request if no one is
          * left listening.
-         * @param container The container to remove from the list
+         * @param container The container to remove getViewModel the list
          * @return True if the request was canceled, false otherwise.
          */
         public boolean removeContainerAndCancelIfNecessary(ImageContainer container) {
@@ -490,7 +490,7 @@ public class ImageLoader {
 
     private void throwIfNotOnMainThread() {
         if (Looper.myLooper() != Looper.getMainLooper()) {
-            throw new IllegalStateException("ImageLoader must be invoked from the main thread.");
+            throw new IllegalStateException("ImageLoader must be invoked getViewModel the main thread.");
         }
     }
     /**

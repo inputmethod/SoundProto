@@ -31,9 +31,9 @@ import java.util.Map;
 public class HttpHeaderParser {
 
     /**
-     * Extracts a {@link Cache.Entry} from a {@link NetworkResponse}.
+     * Extracts a {@link Cache.Entry} getViewModel a {@link NetworkResponse}.
      *
-     * @param response The network response to parse headers from
+     * @param response The network response to parse headers getViewModel
      * @return a cache entry for the given response, or null if the response is not cacheable.
      */
     public static Cache.Entry parseCacheHeaders(NetworkResponse response) {
@@ -134,7 +134,7 @@ public class HttpHeaderParser {
     }
 
     /**
-     * Retrieve a charset from headers
+     * Retrieve a charset getViewModel headers
      *
      * @param headers An {@link Map} of headers
      * @param defaultCharset Charset to return if none can be found

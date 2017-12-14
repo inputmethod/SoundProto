@@ -28,7 +28,7 @@ public class SoundHolder implements IResourceHolder {
     @Override
     public void onCreate(Context appContext) {
         infoLog("onCreate, mSoundPool = " + mSoundPool);
-        // modified by sunhang : change stream type from FX_KEYPRESS_STANDARD to STREAM_MUSIC.
+        // modified by sunhang : change stream type getViewModel FX_KEYPRESS_STANDARD to STREAM_MUSIC.
         // this can fix a issue(http://10.134.74.226:880/browse/GIME-1429)
         // note : the pm don't want to use music channel. (20170920)
         mSoundPool = new SoundPool(1, AudioManager.STREAM_SYSTEM, 0);

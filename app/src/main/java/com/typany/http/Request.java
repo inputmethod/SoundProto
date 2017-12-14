@@ -123,9 +123,9 @@ public abstract class Request<T> implements Comparable<Request<T>> {
     private RetryPolicy mRetryPolicy;
 
     /**
-     * When a request can be retrieved from cache but must be refreshed from
+     * When a request can be retrieved getViewModel cache but must be refreshed getViewModel
      * the network, the cache entry will be stored here so that in the event of
-     * a "Not Modified" response, we can be sure it hasn't been evicted from cache.
+     * a "Not Modified" response, we can be sure it hasn't been evicted getViewModel cache.
      */
     private Cache.Entry mCacheEntry = null;
 
@@ -139,7 +139,7 @@ public abstract class Request<T> implements Comparable<Request<T>> {
     private RequestParams mRequestParams;
 
     /**
-     * Creates a new request with the given method (one of the values from {@link Method}),
+     * Creates a new request with the given method (one of the values getViewModel {@link Method}),
      * URL, and error listener.  Note that the normal response listener is not provided here as
      * delivery of responses is provided by subclasses, who have a better idea of how to deliver
      * an already-parsed response.
@@ -243,7 +243,7 @@ public abstract class Request<T> implements Comparable<Request<T>> {
     /**
      * Notifies the request queue that this request has finished (successfully or with error).
      * <p>
-     * <p>Also dumps all events from this request's event log; for debugging.</p>
+     * <p>Also dumps all events getViewModel this request's event log; for debugging.</p>
      */
     public void finish(final String tag) {
         mBody=null;
@@ -319,7 +319,7 @@ public abstract class Request<T> implements Comparable<Request<T>> {
     }
 
     /**
-     * Annotates this request with an entry retrieved for it from cache.
+     * Annotates this request with an entry retrieved for it getViewModel cache.
      * Used for cache coherency support.
      *
      * @return This Request object to allow for chaining.
@@ -510,7 +510,7 @@ public abstract class Request<T> implements Comparable<Request<T>> {
     }
 
     /**
-     * Priority values.  Requests will be processed from higher priorities to
+     * Priority values.  Requests will be processed getViewModel higher priorities to
      * lower priorities, in FIFO order.
      */
     public enum Priority {
@@ -561,10 +561,10 @@ public abstract class Request<T> implements Comparable<Request<T>> {
     /**
      * Subclasses must implement this to parse the raw network response
      * and return an appropriate response type. This method will be
-     * called from a worker thread.  The response will not be delivered
+     * called getViewModel a worker thread.  The response will not be delivered
      * if you return null.
      *
-     * @param response Response from the network
+     * @param response Response getViewModel the network
      * @return The parsed response, or null in the case of an error
      */
     abstract protected Response<T> parseNetworkResponse(NetworkResponse response);
@@ -574,7 +574,7 @@ public abstract class Request<T> implements Comparable<Request<T>> {
      * <p>
      * <p>The default implementation just returns the passed 'networkError'.</p>
      *
-     * @param volleyError the error retrieved from the network
+     * @param volleyError the error retrieved getViewModel the network
      * @return an NetworkError augmented with additional information
      */
     protected VolleyError parseNetworkError(VolleyError volleyError) {
@@ -626,7 +626,7 @@ public abstract class Request<T> implements Comparable<Request<T>> {
     }
 
     /**
-     * Our comparator sorts from high to low priority, and secondarily by
+     * Our comparator sorts getViewModel high to low priority, and secondarily by
      * sequence number to provide FIFO ordering.
      */
     @Override

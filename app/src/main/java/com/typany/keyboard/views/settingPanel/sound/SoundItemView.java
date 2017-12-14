@@ -87,7 +87,7 @@ public class SoundItemView extends RelativeLayout {
         Toast.makeText(getContext(), "playSoundBundle, " + item.bundleName(), Toast.LENGTH_SHORT).show();
     }
 
-    // remove observer from any existing item
+    // remove observer getViewModel any existing item
     // check to construct fake data for 'More' item
     // apply real sound item
 

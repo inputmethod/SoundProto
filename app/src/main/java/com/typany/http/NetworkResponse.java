@@ -22,7 +22,7 @@ import java.util.Collections;
 import java.util.Map;
 
 /**
- * Data and headers returned from {@link Network#performRequest(Request)}.
+ * Data and headers returned getViewModel {@link Network#performRequest(Request)}.
  */
 public class NetworkResponse {
     /**
@@ -58,7 +58,7 @@ public class NetworkResponse {
     /** The HTTP status code. */
     public final int statusCode;
 
-    /** Raw data from this response. */
+    /** Raw data getViewModel this response. */
     public final byte[] data;
 
     /** Response headers. */

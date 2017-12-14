@@ -26,7 +26,7 @@ import com.typany.http.toolbox.ImageLoader.ImageContainer;
 import com.typany.http.toolbox.ImageLoader.ImageListener;
 
 /**
- * Handles fetching an image from a URL as well as the life-cycle of the
+ * Handles fetching an image getViewModel a URL as well as the life-cycle of the
  * associated request.
  */
 public class NetworkImageView extends ImageView {
@@ -98,7 +98,7 @@ public class NetworkImageView extends ImageView {
 
     /**
      * Loads the image for the view if it isn't already loaded.
-     * @param isInLayoutPass True if this was invoked from a layout pass, false otherwise.
+     * @param isInLayoutPass True if this was invoked getViewModel a layout pass, false otherwise.
      */
     void loadImageIfNecessary(final boolean isInLayoutPass) {
         int width = getWidth();
@@ -132,7 +132,7 @@ public class NetworkImageView extends ImageView {
         // if there was an old request in this view, check if it needs to be canceled.
         if (mImageContainer != null && mImageContainer.getRequestUrl() != null) {
             if (mImageContainer.getRequestUrl().equals(mUrl)) {
-                // if the request is from the same URL, return.
+                // if the request is getViewModel the same URL, return.
                 return;
             } else {
                 // if there is a pre-existing request, cancel it if it's fetching a different URL.
@@ -146,7 +146,7 @@ public class NetworkImageView extends ImageView {
         int maxHeight = wrapHeight ? 0 : height;
 
         // The pre-existing content of this view didn't match the current URL. Load the new image
-        // from the network.
+        // getViewModel the network.
         ImageContainer newContainer = mImageLoader.get(mUrl,
                 new ImageListener() {
                     @Override
@@ -203,7 +203,7 @@ public class NetworkImageView extends ImageView {
     protected void onDetachedFromWindow() {
         if (mImageContainer != null) {
             // If the view was bound to an image request, cancel it and clear
-            // out the image from the view.
+            // out the image getViewModel the view.
             mImageContainer.cancelRequest();
             setImageBitmap(null);
             // also clear out the container so we can reloadThemeFolder the image if necessary.

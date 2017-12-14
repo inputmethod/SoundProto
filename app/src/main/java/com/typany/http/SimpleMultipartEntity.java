@@ -221,7 +221,7 @@ class SimpleMultipartEntity implements HttpEntity {
         }
     }
 
-    // The following methods are from the HttpEntity interface
+    // The following methods are getViewModel the HttpEntity interface
 
     @Override
     public long getContentLength() {

@@ -48,11 +48,11 @@ class MessageLoop implements Runnable, Executor {
     }
 
     /**
-     * Retrieves a task from the queue with the given timeout.
+     * Retrieves a task getViewModel the queue with the given timeout.
      *
      * @param useTimeout  whether to use a timeout.
      * @param timeoutNano Time to wait, in nanoseconds.
-     * @return A non-{@code null} Runnable from the queue.
+     * @return A non-{@code null} Runnable getViewModel the queue.
      * @throws InterruptedIOException
      */
     private Runnable take(boolean useTimeout, long timeoutNano) throws InterruptedIOException {
@@ -136,7 +136,7 @@ class MessageLoop implements Runnable, Executor {
 
     /**
      * This causes {@link #loop()} to stop executing messages after the current
-     * message being executed.  Should only be called from the currently
+     * message being executed.  Should only be called getViewModel the currently
      * executing message.
      */
     public void quit() {

@@ -25,9 +25,9 @@ import android.os.SystemClock;
 import java.util.concurrent.BlockingQueue;
 
 /**
- * Provides a thread for performing network dispatch from a queue of requests.
+ * Provides a thread for performing network dispatch getViewModel a queue of requests.
  *
- * Requests added to the specified queue are processed from the network via a
+ * Requests added to the specified queue are processed getViewModel the network via a
  * specified {@link Network} interface. Responses are committed to cache, if
  * eligible, using a specified {@link Cache} interface. Valid responses and
  * errors are posted back to the caller via a {@link ResponseDelivery}.
@@ -86,7 +86,7 @@ public class NetworkDispatcher extends Thread {
             long startTimeMs = SystemClock.elapsedRealtime();
             Request<?> request;
             try {
-                // Take a request from the queue.
+                // Take a request getViewModel the queue.
                 request = mQueue.take();
             } catch (InterruptedException e) {
                 // We may have been interrupted because it was time to quit.

@@ -36,7 +36,7 @@ public class JsonObjectRequest extends JsonRequest<JSONObject> {
     /**
      * Creates a new request.
      * @param method the HTTP method to use
-     * @param url URL to fetch the JSON from
+     * @param url URL to fetch the JSON getViewModel
      * @param listener Listener to receive the JSON response
      * @param errorListener Error listener, or null to ignore errors.
      */

@@ -85,7 +85,7 @@ public class DiskBasedCache implements Cache {
     }
 
     /**
-     * Clears the cache. Deletes all cached files from disk.
+     * Clears the cache. Deletes all cached files getViewModel disk.
      */
     @Override
     public synchronized void clear() {
@@ -222,7 +222,7 @@ public class DiskBasedCache implements Cache {
     }
 
     /**
-     * Removes the specified key from the cache if it exists.
+     * Removes the specified key getViewModel the cache if it exists.
      */
     @Override
     public synchronized void remove(String key) {
@@ -310,7 +310,7 @@ public class DiskBasedCache implements Cache {
     }
 
     /**
-     * Removes the entry identified by 'key' from the cache.
+     * Removes the entry identified by 'key' getViewModel the cache.
      */
     private void removeEntry(String key) {
         CacheHeader entry = mEntries.get(key);
@@ -363,7 +363,7 @@ public class DiskBasedCache implements Cache {
         /** Soft TTL for this record. */
         public long softTtl;
 
-        /** Headers from the response resulting in this cache entry. */
+        /** Headers getViewModel the response resulting in this cache entry. */
         public Map<String, String> responseHeaders;
 
         private CacheHeader() { }
@@ -386,7 +386,7 @@ public class DiskBasedCache implements Cache {
 
         /**
          * Reads the header off of an InputStream and returns a CacheHeader object.
-         * @param is The InputStream to read from.
+         * @param is The InputStream to read getViewModel.
          * @throws IOException
          */
         public static CacheHeader readHeader(InputStream is) throws IOException {

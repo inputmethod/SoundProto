@@ -34,7 +34,7 @@ public class JsonArrayRequest extends JsonRequest<JSONArray> {
 
     /**
      * Creates a new request.
-     * @param url URL to fetch the JSON from
+     * @param url URL to fetch the JSON getViewModel
      * @param listener Listener to receive the JSON response
      * @param errorListener Error listener, or null to ignore errors.
      */
@@ -45,7 +45,7 @@ public class JsonArrayRequest extends JsonRequest<JSONArray> {
     /**
      * Creates a new request.
      * @param method the HTTP method to use
-     * @param url URL to fetch the JSON from
+     * @param url URL to fetch the JSON getViewModel
      * @param jsonRequest A {@link JSONArray} to post with the request. Null is allowed and
      *   indicates no parameters will be posted along with request.
      * @param listener Listener to receive the JSON response
