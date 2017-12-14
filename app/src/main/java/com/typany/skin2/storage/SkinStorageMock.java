@@ -96,8 +96,8 @@ public class SkinStorageMock {
 
         homeViewEntitiesCache.add(collection);
         homeViewEntitiesCache.add(categories);
-        homeViewEntitiesCache.add(trending);
         homeViewEntitiesCache.add(feature);
+        homeViewEntitiesCache.add(trending);
         homeViewEntitiesCache.add(allThemes);
     }
     private static void appendBundleCategory(SkinCategory category, String name, String urlSuffix) {

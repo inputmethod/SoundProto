@@ -36,4 +36,8 @@ public class SkinViewEntity {
     public List<SkinViewEntity> getBundleList() {
         return Collections.emptyList();
     }
+
+    public int getDisplayColumn() {
+        return -1;
+    }
 }
