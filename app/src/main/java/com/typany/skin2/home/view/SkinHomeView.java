@@ -9,7 +9,7 @@ import android.util.Log;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.typany.network.StatefulResource;
-import com.typany.sound.adapter.SoundAdapter;
+import com.typany.skin2.home.adapter.SkinAdapter;
 import com.typany.sound.service.SoundBoundItem;
 import com.typany.sound.viewmodel.SoundViewModel;
 import com.typany.views.RecyclerFragment;
@@ -22,7 +22,7 @@ import java.util.List;
 
 public class SkinHomeView extends RecyclerFragment {
     private static final String TAG = SkinHomeView.class.getSimpleName();
-    private SoundAdapter soundAdapter;
+    private SkinAdapter soundAdapter;
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +30,7 @@ public class SkinHomeView extends RecyclerFragment {
 
     @Override
     protected RecyclerView.Adapter instanceAdapter(DisplayImageOptions options) {
-        soundAdapter = new SoundAdapter(options,false);
+        soundAdapter = new SkinAdapter(options,false);
         return soundAdapter;
     }
 
