@@ -36,7 +36,7 @@ public class SkinHomeView extends RecyclerFragment {
 
     @Override
     protected int getColumnCount() {
-        return 2;
+        return 1;
     }
 
 

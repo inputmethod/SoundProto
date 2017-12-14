@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="41dip">
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="4dp">
+
+        <com.typany.utilities.TtfTextView xmlns:custom="http://schemas.android.com/apk/res/com.typany.soundproto"
+            custom:customFont="Rubik-Regular.ttf"
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="16dip"
+            android:layout_marginStart="16dip"
+            android:textColor="@color/main_page_text_color"
+            android:textSize="18sp"
+            android:typeface="sans" />
+
+        <com.typany.utilities.TtfTextView xmlns:custom="http://schemas.android.com/apk/res/com.typany.soundproto"
+            custom:customFont="Rubik-Regular.ttf"
+            android:id="@+id/tv_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="16dip"
+            android:layout_marginEnd="16dip"
+            android:text="@string/skin_more"
+            android:textAllCaps="true"
+            android:textColor="#2F9CFF"
+            android:textSize="14sp"
+            android:typeface="sans" />
+    </RelativeLayout>
+</FrameLayout>

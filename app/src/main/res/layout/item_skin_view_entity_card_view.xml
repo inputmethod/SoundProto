@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.typany.skin2.home.view.SkinViewEntityCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_sound_item_container_white">
+
+    <include layout="@layout/list_item_theme_title"
+        android:id="@+id/theme_title"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/theme_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
+
+</com.typany.skin2.home.view.SkinViewEntityCardView>

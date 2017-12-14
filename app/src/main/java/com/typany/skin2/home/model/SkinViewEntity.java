@@ -1,5 +1,8 @@
 package com.typany.skin2.home.model;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Created by dingbei on 11/19/2017.
  */
@@ -24,5 +27,13 @@ public class SkinViewEntity {
 
     public void setPreviewUrl(String previewUrl) {
         this.previewUrl = previewUrl;
+    }
+
+    public boolean isHasMore() {
+        return false;
+    }
+
+    public List<SkinViewEntity> getBundleList() {
+        return Collections.emptyList();
     }
 }

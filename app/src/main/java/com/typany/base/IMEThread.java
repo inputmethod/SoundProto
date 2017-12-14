@@ -128,7 +128,7 @@ public class IMEThread {
                 try {
                     mMessageLoop.loop(0); // Dry all the messages.
 /*
-                    if (mMessageLoop.hasMore())
+                    if (mMessageLoop.isHasMore())
                         scheduleWork();
 */
                 } catch (IOException e) {

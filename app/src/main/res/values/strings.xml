@@ -18,4 +18,16 @@
     <string name="wizard_first_step_button_text">Enable</string>
 
     <string name="typingsound_title">Keypress Sounds</string>
+
+    <!-- skin -->
+    <string name="skin_more">more</string>
+    <string name="skin_collection">Collection</string>
+    <string name="skin_selected">Selected</string>
+    <string name="skin_trending_title">Trending</string>
+    <string name="skin_all_themes_title">All Themes</string>
+    <string name="skin_title_theme">Theme</string>
+    <string name="skin_load_more_retry">Loading failed, click to retry.</string>
+    <string name="not_enough_space">Not enough space, please free up some space first.</string>
+    <!-- end skin -->
+
 </resources>

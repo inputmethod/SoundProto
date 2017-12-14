@@ -90,9 +90,9 @@ public class SkinStorageMock {
         appendBundleCategory(allThemes, "Pink Wizard Monster", "Theme/7000000923_1512814549.webp");
 
 
-        trending.setBundleName("All Themes");
-        trending.setDisplayColumn(2);
-        trending.setHasMore(false);
+        allThemes.setBundleName("All Themes");
+        allThemes.setDisplayColumn(2);
+        allThemes.setHasMore(false);
 
         homeViewEntitiesCache.add(collection);
         homeViewEntitiesCache.add(categories);
