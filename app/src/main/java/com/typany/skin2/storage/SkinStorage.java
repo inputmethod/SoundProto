@@ -7,8 +7,11 @@ import android.support.annotation.MainThread;
 import android.support.annotation.WorkerThread;
 
 import com.typany.base.IMEThread;
+import com.typany.http.toolbox.RequestUtil;
+import com.typany.ime.IMEApplicationContext;
+import com.typany.network.Response;
+import com.typany.skin.SkinPersistentRepository.SkinInfoRepository;
 import com.typany.skin2.home.model.SkinViewEntity;
-import com.typany.skin2.home.network.SkinRequest;
 import com.typany.skin2.model.SkinPackage;
 
 import java.io.File;
@@ -21,13 +24,15 @@ import java.util.List;
  */
 
 public class SkinStorage {
+    private static SkinStorage _ins;
+
     private final Context context;
     private static final String SKIN_ASSERT_PATH = "skin";
 
     private final String resolution;
     private SkinPackage defaultSkinPackage;
 
-    private List<SkinViewEntity> viewEntitiesCache = new ArrayList<>();
+    private List<SkinViewEntity> homeViewEntitiesCache = new ArrayList<>();
 
     private final String DEFAULT_SKIN_NAME = "1001001042";
 
@@ -36,7 +41,13 @@ public class SkinStorage {
     private File[] skinStorageFolder;
 
     @MainThread
-    public SkinStorage(Context context, final String resolution){
+    public static void init(Context sAppContext) {
+        if (null == _ins) {
+            _ins = new SkinStorage(sAppContext, "1080");
+        }
+    }
+    @MainThread
+    private SkinStorage(Context context, final String resolution){
         this.context = context;
         this.resolution = resolution;
         skinStorageFolder = new File[2];
@@ -88,31 +99,45 @@ public class SkinStorage {
     }
 
 
-
-
-
     // for home page
     @MainThread
-    public LiveData<List<SkinViewEntity>> getHomePageList(final int pageNo) {
+    public LiveData<List<SkinViewEntity>> getHomePageList() {
         MutableLiveData<List<SkinViewEntity>> mutableLiveData = new MutableLiveData<>();
-        if (pageNo * PAGE_ITEM_COUNT < viewEntitiesCache.size())
-        {
-            List<SkinViewEntity> pageData = takeFromCache(pageNo*PAGE_ITEM_COUNT);
-            mutableLiveData.setValue(pageData);
-        }
+        mutableLiveData.setValue(homeViewEntitiesCache);
         return mutableLiveData;
     }
 
     @MainThread
-    private List<SkinViewEntity> takeFromCache(final int start) {
-        List<SkinViewEntity> pageData = new ArrayList<>();
-        for (int i = start; i < viewEntitiesCache.size() && pageData.size() < PAGE_ITEM_COUNT; i++)
-            pageData.add(viewEntitiesCache.get(i));
-        return pageData;
+    public LiveData<List<SkinViewEntity>> getMockPageList() {
+        MutableLiveData<List<SkinViewEntity>> mutableLiveData = new MutableLiveData<>();
+        mutableLiveData.setValue(SkinStorageMock.homeViewEntitiesCache);
+        return mutableLiveData;
     }
 
+//    @MainThread
+//    private List<SkinViewEntity> takeFromCache(final int start) {
+//        List<SkinViewEntity> pageData = new ArrayList<>();
+//        for (int i = start; i < viewEntitiesCache.size() && pageData.size() < PAGE_ITEM_COUNT; i++)
+//            pageData.add(viewEntitiesCache.get(i));
+//        return pageData;
+//    }
+
     @WorkerThread
-    public void saveNewRequestResult(SkinRequest request) {
+    public void saveNewRequestResult(SkinInfoRepository request) {
         // TODO request add to cache
+    }
+
+    public LiveData<Response<SkinInfoRepository>> createSkinInfoRequest() {
+        // TODO: complete the API URI with formal url
+        return RequestUtil.observalbeRequestProtobuf("http://10.134.73.228/api/skinentry?proto=1", context,
+                SkinInfoRepository.parser());
+    }
+
+    public static SkinStorage get() {
+        if (null == _ins) {
+            _ins = new SkinStorage(IMEApplicationContext.context, "1080");
+        }
+
+        return _ins;
     }
 }

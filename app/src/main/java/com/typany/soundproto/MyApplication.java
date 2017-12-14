@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.typany.base.IMEThread;
 import com.typany.ime.IMEApplicationContext;
+import com.typany.skin2.storage.SkinStorage;
 import com.typany.sound.service.SoundStorage;
 
 /**
@@ -18,6 +19,7 @@ public class MyApplication extends Application {
         IMEApplicationContext.application = this;
         IMEApplicationContext.context = getBaseContext();
 
+        SkinStorage.init(getBaseContext());
         SoundStorage.init(getBaseContext());
         IMEThread.initialize();
     }

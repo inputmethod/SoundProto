@@ -53,8 +53,8 @@ public class SoundStorage {
 
     private boolean remoteItemsChanged = false;
 
-    @MainThread
-    public static void init(Context sAppContext) {
+        @MainThread
+        public static void init(Context sAppContext) {
         if (ins == null) {
             ins = new SoundStorage(sAppContext);
             ins.preferences = PreferenceManager.getDefaultSharedPreferences(sAppContext);

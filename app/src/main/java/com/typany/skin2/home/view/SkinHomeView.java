@@ -10,8 +10,8 @@ import android.util.Log;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.typany.network.StatefulResource;
 import com.typany.skin2.home.adapter.SkinAdapter;
-import com.typany.sound.service.SoundBoundItem;
-import com.typany.sound.viewmodel.SoundViewModel;
+import com.typany.skin2.home.model.SkinViewEntity;
+import com.typany.skin2.home.model.SkinViewModel;
 import com.typany.views.RecyclerFragment;
 
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.List;
 
 public class SkinHomeView extends RecyclerFragment {
     private static final String TAG = SkinHomeView.class.getSimpleName();
-    private SkinAdapter soundAdapter;
+    private SkinAdapter skinAdapter;
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +30,8 @@ public class SkinHomeView extends RecyclerFragment {
 
     @Override
     protected RecyclerView.Adapter instanceAdapter(DisplayImageOptions options) {
-        soundAdapter = new SkinAdapter(options,false);
-        return soundAdapter;
+        skinAdapter = new SkinAdapter(options);
+        return skinAdapter;
     }
 
     @Override
@@ -49,18 +49,18 @@ public class SkinHomeView extends RecyclerFragment {
 
     @Override
     protected LiveData getLiveData() {
-        return getViewModel(SoundViewModel.class).loadFullRepository();
+        return getViewModel(SkinViewModel.class).getHomePage();
     }
 
-    private final Observer<StatefulResource<List<SoundBoundItem>>> observer = new Observer<StatefulResource<List<SoundBoundItem>>>() {
+    private final Observer<StatefulResource<List<SkinViewEntity>>> observer = new Observer<StatefulResource<List<SkinViewEntity>>>() {
         @Override
-        public void onChanged(@Nullable StatefulResource<List<SoundBoundItem>> soundRemoteRepositoryStatefulResource) {
-            if (soundRemoteRepositoryStatefulResource.status == StatefulResource.Status.LOADING)
+        public void onChanged(@Nullable StatefulResource<List<SkinViewEntity>> skinResource) {
+            if (skinResource.status == StatefulResource.Status.LOADING)
                 drawLoading();
-            else if (soundRemoteRepositoryStatefulResource.status == StatefulResource.Status.SUCCESS)
-                soundAdapter.setSoundItemList(soundRemoteRepositoryStatefulResource.data);
+            else if (skinResource.status == StatefulResource.Status.SUCCESS)
+                skinAdapter.setSkinItemList(skinResource.data);
             else
-                Log.e(TAG, "onChanged: status is " + soundRemoteRepositoryStatefulResource.status);
+                Log.e(TAG, "onChanged: status is " + skinResource.status);
         }
     };
 }
