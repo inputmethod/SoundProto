@@ -9,7 +9,7 @@ import android.util.Log;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.typany.network.StatefulResource;
-import com.typany.skin2.home.adapter.SkinAdapter;
+import com.typany.skin2.home.adapter.SkinHomeAdapter;
 import com.typany.skin2.home.model.SkinViewEntity;
 import com.typany.skin2.home.model.SkinViewModel;
 import com.typany.views.RecyclerFragment;
@@ -22,7 +22,7 @@ import java.util.List;
 
 public class SkinHomeView extends RecyclerFragment {
     private static final String TAG = SkinHomeView.class.getSimpleName();
-    private SkinAdapter skinAdapter;
+    private SkinHomeAdapter skinHomeAdapter;
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +30,8 @@ public class SkinHomeView extends RecyclerFragment {
 
     @Override
     protected RecyclerView.Adapter instanceAdapter(DisplayImageOptions options) {
-        skinAdapter = new SkinAdapter(options);
-        return skinAdapter;
+        skinHomeAdapter = new SkinHomeAdapter(options);
+        return skinHomeAdapter;
     }
 
     @Override
@@ -58,7 +58,7 @@ public class SkinHomeView extends RecyclerFragment {
             if (skinResource.status == StatefulResource.Status.LOADING)
                 drawLoading();
             else if (skinResource.status == StatefulResource.Status.SUCCESS)
-                skinAdapter.setSkinItemList(skinResource.data);
+                skinHomeAdapter.setSkinItemList(skinResource.data);
             else
                 Log.e(TAG, "onChanged: status is " + skinResource.status);
         }
