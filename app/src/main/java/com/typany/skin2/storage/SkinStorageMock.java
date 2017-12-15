@@ -28,6 +28,7 @@ public class SkinStorageMock {
     public final static List<SkinViewEntity> homeViewEntitiesCache = new ArrayList<>();
     private final static SkinCategoryGroup collection = new SkinCategoryGroup();
     private final static SkinCategoryGroup categories = new SkinCategoryGroup();
+    private final static SkinCategoryGroup fullCollection = new SkinCategoryGroup();
     private final static SkinCategoryGroup fullCategories = new SkinCategoryGroup();
 
     private final static SkinCategory feature = new SkinCategory();
@@ -121,9 +122,17 @@ public class SkinStorageMock {
         homeViewEntitiesCache.add(trending);
         homeViewEntitiesCache.add(allThemes);
 
+
+        fullCollection.getBundleList().addAll(collection.getBundleList());
+        fullCollection.setBundleName("Collection");
+        fullCollection.setDisplayColumn(0);
+        fullCollection.setHasMore(false);
         addSimpleCategories(fullCategories);
         addCollectionCategoryGroup(fullCategories);
-        categoryGroupCache.add(collection);
+        fullCategories.setBundleName("Categories");
+        fullCategories.setDisplayColumn(2);
+        fullCategories.setHasMore(false);
+        categoryGroupCache.add(fullCollection);
         categoryGroupCache.add(fullCategories);
 
         fillAllBundle(fullBundles);
