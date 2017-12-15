@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.typany.skin2.home.model.SkinViewEntity;
-import com.typany.skin2.utils.SkinHelper;
 import com.typany.soundproto.R;
 
 import java.util.List;
@@ -113,7 +112,7 @@ abstract public class SkinEntityAdapter extends RecyclerView.Adapter<SkinEntityA
         }
 
         public void bind(final SkinViewEntity viewEntity) {
-            if (SkinHelper.isAdStub(viewEntity.getBundleName())) {
+            if (SkinEntityAdapterFactory.isAdStub(viewEntity.getBundleName())) {
                 previewImageView.setImageResource(R.mipmap.ic_launcher);
             } else {
                 ImageLoader.getInstance().displayImage(viewEntity.getPreviewUrl(), previewImageView, imageOptions);

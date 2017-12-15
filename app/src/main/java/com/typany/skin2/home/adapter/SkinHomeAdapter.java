@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.typany.debug.SLog;
 import com.typany.skin2.home.model.SkinViewEntity;
 import com.typany.skin2.home.view.SkinHomeCardView;
 import com.typany.soundproto.R;
@@ -19,6 +20,8 @@ import java.util.List;
  */
 
 public class SkinHomeAdapter extends RecyclerView.Adapter<SkinHomeAdapter.ViewHolder> {
+    private static final String TAG = SkinHomeAdapter.class.getSimpleName();
+
     private final DisplayImageOptions displayImageOptions;
 
     private List<SkinViewEntity> itemList;
@@ -90,14 +93,17 @@ public class SkinHomeAdapter extends RecyclerView.Adapter<SkinHomeAdapter.ViewHo
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+        private final DisplayImageOptions imageOptions;
         public ViewHolder(View itemView, DisplayImageOptions options) {
             super(itemView);
-            SkinHomeCardView.attach(itemView, options);
+            this.imageOptions = options;
         }
 
         public void bind(final SkinViewEntity viewEntity) {
             if (itemView instanceof SkinHomeCardView) {
-                ((SkinHomeCardView) itemView).setItem(viewEntity);
+                ((SkinHomeCardView) itemView).setItem(viewEntity, imageOptions);
+            } else {
+                SLog.e(TAG, "ViewHolder bind item with unexpected type: " + itemView.getClass().getCanonicalName());
             }
         }
     }
