@@ -10,6 +10,8 @@ import com.typany.base.IMEThread;
 import com.typany.http.toolbox.RequestUtil;
 import com.typany.ime.IMEApplicationContext;
 import com.typany.network.Response;
+import com.typany.skin.SkinPersistentRepository.SkinCategoryRepository;
+import com.typany.skin.SkinPersistentRepository.SkinCollectionRepository;
 import com.typany.skin.SkinPersistentRepository.SkinInfoRepository;
 import com.typany.skin2.home.model.SkinViewEntity;
 import com.typany.skin2.model.SkinPackage;
@@ -123,8 +125,8 @@ public class SkinStorage {
 //    }
 
     @WorkerThread
-    public void saveNewRequestResult(SkinInfoRepository request) {
-        // TODO request add to cache
+    public void saveSkinInfoResult(SkinInfoRepository request) {
+        // TODO: request add to cache
     }
 
     public LiveData<Response<SkinInfoRepository>> createSkinInfoRequest() {
@@ -139,5 +141,41 @@ public class SkinStorage {
         }
 
         return _ins;
+    }
+
+    public void saveCategoryGroupResult(String groupName, SkinCollectionRepository request) {
+        // TODO request add to cache
+    }
+
+    public LiveData<Response<SkinCollectionRepository>> createCategoryGroupRequest(String bundleName) {
+        // TODO: complete the API URI with formal url
+        return RequestUtil.observalbeRequestProtobuf("http://10.134.73.228/api/skincollection?proto=1&id=" + bundleName, context,
+                SkinCollectionRepository.parser());
+    }
+
+    public void saveCategoryResult(String categoryName, SkinCategoryRepository request) {
+        // TODO request add to cache
+    }
+
+    public LiveData<Response<SkinCategoryRepository>> createCategoryRequest(String bundleName) {
+        // TODO: complete the API URI with formal url
+        return RequestUtil.observalbeRequestProtobuf("http://10.134.73.228/api/skincategory?proto=1&id=" + bundleName, context,
+                SkinCategoryRepository.parser());
+    }
+
+    public LiveData<List<SkinViewEntity>> getCategoryGroupPage(String groupName) {
+        return null;
+    }
+
+    public LiveData<List<SkinViewEntity>> getMockCategoryGroupPage(String groupName) {
+        return null;
+    }
+
+    public LiveData<List<SkinViewEntity>> getMockCategoryPage(String categoryName) {
+        return null;
+    }
+
+    public LiveData<List<SkinViewEntity>> getCategoryPage(String categoryName) {
+        return null;
     }
 }

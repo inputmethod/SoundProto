@@ -60,13 +60,21 @@ public class SkinHomeCardView extends RelativeLayout {
         }
     }
 
-    private void checkAndChangeLayout(SkinViewEntity entity, DisplayImageOptions imageOptions) {
+    private void checkAndChangeLayout(final SkinViewEntity entity, DisplayImageOptions imageOptions) {
         if (TextUtils.isEmpty(entity.getBundleName()) && !entity.isHasMore()) {
             titleLayout.setVisibility(GONE);
         } else {
             titleLayout.setVisibility(VISIBLE);
             titleView.setText(entity.getBundleName());
             moreView.setVisibility(entity.isHasMore() ? VISIBLE : GONE);
+
+            // todo: set the click listener to the whole bar or more view only?
+            moreView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SkinEntityAdapterFactory.onMoreItemClicked(v.getContext(), entity);
+                }
+            });
         }
 
         SkinEntityAdapterFactory.fillSubList(recyclerView, entity, imageOptions);

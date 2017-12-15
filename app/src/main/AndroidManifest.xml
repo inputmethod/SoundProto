@@ -24,7 +24,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SkinActivity"
+        <activity android:name=".SkinHomeActivity"
+            android:label="@string/skin_name"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".SkinCategoryActivity"
+            android:label="@string/skin_name"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".SkinCategoryGroupActivity"
             android:label="@string/skin_name"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>

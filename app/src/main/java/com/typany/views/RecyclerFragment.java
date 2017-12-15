@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,13 +61,11 @@ abstract public class RecyclerFragment extends Fragment {
         mLoadingFragment = new LoadingFragment();
 
         return view;
-//        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(getColumnCount(), GridLayoutManager.VERTICAL));
         mRecyclerView.setAdapter(instanceAdapter(mOptions));
 
@@ -83,6 +82,15 @@ abstract public class RecyclerFragment extends Fragment {
             e.printStackTrace();
             SLog.e(TAG, "unexpected exception: " + e.getMessage());
         }
+    }
+
+    protected final String updateActivityTitle() {
+        Bundle bundle = getArguments();
+        String title = bundle.getString("bundleName");
+        if (!TextUtils.isEmpty(title)) {
+            getActivity().setTitle(title);
+        }
+        return title;
     }
 
     protected abstract LiveData getLiveData();

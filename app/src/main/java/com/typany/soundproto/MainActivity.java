@@ -28,7 +28,7 @@ public class MainActivity extends FragmentActivity {
     private void onFabClicked(View view) {
         Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
-        Intent intent = new Intent(this, SkinActivity.class);
+        Intent intent = new Intent(this, SkinHomeActivity.class);
         startActivity(intent);
     }
 

@@ -1,5 +1,9 @@
 package com.typany.skin2.home.adapter;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -8,7 +12,11 @@ import android.view.View;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.typany.debug.SLog;
 import com.typany.skin2.home.model.SkinCategory;
+import com.typany.skin2.home.model.SkinCategoryGroup;
 import com.typany.skin2.home.model.SkinViewEntity;
+import com.typany.soundproto.FragmentActivity;
+import com.typany.soundproto.SkinCategoryActivity;
+import com.typany.soundproto.SkinCategoryGroupActivity;
 
 import java.util.List;
 
@@ -67,5 +75,29 @@ public class SkinEntityAdapterFactory {
                 SLog.e(TAG, "Unknown entity: " + entity.getBundleName() + ", " + displayColumn);
             }
         }
+    }
+
+    // 点击皮肤首页的collection, category头部的"更多"， 显示下一级列表
+    public static void onMoreItemClicked(Context context, SkinViewEntity entity) {
+        Class cls = entity.getClass();
+        if (SkinCategory.class == cls) {
+            startActivityFor(context, SkinCategoryActivity.class, entity.getBundleName());
+        } else if (SkinCategoryGroup.class == cls) {
+            startActivityFor(context, SkinCategoryGroupActivity.class, entity.getBundleName());
+        } else {
+            SLog.e(TAG, "onMoreItemClicked, unexpected More for type: " + cls);
+        }
+    }
+    private static void startActivityFor(Context context, Class<? extends FragmentActivity> target, String bundleName) {
+        Intent intent = new Intent(context, target);
+        intent.putExtra("bundleName", bundleName);
+        context.startActivity(intent);
+    }
+
+    public static <T extends Fragment> void parseArguments(T fragment, Intent intent) {
+        String bundleName = intent.getStringExtra("bundleName");
+        Bundle bundle = new Bundle();
+        bundle.putString("bundleName", bundleName);
+        fragment.setArguments(bundle);
     }
 }

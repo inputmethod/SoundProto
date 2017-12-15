@@ -1,6 +1,7 @@
 package com.typany.skin2.home.adapter;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -21,7 +22,6 @@ import java.util.List;
  */
 abstract public class SkinEntityAdapter extends RecyclerView.Adapter<SkinEntityAdapter.ViewHolder> {
     private final DisplayImageOptions displayImageOptions;
-
     private List<SkinViewEntity> itemList;
 
     private int getLimitedDataSize() {
@@ -42,9 +42,13 @@ abstract public class SkinEntityAdapter extends RecyclerView.Adapter<SkinEntityA
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_skin_card, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(getItemLayoutResourceId(), parent, false);
         final ViewHolder holder = newViewHolderInstance(view, displayImageOptions);
         return holder;
+    }
+
+    protected @LayoutRes int getItemLayoutResourceId() {
+        return R.layout.item_skin_card;
     }
 
     @Override
