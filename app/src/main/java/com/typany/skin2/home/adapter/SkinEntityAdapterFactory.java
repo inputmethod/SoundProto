@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -27,12 +28,48 @@ import java.util.List;
 public class SkinEntityAdapterFactory {
     private static final String TAG = SkinEntityAdapterFactory.class.getSimpleName();
 
-    public static SkinEntityAdapter buildAdapterFrom(Class<? extends SkinViewEntity> cls, DisplayImageOptions imageOptions) {
+    public static int calculateSpanSize(SkinViewEntity viewEntity) {
+        if (isAdStub(viewEntity.getBundleName())) {
+            return 2;
+        } else {
+            return 1;
+        }
+    }
+
+    public static class LayoutSpanSizeLookup extends GridLayoutManager.SpanSizeLookup {
+        private final List<SkinViewEntity> entityList;
+        public LayoutSpanSizeLookup(List<SkinViewEntity> entityList) {
+            this.entityList = entityList;
+        }
+
+        @Override
+        public int getSpanSize(int position) {
+            return calculateSpanSize(entityList.get(position));
+        }
+    }
+
+    public static SkinEntityAdapter buildAdapterFrom(Class<? extends SkinViewEntity> cls, DisplayImageOptions imageOptions, boolean horizontal) {
         if (cls == SkinCategory.class) {
             return new SkinBundleEntityAdapter(imageOptions);
         } else {
             SLog.i(TAG, "buildAdapterFrom return default SkinCategoryEntityAdapter for " + cls);
-            return new SkinCategoryEntityAdapter(imageOptions);
+            return new SkinCategoryEntityAdapter(imageOptions, horizontal);
+        }
+    }
+
+    private static RecyclerView.LayoutManager buildGridLayoutManager(Context context, int displayColumn, LayoutSpanSizeLookup lookup) {
+        if (displayColumn == 0) {
+            // todo: 显示单排小圆风格的图标
+            SLog.e(TAG, "todo: display small circle icon, e.g. for collection");
+            LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+            layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            return layoutManager;
+        } else if (displayColumn > 0) {
+            GridLayoutManager layoutManager = new GridLayoutManager(context, displayColumn);
+            layoutManager.setSpanSizeLookup(lookup);
+            return layoutManager;
+        } else {
+            return null;
         }
     }
 
@@ -51,28 +88,15 @@ public class SkinEntityAdapterFactory {
         } else {
             recyclerView.setVisibility(View.VISIBLE);
             int displayColumn = entity.getDisplayColumn();
-            if (displayColumn > 0) {
-                SkinEntityAdapter adapter = SkinEntityAdapterFactory.buildAdapterFrom(entity.getClass(), imageOptions);
-                recyclerView.setAdapter(adapter);
-                GridLayoutManager layoutManager = new GridLayoutManager(recyclerView.getContext(), entity.getDisplayColumn());
-                layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                    @Override
-                    public int getSpanSize(int position) {
-                        if (isAdStub(entityList.get(position).getBundleName())) {
-                            return 2;
-                        } else {
-                            return 1;
-                        }
-                    }
-                });
-                recyclerView.setLayoutManager(layoutManager);
-                adapter.setSkinItemList(entityList);
-            } else if (displayColumn == 0){
-                // todo: 显示单排小圆风格的图标
-                SLog.e(TAG, "todo: display small circle icon, e.g. for collection");
-            } else {
+            RecyclerView.LayoutManager layoutManager = buildGridLayoutManager(recyclerView.getContext(), displayColumn, new LayoutSpanSizeLookup(entityList));
+            if (null == layoutManager) {
                 // todo: 异常？不识别的数据集合
                 SLog.e(TAG, "Unknown entity: " + entity.getBundleName() + ", " + displayColumn);
+            } else {
+                recyclerView.setLayoutManager(layoutManager);
+                SkinEntityAdapter adapter = buildAdapterFrom(entity.getClass(), imageOptions, displayColumn == 0);
+                recyclerView.setAdapter(adapter);
+                adapter.setSkinItemList(entityList);
             }
         }
     }
@@ -81,13 +105,18 @@ public class SkinEntityAdapterFactory {
     public static void onMoreItemClicked(Context context, SkinViewEntity entity) {
         Class cls = entity.getClass();
         if (SkinCategory.class == cls) {
-            startActivityFor(context, SkinCategoryActivity.class, entity.getBundleName());
+            startCategoryActivity(context, entity.getBundleName());
         } else if (SkinCategoryGroup.class == cls) {
             startActivityFor(context, SkinCategoryGroupActivity.class, entity.getBundleName());
         } else {
             SLog.e(TAG, "onMoreItemClicked, unexpected More for type: " + cls);
         }
     }
+
+    public static void startCategoryActivity(Context context, String bundleName) {
+        startActivityFor(context, SkinCategoryActivity.class, bundleName);
+    }
+
     private static void startActivityFor(Context context, Class<? extends FragmentActivity> target, String bundleName) {
         Intent intent = new Intent(context, target);
         intent.putExtra("bundleName", bundleName);

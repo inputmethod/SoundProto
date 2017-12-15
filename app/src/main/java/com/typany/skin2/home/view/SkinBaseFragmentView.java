@@ -3,6 +3,8 @@ package com.typany.skin2.home.view;
 import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.typany.debug.SLog;
@@ -51,4 +53,16 @@ abstract public class SkinBaseFragmentView extends RecyclerFragment {
                 SLog.e(TAG, "onChanged: status is " + skinResource.status);
         }
     };
+
+    @Override
+    protected RecyclerView.LayoutManager instanceLayoutManager() {
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), getColumnCount());
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return skinBundleAdapter.calculateSpanSize(position);
+            }
+        });
+        return layoutManager;
+    }
 }

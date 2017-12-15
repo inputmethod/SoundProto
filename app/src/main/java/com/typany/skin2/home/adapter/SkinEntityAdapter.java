@@ -105,6 +105,10 @@ abstract public class SkinEntityAdapter extends RecyclerView.Adapter<SkinEntityA
 
     protected abstract void onItemViewClicked(Context context, SkinViewEntity viewEntity);
 
+    public int calculateSpanSize(int position) {
+        return SkinEntityAdapterFactory.calculateSpanSize(itemList.get(position));
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         private final DisplayImageOptions imageOptions;
         private final ImageView previewImageView;

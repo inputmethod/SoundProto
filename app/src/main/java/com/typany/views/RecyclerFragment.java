@@ -66,12 +66,17 @@ abstract public class RecyclerFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(getColumnCount(), GridLayoutManager.VERTICAL));
+        RecyclerView.LayoutManager layoutManager = instanceLayoutManager();
+        mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(instanceAdapter(mOptions));
 
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
         ft.add(R.id.fl_container, mLoadingFragment);
         ft.commit();
+    }
+
+    protected RecyclerView.LayoutManager instanceLayoutManager() {
+        return new StaggeredGridLayoutManager(getColumnCount(), GridLayoutManager.VERTICAL);
     }
 
     protected void startObserver(Observer observer) {

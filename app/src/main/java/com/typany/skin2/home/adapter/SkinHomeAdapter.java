@@ -2,12 +2,13 @@ package com.typany.skin2.home.adapter;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.typany.debug.SLog;
 import com.typany.skin2.home.model.SkinViewEntity;
-import com.typany.skin2.home.view.SkinHomeCardView;
 import com.typany.soundproto.R;
 
 /**
@@ -40,17 +41,40 @@ public class SkinHomeAdapter extends SkinEntityAdapter {
 
     static class HomeViewHolder extends ViewHolder {
         private final DisplayImageOptions imageOptions;
+
+        private RecyclerView recyclerView;
+        private View titleLayout;
+        private TextView titleView;
+        private TextView moreView;
+
         public HomeViewHolder(View itemView, DisplayImageOptions options) {
             super(itemView, options);
             this.imageOptions = options;
+
+            titleLayout = itemView.findViewById(R.id.theme_title);
+            recyclerView = (RecyclerView) itemView.findViewById(R.id.theme_content);
+            titleView = (TextView) titleLayout.findViewById(R.id.tv_title);
+            moreView = (TextView) titleLayout.findViewById(R.id.tv_more);
         }
 
         public void bind(final SkinViewEntity viewEntity) {
-            if (itemView instanceof SkinHomeCardView) {
-                ((SkinHomeCardView) itemView).setItem(viewEntity, imageOptions);
+            if (TextUtils.isEmpty(viewEntity.getBundleName()) && !viewEntity.isHasMore()) {
+                titleLayout.setVisibility(View.GONE);
             } else {
-                SLog.e(TAG, "HomeViewHolder bind item with unexpected type: " + itemView.getClass().getCanonicalName());
+                titleLayout.setVisibility(View.VISIBLE);
+                titleView.setText(viewEntity.getBundleName());
+                moreView.setVisibility(viewEntity.isHasMore() ? View.VISIBLE : View.GONE);
+
+                // todo: set the click listener to the whole bar or more view only?
+                moreView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        SkinEntityAdapterFactory.onMoreItemClicked(v.getContext(), viewEntity);
+                    }
+                });
             }
+
+            SkinEntityAdapterFactory.fillSubList(recyclerView, viewEntity, imageOptions);
         }
     }
 }
