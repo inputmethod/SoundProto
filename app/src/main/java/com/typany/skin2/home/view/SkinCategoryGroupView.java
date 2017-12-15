@@ -31,8 +31,8 @@ public class SkinCategoryGroupView extends SkinBaseFragmentView {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
         categoryName = updateActivityTitle();
+        super.onActivityCreated(savedInstanceState);
     }
 
     @Override

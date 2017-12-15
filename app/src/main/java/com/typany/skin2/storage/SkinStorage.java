@@ -19,7 +19,9 @@ import com.typany.skin2.model.SkinPackage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by dingbei on 11/19/2017.
@@ -34,7 +36,9 @@ public class SkinStorage {
     private final String resolution;
     private SkinPackage defaultSkinPackage;
 
-    private List<SkinViewEntity> homeViewEntitiesCache = new ArrayList<>();
+    private final List<SkinViewEntity> homeViewEntitiesCache = new ArrayList<>();
+    private final Map<String, List<SkinViewEntity>> categoryGroupCache = new HashMap<>();
+    private final Map<String, List<SkinViewEntity>> categoryViewCache = new HashMap<>();
 
     private final String DEFAULT_SKIN_NAME = "1001001042";
 
@@ -163,19 +167,29 @@ public class SkinStorage {
                 SkinCategoryRepository.parser());
     }
 
+    // todo: save and maintain cache
     public LiveData<List<SkinViewEntity>> getCategoryGroupPage(String groupName) {
-        return null;
+        MutableLiveData<List<SkinViewEntity>> mutableLiveData = new MutableLiveData<>();
+        mutableLiveData.setValue(categoryGroupCache.get(groupName));
+        return mutableLiveData;
+    }
+
+    // todo: save and maintain cache
+    public LiveData<List<SkinViewEntity>> getCategoryPage(String categoryName) {
+        MutableLiveData<List<SkinViewEntity>> mutableLiveData = new MutableLiveData<>();
+        mutableLiveData.setValue(categoryViewCache.get(categoryName));
+        return mutableLiveData;
     }
 
     public LiveData<List<SkinViewEntity>> getMockCategoryGroupPage(String groupName) {
-        return null;
+        MutableLiveData<List<SkinViewEntity>> mutableLiveData = new MutableLiveData<>();
+        mutableLiveData.setValue(SkinStorageMock.categoryGroupCache);
+        return mutableLiveData;
     }
 
     public LiveData<List<SkinViewEntity>> getMockCategoryPage(String categoryName) {
-        return null;
-    }
-
-    public LiveData<List<SkinViewEntity>> getCategoryPage(String categoryName) {
-        return null;
+        MutableLiveData<List<SkinViewEntity>> mutableLiveData = new MutableLiveData<>();
+        mutableLiveData.setValue(SkinStorageMock.categoryViewCache);
+        return mutableLiveData;
     }
 }

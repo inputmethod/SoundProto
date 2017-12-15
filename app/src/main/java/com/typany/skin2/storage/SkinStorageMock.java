@@ -28,33 +28,34 @@ public class SkinStorageMock {
     public final static List<SkinViewEntity> homeViewEntitiesCache = new ArrayList<>();
     private final static SkinCategoryGroup collection = new SkinCategoryGroup();
     private final static SkinCategoryGroup categories = new SkinCategoryGroup();
+    private final static SkinCategoryGroup fullCategories = new SkinCategoryGroup();
 
     private final static SkinCategory feature = new SkinCategory();
     private final static SkinCategory trending = new SkinCategory();
     private final static SkinCategory allThemes = new SkinCategory();
 
-    static {
-        topAdStub.setBundleName(AD_TOP_NAME);
-        dynamicAdStub.setBundleName(AD_DYNAMIC_NAME);
 
+    private final static SkinCategory fullBundles = new SkinCategory();
+    public final static List<SkinViewEntity> categoryGroupCache = new ArrayList<>();
+    public final static List<SkinViewEntity> categoryViewCache = new ArrayList<>();
+    
+    private static void addCollectionCategoryGroup(SkinCategoryGroup collection) {
         appendCategoryGroup(collection, "3D", "Selected/3D_1505126102.png");
         appendCategoryGroup(collection, "Multicolor", "Selected/Multicolor_1504084997.png");
         appendCategoryGroup(collection, "Gold", "Selected/Gold_1504084961.png");
         appendCategoryGroup(collection, "Pink", "Selected/Pink_1504085104.png");
         appendCategoryGroup(collection, "Blue", "Selected/Blue_1504085018.png");
         appendCategoryGroup(collection, "Silver", "Selected/Silver_1504085196.png");
-        collection.setBundleName("Collection");
-        collection.setDisplayColumn(0);
-        collection.setHasMore(true);
+    }
 
+    private static void addSimpleCategories(SkinCategoryGroup categories) {
         appendCategoryGroup(categories, "Cool", "ThemeGroup/cool.png");
         appendCategoryGroup(categories, "Sports", "ThemeGroup/sports.png");
         appendCategoryGroup(categories, "Love", "ThemeGroup/LOVE111.png");
         appendCategoryGroup(categories, "Cartoon", "ThemeGroup/cartoon111.png");
-        categories.setBundleName("Categories");
-        categories.setDisplayColumn(2);
-        categories.setHasMore(true);
+    }
 
+    private static void fillFeatureBundle(SkinCategory feature) {
         appendBundleCategory(feature, "Fire Eye Wolf", "Theme/7000000947_1513080567.png");
         appendBundleCategory(feature, "Pocket Monster", "Theme/7000000944_1513079629.png");
         feature.getBundleList().add(topAdStub);
@@ -64,19 +65,14 @@ public class SkinStorageMock {
         appendBundleCategory(feature, "Pink Monster", "Theme/7000000905_1511953721.png");
         appendBundleCategory(feature, "Birthday Blue Cat", "Theme/7000000892_1511951123.webp");
         appendBundleCategory(feature, "Pink Wizard Monster", "Theme/7000000923_1512814549.webp");
+    }
 
-        feature.setBundleName("Feature");
-        feature.setDisplayColumn(2);
-        feature.setHasMore(true);
-
+    private static void fillTrendingBundle(SkinCategory trending) {
         appendBundleCategory(trending, "Merry Christmas", "Theme/7000000919_1512718775.webp");
         appendBundleCategory(trending, "Blue Monster", "Theme/8000000255_1508142748.png");
+    }
 
-        trending.setBundleName("Trending");
-        trending.setDisplayColumn(2);
-        trending.setHasMore(true);
-
-
+    private static void fillAllBundle(SkinCategory allThemes) {
         appendBundleCategory(allThemes, "Merry Christmas", "Theme/7000000919_1512718775.webp");
         appendBundleCategory(allThemes, "Blue Monster", "Theme/8000000255_1508142748.png");
         appendBundleCategory(allThemes, "Fire Eye Wolf", "Theme/7000000947_1513080567.png");
@@ -88,8 +84,33 @@ public class SkinStorageMock {
         appendBundleCategory(allThemes, "Pink Monster", "Theme/7000000905_1511953721.png");
         appendBundleCategory(allThemes, "Birthday Blue Cat", "Theme/7000000892_1511951123.webp");
         appendBundleCategory(allThemes, "Pink Wizard Monster", "Theme/7000000923_1512814549.webp");
+    }
 
+    static {
+        topAdStub.setBundleName(AD_TOP_NAME);
+        dynamicAdStub.setBundleName(AD_DYNAMIC_NAME);
 
+        addCollectionCategoryGroup(collection);
+        collection.setBundleName("Collection");
+        collection.setDisplayColumn(0);
+        collection.setHasMore(true);
+
+        addSimpleCategories(categories);
+        categories.setBundleName("Categories");
+        categories.setDisplayColumn(2);
+        categories.setHasMore(true);
+
+        fillFeatureBundle(feature);
+        feature.setBundleName("Feature");
+        feature.setDisplayColumn(2);
+        feature.setHasMore(true);
+
+        fillTrendingBundle(trending);
+        trending.setBundleName("Trending");
+        trending.setDisplayColumn(2);
+        trending.setHasMore(true);
+
+        fillAllBundle(allThemes);
         allThemes.setBundleName("All Themes");
         allThemes.setDisplayColumn(2);
         allThemes.setHasMore(false);
@@ -99,7 +120,18 @@ public class SkinStorageMock {
         homeViewEntitiesCache.add(feature);
         homeViewEntitiesCache.add(trending);
         homeViewEntitiesCache.add(allThemes);
+
+        addSimpleCategories(fullCategories);
+        addCollectionCategoryGroup(fullCategories);
+        categoryGroupCache.add(collection);
+        categoryGroupCache.add(fullCategories);
+
+        fillAllBundle(fullBundles);
+        fillTrendingBundle(fullBundles);
+        fillFeatureBundle(fullBundles);
+        categoryViewCache.addAll(fullBundles.getBundleList());
     }
+
     private static void appendBundleCategory(SkinCategory category, String name, String urlSuffix) {
         SkinBundle bundle = new SkinBundle();
         bundle.setBundleName(name);
@@ -118,6 +150,7 @@ public class SkinStorageMock {
 
         category.getBundleList().add(bundle);
     }
+
     private static void appendCategoryGroup(SkinCategoryGroup group, String name, String urlSuffix) {
         SkinViewEntity entity = new SkinViewEntity();
         entity.setBundleName(name);

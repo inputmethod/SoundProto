@@ -10,7 +10,6 @@ import android.util.Log;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.typany.network.StatefulResource;
-import com.typany.skin2.home.adapter.SkinEntityAdapter;
 import com.typany.sound.adapter.SoundAdapter;
 import com.typany.sound.service.SoundBoundItem;
 import com.typany.sound.viewmodel.SoundViewModel;
