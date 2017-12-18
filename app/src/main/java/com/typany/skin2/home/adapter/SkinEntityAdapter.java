@@ -32,9 +32,9 @@ abstract public class SkinEntityAdapter extends RecyclerView.Adapter<SkinEntityA
         }
     }
 
-    protected ViewHolder newViewHolderInstance(View view, DisplayImageOptions displayImageOptions) {
+    abstract protected ViewHolder newViewHolderInstance(View view, DisplayImageOptions displayImageOptions); /*{
         return new ViewHolder(view, displayImageOptions);
-    }
+    }*/
 
     public SkinEntityAdapter(DisplayImageOptions options) {
         this.displayImageOptions = options;
@@ -47,20 +47,21 @@ abstract public class SkinEntityAdapter extends RecyclerView.Adapter<SkinEntityA
         return holder;
     }
 
-    protected @LayoutRes int getItemLayoutResourceId() {
-        return R.layout.item_skin_card;
-    }
+    abstract protected @LayoutRes int getItemLayoutResourceId();
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final SkinViewEntity viewEntity = itemList.get(position);
         holder.bind(viewEntity);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onItemViewClicked(v.getContext(), viewEntity);
-            }
-        });
+
+        if (isEntityClickable()) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemViewClicked(v.getContext(), viewEntity);
+                }
+            });
+        }
     }
 
     @Override
@@ -103,23 +104,35 @@ abstract public class SkinEntityAdapter extends RecyclerView.Adapter<SkinEntityA
         }
     }
 
-    protected abstract void onItemViewClicked(Context context, SkinViewEntity viewEntity);
+    // 默认的列表元素不响应点击事件的，当一个具体派生类不响应点击事件，可重载此方法并返回true并
+    // 重载onItemViewClicked()实现具体的响应逻辑
+    protected boolean isEntityClickable () {
+        return false;
+    }
+
+    // 可接收点击事件的列表元素被点击时的回调，派生类实现具体响应逻辑，这个方法只有在方法isEntityClickable
+    // 被重载并返回true时，才会被调用到.
+    protected final void onItemViewClicked(Context context, SkinViewEntity viewEntity) {
+        SkinEntityAdapterFactory.onItemClicked(context, viewEntity);
+    }
 
     public int calculateSpanSize(int position, int totalSpanSize) {
         return SkinEntityAdapterFactory.calculateSpanSize(itemList.get(position), totalSpanSize);
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    static abstract class ViewHolder extends RecyclerView.ViewHolder {
         private final DisplayImageOptions imageOptions;
-        private final ImageView previewImageView;
+//        private final ImageView previewImageView;
 
         public ViewHolder(View itemView, DisplayImageOptions options) {
             super(itemView);
             imageOptions = options;
-            previewImageView = (ImageView) itemView.findViewById(R.id.iv_skin);
+//            previewImageView = (ImageView) itemView.findViewById(R.id.iv_skin);
         }
 
-        public void bind(final SkinViewEntity viewEntity) {
+        abstract protected void bind(SkinViewEntity viewEntity);
+
+        protected void bindPreviewImageView(ImageView previewImageView, SkinViewEntity viewEntity) {
             if (SkinEntityAdapterFactory.isAdStub(viewEntity.getBundleName())) {
                 // todo: replace possible ad view in the item view.
                 previewImageView.setImageResource(R.mipmap.ic_launcher);

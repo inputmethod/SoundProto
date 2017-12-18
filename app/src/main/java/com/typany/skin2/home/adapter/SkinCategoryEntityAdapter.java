@@ -1,8 +1,8 @@
 package com.typany.skin2.home.adapter;
 
-import android.content.Context;
 import android.support.annotation.LayoutRes;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.typany.skin2.home.model.SkinViewEntity;
@@ -23,24 +23,34 @@ public class SkinCategoryEntityAdapter extends SkinEntityAdapter {
     }
 
     @Override
+    protected ViewHolder newViewHolderInstance(View view, DisplayImageOptions displayImageOptions) {
+        return new PreviewViewHolder(view, displayImageOptions);
+    }
+
+    @Override
 
     protected @LayoutRes int getItemLayoutResourceId() {
         if (horizontal) {
             return R.layout.item_skin_category_horizontal;
         } else {
-            return super.getItemLayoutResourceId();
+            return R.layout.item_skin_card;
         }
     }
 
-
     @Override
-    protected void onItemViewClicked(Context context, SkinViewEntity viewEntity) {
-        // todo: show skin entity list of the category.
-        if (viewEntity.getClass() == SkinViewEntity.class) {
-//            Toast.makeText(context, "onItemViewClicked to show category: " + viewEntity.getBundleName(), Toast.LENGTH_SHORT).show();
-            SkinEntityAdapterFactory.startCategoryActivity(context, viewEntity.getBundleName());
-        } else {
-            Toast.makeText(context, "onItemViewClicked error type of " + viewEntity.getClass().getSimpleName(), Toast.LENGTH_SHORT).show();
+    protected boolean isEntityClickable () {
+        return true;
+    }
+
+    static class PreviewViewHolder extends ViewHolder {
+        private final ImageView previewImageView;
+        public PreviewViewHolder(View itemView, DisplayImageOptions options) {
+            super(itemView, options);
+            previewImageView = itemView.findViewById(R.id.iv_skin);
+        }
+
+        public void bind(final SkinViewEntity viewEntity) {
+            bindPreviewImageView(previewImageView, viewEntity);
         }
     }
 }

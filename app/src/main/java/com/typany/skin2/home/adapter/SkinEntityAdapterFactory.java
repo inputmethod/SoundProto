@@ -10,9 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.LayoutManager;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.typany.debug.SLog;
+import com.typany.skin2.home.model.SkinBundle;
 import com.typany.skin2.home.model.SkinCategory;
 import com.typany.skin2.home.model.SkinCategoryGroup;
 import com.typany.skin2.home.model.SkinViewEntity;
@@ -38,6 +40,18 @@ public class SkinEntityAdapterFactory {
             return columns;
         } else {
             return DEFAULT_SPAN_SIZE;
+        }
+    }
+
+    // 分类列表和皮肤列表元素被点击
+    // todo: 广告位占位，运营占位，more占位的统一处理
+    public static void onItemClicked(Context context, SkinViewEntity viewEntity) {
+        if (viewEntity instanceof SkinBundle) {
+            Toast.makeText(context, "onItemViewClicked with " + viewEntity.getClass().getSimpleName(), Toast.LENGTH_SHORT).show();
+        } else if (viewEntity.getClass() == SkinViewEntity.class) {
+            startCategoryActivity(context, viewEntity.getBundleName());
+        } else {
+            Toast.makeText(context, "onItemViewClicked error type of " + viewEntity.getClass().getSimpleName(), Toast.LENGTH_SHORT).show();
         }
     }
 

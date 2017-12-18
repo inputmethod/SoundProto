@@ -1,9 +1,9 @@
 package com.typany.skin2.home.adapter;
 
-import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.typany.debug.SLog;
@@ -27,13 +27,13 @@ public class SkinBundleEntityAdapter extends SkinEntityAdapter {
     }
 
     @Override
-    protected void onItemViewClicked(Context context, final SkinViewEntity viewEntity) {
-        // todo: show skin bundle detail.
-        if (viewEntity instanceof SkinBundle) {
-            Toast.makeText(context, "onItemViewClicked with " + viewEntity.getClass().getSimpleName(), Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, "onItemViewClicked error type of " + viewEntity.getClass().getSimpleName(), Toast.LENGTH_SHORT).show();
-        }
+    protected @LayoutRes int getItemLayoutResourceId() {
+        return R.layout.item_skin_card;
+    }
+
+    @Override
+    protected boolean isEntityClickable () {
+        return true;
     }
 
     @Override
@@ -43,12 +43,14 @@ public class SkinBundleEntityAdapter extends SkinEntityAdapter {
 
     static class BundleViewHolder extends ViewHolder {
         private final LinearLayout indicatorView;
+        private final ImageView previewImageView;
         public BundleViewHolder(View itemView, DisplayImageOptions options) {
             super(itemView, options);
-            indicatorView = (LinearLayout) itemView.findViewById(R.id.indicator_group);
+            indicatorView = itemView.findViewById(R.id.indicator_group);
+            previewImageView = itemView.findViewById(R.id.iv_skin);
         }
         public void bind(final SkinViewEntity viewEntity) {
-             super.bind(viewEntity);
+            bindPreviewImageView(previewImageView, viewEntity);
 
             if (viewEntity instanceof SkinBundle) {
                 SkinBundle bundle = (SkinBundle) viewEntity;

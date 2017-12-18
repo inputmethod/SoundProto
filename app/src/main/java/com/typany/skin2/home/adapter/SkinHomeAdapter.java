@@ -1,6 +1,5 @@
 package com.typany.skin2.home.adapter;
 
-import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -32,11 +31,6 @@ public class SkinHomeAdapter extends SkinEntityAdapter {
     protected @LayoutRes
     int getItemLayoutResourceId() {
         return R.layout.item_skin_home_card_view;
-    }
-
-    @Override
-    protected void onItemViewClicked(Context context, SkinViewEntity viewEntity) {
-        // need to do nothing
     }
 
     static class HomeViewHolder extends ViewHolder {
