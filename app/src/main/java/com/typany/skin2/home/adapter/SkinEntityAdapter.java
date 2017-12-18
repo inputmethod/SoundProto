@@ -1,6 +1,7 @@
 package com.typany.skin2.home.adapter;
 
 import android.content.Context;
+import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
@@ -9,9 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.typany.debug.SLog;
+import com.typany.skin2.home.model.SkinBundle;
 import com.typany.skin2.home.model.SkinViewEntity;
 import com.typany.soundproto.R;
 
@@ -19,8 +24,13 @@ import java.util.List;
 
 /**
  * Created by yangfeng on 2017/12/15.
+ *
+ * 皮肤首页，分类列表和皮肤列表页的adapter基类及它们相关的View Holder类
+ *
  */
 abstract public class SkinEntityAdapter extends RecyclerView.Adapter<SkinEntityAdapter.ViewHolder> {
+    private static final String TAG = SkinEntityAdapter.class.getSimpleName();
+
     private final DisplayImageOptions displayImageOptions;
     private List<SkinViewEntity> itemList;
 
@@ -120,14 +130,13 @@ abstract public class SkinEntityAdapter extends RecyclerView.Adapter<SkinEntityA
         return SkinEntityAdapterFactory.calculateSpanSize(itemList.get(position), totalSpanSize);
     }
 
+    // 抽象的view holder, 只保存所有派生类都需要的图片加载选项
     static abstract class ViewHolder extends RecyclerView.ViewHolder {
         private final DisplayImageOptions imageOptions;
-//        private final ImageView previewImageView;
 
         public ViewHolder(View itemView, DisplayImageOptions options) {
             super(itemView);
             imageOptions = options;
-//            previewImageView = (ImageView) itemView.findViewById(R.id.iv_skin);
         }
 
         abstract protected void bind(SkinViewEntity viewEntity);
@@ -139,6 +148,97 @@ abstract public class SkinEntityAdapter extends RecyclerView.Adapter<SkinEntityA
             } else {
                 ImageLoader.getInstance().displayImage(viewEntity.getPreviewUrl(), previewImageView, imageOptions);
             }
+        }
+
+        protected void fillSubList(RecyclerView recyclerView, SkinViewEntity entity) {
+            SkinEntityAdapterFactory.fillSubList(recyclerView, entity, imageOptions);
+        }
+    }
+
+    // 类别和皮肤都含有预览图片，类别直接使用这个view holder，皮肤再派生出类来管理
+    // 更多的子views.
+    static class PreviewViewHolder extends ViewHolder {
+        private final ImageView previewImageView;
+        public PreviewViewHolder(View itemView, DisplayImageOptions options) {
+            super(itemView, options);
+            previewImageView = itemView.findViewById(R.id.iv_skin);
+        }
+
+        @CallSuper
+        public void bind(final SkinViewEntity viewEntity) {
+            bindPreviewImageView(previewImageView, viewEntity);
+        }
+
+        public static int layoutResourceId() {
+            return R.layout.item_skin_card;
+        }
+    }
+
+    // 皮肤列表的View Holder
+    static class BundleViewHolder extends PreviewViewHolder {
+        private final LinearLayout indicatorView;
+        public BundleViewHolder(View itemView, DisplayImageOptions options) {
+            super(itemView, options);
+            indicatorView = itemView.findViewById(R.id.indicator_group);
+        }
+
+        public void bind(final SkinViewEntity viewEntity) {
+            super.bind(viewEntity);
+
+            if (viewEntity instanceof SkinBundle) {
+                SkinBundle bundle = (SkinBundle) viewEntity;
+                if (bundle.getIconList().isEmpty()) {
+                    indicatorView.setVisibility(View.VISIBLE);
+                    // todo: add icon into the
+                }
+            } else {
+                SLog.e(TAG, "The item type should be SkinBundle: " + viewEntity.getClass().getCanonicalName());
+            }
+        }
+    }
+
+    // 含标题和子列表的View Holder
+    static class RecyclerViewHolder extends ViewHolder {
+        private RecyclerView recyclerView;
+        private View titleLayout;
+        private TextView titleView;
+        private TextView moreView;
+
+        public RecyclerViewHolder(View itemView, DisplayImageOptions options) {
+            super(itemView, options);
+
+            titleLayout = itemView.findViewById(R.id.theme_title);
+            recyclerView = itemView.findViewById(R.id.theme_content);
+            titleView = titleLayout.findViewById(R.id.tv_title);
+            moreView = titleLayout.findViewById(R.id.tv_more);
+        }
+
+        public void bind(final SkinViewEntity viewEntity) {
+            if (TextUtils.isEmpty(viewEntity.getBundleName())) {
+                titleLayout.setVisibility(View.GONE);
+            } else {
+                titleLayout.setVisibility(View.VISIBLE);
+                titleView.setText(viewEntity.getBundleName());
+
+                if (viewEntity.isHasMore()) {
+                    moreView.setVisibility(View.VISIBLE);
+                    moreView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            SkinEntityAdapterFactory.onMoreItemClicked(v.getContext(), viewEntity);
+                        }
+                    });
+                } else {
+                    moreView.setVisibility(View.GONE);
+                    moreView.setOnClickListener(null);
+                }
+            }
+
+            fillSubList(recyclerView, viewEntity);
+        }
+
+        public static int layoutResourceId() {
+            return R.layout.item_skin_home_card_view;
         }
     }
 }

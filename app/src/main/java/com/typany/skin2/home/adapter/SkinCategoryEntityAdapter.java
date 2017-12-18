@@ -2,10 +2,8 @@ package com.typany.skin2.home.adapter;
 
 import android.support.annotation.LayoutRes;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.typany.skin2.home.model.SkinViewEntity;
 import com.typany.soundproto.R;
 
 /**
@@ -16,10 +14,10 @@ import com.typany.soundproto.R;
  */
 
 public class SkinCategoryEntityAdapter extends SkinEntityAdapter {
-    private final boolean horizontal;
+    private @LayoutRes int layoutResourceId;
     public SkinCategoryEntityAdapter(DisplayImageOptions options, boolean horizontal) {
         super(options);
-        this.horizontal = horizontal;
+        layoutResourceId = horizontal ? R.layout.item_skin_category_horizontal : PreviewViewHolder.layoutResourceId();
     }
 
     @Override
@@ -28,29 +26,12 @@ public class SkinCategoryEntityAdapter extends SkinEntityAdapter {
     }
 
     @Override
-
     protected @LayoutRes int getItemLayoutResourceId() {
-        if (horizontal) {
-            return R.layout.item_skin_category_horizontal;
-        } else {
-            return R.layout.item_skin_card;
-        }
+        return layoutResourceId;
     }
 
     @Override
     protected boolean isEntityClickable () {
         return true;
-    }
-
-    static class PreviewViewHolder extends ViewHolder {
-        private final ImageView previewImageView;
-        public PreviewViewHolder(View itemView, DisplayImageOptions options) {
-            super(itemView, options);
-            previewImageView = itemView.findViewById(R.id.iv_skin);
-        }
-
-        public void bind(final SkinViewEntity viewEntity) {
-            bindPreviewImageView(previewImageView, viewEntity);
-        }
     }
 }

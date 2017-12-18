@@ -49,7 +49,13 @@ public class SkinEntityAdapterFactory {
         if (viewEntity instanceof SkinBundle) {
             Toast.makeText(context, "onItemViewClicked with " + viewEntity.getClass().getSimpleName(), Toast.LENGTH_SHORT).show();
         } else if (viewEntity.getClass() == SkinViewEntity.class) {
-            startCategoryActivity(context, viewEntity.getBundleName());
+            String bundleName = viewEntity.getBundleName();
+            if (isAdStub(bundleName)) {
+                // todo: respond to ad click.
+                Toast.makeText(context, "onItemViewClicked AD name " + bundleName, Toast.LENGTH_SHORT).show();
+            } else {
+                startCategoryActivity(context, bundleName);
+            }
         } else {
             Toast.makeText(context, "onItemViewClicked error type of " + viewEntity.getClass().getSimpleName(), Toast.LENGTH_SHORT).show();
         }
