@@ -25,7 +25,7 @@ abstract public class SkinEntityAdapter extends RecyclerView.Adapter<SkinEntityA
     private List<SkinViewEntity> itemList;
 
     private int getLimitedDataSize() {
-        if (null == itemList || itemList.isEmpty()) {
+        if (null == itemList) {
             return 0;
         } else {
             return itemList.size();
@@ -105,8 +105,8 @@ abstract public class SkinEntityAdapter extends RecyclerView.Adapter<SkinEntityA
 
     protected abstract void onItemViewClicked(Context context, SkinViewEntity viewEntity);
 
-    public int calculateSpanSize(int position) {
-        return SkinEntityAdapterFactory.calculateSpanSize(itemList.get(position));
+    public int calculateSpanSize(int position, int totalSpanSize) {
+        return SkinEntityAdapterFactory.calculateSpanSize(itemList.get(position), totalSpanSize);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -121,6 +121,7 @@ abstract public class SkinEntityAdapter extends RecyclerView.Adapter<SkinEntityA
 
         public void bind(final SkinViewEntity viewEntity) {
             if (SkinEntityAdapterFactory.isAdStub(viewEntity.getBundleName())) {
+                // todo: replace possible ad view in the item view.
                 previewImageView.setImageResource(R.mipmap.ic_launcher);
             } else {
                 ImageLoader.getInstance().displayImage(viewEntity.getPreviewUrl(), previewImageView, imageOptions);

@@ -30,7 +30,7 @@ abstract public class FragmentActivity extends AppCompatActivity {
 
     private void setupFragment() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.fl_container, instanceFragment());
+        ft.replace(R.id.fl_container, instanceFragment());
         ft.commit();
     }
 

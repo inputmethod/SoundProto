@@ -45,24 +45,28 @@ abstract public class SkinBaseFragmentView extends RecyclerFragment {
     private final Observer<StatefulResource<List<SkinViewEntity>>> observer = new Observer<StatefulResource<List<SkinViewEntity>>>() {
         @Override
         public void onChanged(@Nullable StatefulResource<List<SkinViewEntity>> skinResource) {
-            if (skinResource.status == StatefulResource.Status.LOADING)
+            if (skinResource.status == StatefulResource.Status.LOADING) {
                 drawLoading();
-            else if (skinResource.status == StatefulResource.Status.SUCCESS)
+            } else if (skinResource.status == StatefulResource.Status.SUCCESS) {
                 skinBundleAdapter.setSkinItemList(skinResource.data);
-            else
+            } else {
                 SLog.e(TAG, "onChanged: status is " + skinResource.status);
+            }
         }
     };
 
     @Override
     protected RecyclerView.LayoutManager instanceLayoutManager() {
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), getColumnCount());
-        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                return skinBundleAdapter.calculateSpanSize(position);
-            }
-        });
+        final int totalSpanSize = getColumnCount();
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), totalSpanSize);
+        if (totalSpanSize > 1) {
+            layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    return skinBundleAdapter.calculateSpanSize(position, totalSpanSize);
+                }
+            });
+        }
         return layoutManager;
     }
 }

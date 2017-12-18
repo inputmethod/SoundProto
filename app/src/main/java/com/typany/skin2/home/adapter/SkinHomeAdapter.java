@@ -63,15 +63,19 @@ public class SkinHomeAdapter extends SkinEntityAdapter {
             } else {
                 titleLayout.setVisibility(View.VISIBLE);
                 titleView.setText(viewEntity.getBundleName());
-                moreView.setVisibility(viewEntity.isHasMore() ? View.VISIBLE : View.GONE);
 
-                // todo: set the click listener to the whole bar or more view only?
-                moreView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        SkinEntityAdapterFactory.onMoreItemClicked(v.getContext(), viewEntity);
-                    }
-                });
+                if (viewEntity.isHasMore()) {
+                    moreView.setVisibility(View.VISIBLE);
+                    moreView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            SkinEntityAdapterFactory.onMoreItemClicked(v.getContext(), viewEntity);
+                        }
+                    });
+                } else {
+                    moreView.setVisibility(View.GONE);
+                    moreView.setOnClickListener(null);
+                }
             }
 
             SkinEntityAdapterFactory.fillSubList(recyclerView, viewEntity, imageOptions);

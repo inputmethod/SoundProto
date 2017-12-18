@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.LayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -28,23 +29,29 @@ import java.util.List;
 public class SkinEntityAdapterFactory {
     private static final String TAG = SkinEntityAdapterFactory.class.getSimpleName();
 
-    public static int calculateSpanSize(SkinViewEntity viewEntity) {
+    // 计算recycler view某个位置占span数时，默认只占自己1列，广告位将占满全部列。
+    private static final int DEFAULT_SPAN_SIZE = 1;
+
+    // 广告位占满全部列，否则只占默认列数
+    public static int calculateSpanSize(SkinViewEntity viewEntity, int columns) {
         if (isAdStub(viewEntity.getBundleName())) {
-            return 2;
+            return columns;
         } else {
-            return 1;
+            return DEFAULT_SPAN_SIZE;
         }
     }
 
     public static class LayoutSpanSizeLookup extends GridLayoutManager.SpanSizeLookup {
         private final List<SkinViewEntity> entityList;
-        public LayoutSpanSizeLookup(List<SkinViewEntity> entityList) {
+        private final int totalSpanSize;
+        public LayoutSpanSizeLookup(List<SkinViewEntity> entityList, int totalSpanSize) {
             this.entityList = entityList;
+            this.totalSpanSize = totalSpanSize;
         }
 
         @Override
         public int getSpanSize(int position) {
-            return calculateSpanSize(entityList.get(position));
+            return calculateSpanSize(entityList.get(position), totalSpanSize);
         }
     }
 
@@ -57,18 +64,19 @@ public class SkinEntityAdapterFactory {
         }
     }
 
-    private static RecyclerView.LayoutManager buildGridLayoutManager(Context context, int displayColumn, LayoutSpanSizeLookup lookup) {
+    private static LayoutManager buildGridLayoutManager(Context context, List<SkinViewEntity> entityList,int displayColumn) {
         if (displayColumn == 0) {
-            // todo: 显示单排小圆风格的图标
-            SLog.e(TAG, "todo: display small circle icon, e.g. for collection");
             LinearLayoutManager layoutManager = new LinearLayoutManager(context);
             layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             return layoutManager;
         } else if (displayColumn > 0) {
+            LayoutSpanSizeLookup lookup = new LayoutSpanSizeLookup(entityList, displayColumn);
             GridLayoutManager layoutManager = new GridLayoutManager(context, displayColumn);
             layoutManager.setSpanSizeLookup(lookup);
             return layoutManager;
         } else {
+            // 负数，不认识的显示风格
+            SLog.e(TAG, "buildGridLayoutManager, unknown display column: " + displayColumn);
             return null;
         }
     }
@@ -88,9 +96,10 @@ public class SkinEntityAdapterFactory {
         } else {
             recyclerView.setVisibility(View.VISIBLE);
             int displayColumn = entity.getDisplayColumn();
-            RecyclerView.LayoutManager layoutManager = buildGridLayoutManager(recyclerView.getContext(), displayColumn, new LayoutSpanSizeLookup(entityList));
+            RecyclerView.LayoutManager layoutManager = buildGridLayoutManager(recyclerView.getContext(),
+                    entityList, displayColumn);
             if (null == layoutManager) {
-                // todo: 异常？不识别的数据集合
+                // 不识别的数据集合, 合法数据不应该走到这。
                 SLog.e(TAG, "Unknown entity: " + entity.getBundleName() + ", " + displayColumn);
             } else {
                 recyclerView.setLayoutManager(layoutManager);
