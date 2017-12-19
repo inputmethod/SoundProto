@@ -18,7 +18,7 @@ import com.typany.skin2.home.model.SkinBundle;
 import com.typany.skin2.home.model.SkinCategory;
 import com.typany.skin2.home.model.SkinCategoryGroup;
 import com.typany.skin2.home.model.SkinViewEntity;
-import com.typany.soundproto.FragmentActivity;
+import com.typany.common.RecyclerActivity;
 import com.typany.soundproto.SkinCategoryActivity;
 import com.typany.soundproto.SkinCategoryGroupActivity;
 
@@ -146,7 +146,7 @@ public class SkinEntityAdapterFactory {
         startActivityFor(context, SkinCategoryActivity.class, bundleName);
     }
 
-    private static void startActivityFor(Context context, Class<? extends FragmentActivity> target, String bundleName) {
+    private static void startActivityFor(Context context, Class<? extends RecyclerActivity> target, String bundleName) {
         Intent intent = new Intent(context, target);
         intent.putExtra("bundleName", bundleName);
         context.startActivity(intent);

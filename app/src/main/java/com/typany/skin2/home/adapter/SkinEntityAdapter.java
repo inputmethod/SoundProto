@@ -170,7 +170,7 @@ abstract public class SkinEntityAdapter extends RecyclerView.Adapter<SkinEntityA
         }
 
         public static int layoutResourceId() {
-            return R.layout.item_skin_card;
+            return R.layout.item_skin_card_2_7;
         }
     }
 

@@ -11,7 +11,7 @@ import com.typany.debug.SLog;
 import com.typany.network.StatefulResource;
 import com.typany.skin2.home.adapter.SkinEntityAdapter;
 import com.typany.skin2.home.model.SkinViewEntity;
-import com.typany.views.RecyclerFragment;
+import com.typany.common.RecyclerFragment;
 
 import java.util.List;
 

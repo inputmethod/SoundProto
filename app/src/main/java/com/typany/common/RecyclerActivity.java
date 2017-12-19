@@ -1,4 +1,4 @@
-package com.typany.soundproto;
+package com.typany.common;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,12 +10,13 @@ import android.view.MenuItem;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.typany.soundproto.R;
 
 /**
  * Created by yangfeng on 2017/12/13.
  */
 
-abstract public class FragmentActivity extends AppCompatActivity {
+abstract public class RecyclerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ abstract public class FragmentActivity extends AppCompatActivity {
 
     private void setupFragment() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fl_container, instanceFragment());
+        ft.replace(R.id.container, instanceFragment());
         ft.commit();
     }
 

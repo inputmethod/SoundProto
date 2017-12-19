@@ -7,9 +7,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import com.typany.common.RecyclerActivity;
 import com.typany.sound.views.SoundFragment;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends RecyclerActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

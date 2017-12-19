@@ -1,4 +1,4 @@
-package com.typany.views;
+package com.typany.common;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
@@ -54,8 +54,8 @@ abstract public class RecyclerFragment extends Fragment {
     @Nullable
     @Override
     public final View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = View.inflate(getActivity(), R.layout.fragment_load_recycler, null);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        final View view = View.inflate(getActivity(), R.layout.theme_layout, null);
+        mRecyclerView = view.findViewById(R.id.recycler_view);
 
         mOptions = ImageLoaderHelper.newOptions(getContext(), true, Bitmap.Config.ARGB_8888);
         mLoadingFragment = new LoadingFragment();
@@ -71,7 +71,7 @@ abstract public class RecyclerFragment extends Fragment {
         mRecyclerView.setAdapter(instanceAdapter(mOptions));
 
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-        ft.add(R.id.fl_container, mLoadingFragment);
+        ft.add(R.id.container, mLoadingFragment);
         ft.commit();
     }
 

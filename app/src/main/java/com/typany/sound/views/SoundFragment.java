@@ -14,7 +14,7 @@ import com.typany.sound.adapter.SoundAdapter;
 import com.typany.sound.service.SoundBoundItem;
 import com.typany.sound.viewmodel.SoundViewModel;
 import com.typany.ui.skinui.interfaces.IVolumeEditor;
-import com.typany.views.RecyclerFragment;
+import com.typany.common.RecyclerFragment;
 
 import java.util.List;
 

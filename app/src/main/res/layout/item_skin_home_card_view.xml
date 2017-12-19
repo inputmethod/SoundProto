@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.typany.skin2.home.view.SkinHomeCardView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bg_sound_item_container_white">
+    android:layout_height="wrap_content">
 
     <include layout="@layout/list_item_theme_title"
         android:id="@+id/theme_title"
@@ -16,4 +15,4 @@
         android:layout_height="wrap_content">
     </android.support.v7.widget.RecyclerView>
 
-</com.typany.skin2.home.view.SkinHomeCardView>
+</RelativeLayout>

@@ -3,16 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bg_sound_item_container_white"
-    android:layout_margin="4dp">
+    android:layout_height="128dp"
+    android:layout_margin="6dp">
 
     <ImageView
         android:id="@+id/iv_skin"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:scaleType="fitXY"/>
+        android:scaleType="centerCrop"/>
 
     <LinearLayout
         android:id="@+id/indicator_group"
