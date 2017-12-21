@@ -30,11 +30,31 @@
 
         <activity android:name=".SkinCategoryActivity"
             android:label="@string/skin_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
 
         <activity android:name=".SkinCategoryGroupActivity"
             android:label="@string/skin_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
+
+        <activity android:name=".SettingActivity"
+            android:label="@string/skin_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="http"
+                    android:host="www.typany.com"
+                    android:path="/setting"
+                    />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

@@ -6,79 +6,81 @@ package com.typany.skin;
 // 线上皮肤单元, 名称，文件url和大小, 是否允许分享，预览图url，
 // 指示皮肤属性的图标的url列表(含音效，动画...), gplay可下载apk的url， 是否显示广告
 // 原api返回属性的ba, kt对应给indicatorIcon，ppu和wp由后台根据客户端版本给previewUrl，sdu和ws给fileUrl，rm对应hotFlag
-message SkinEntity
+message SkinItem
 {
-	string bundleName = 1;
-	string previewUrl = 2;
-	string fileUrl = 3;
-	uint32 fileSize = 4;
-	bool canShare = 5;
-	bool hotFlag = 6;
-	repeated string indicatorIcon = 7;
-	string apkUrl = 8;
-	bool adShow = 9;
+	string id = 1;
+	string bundleTitle = 2;
+	string previewUrl = 3;
+	string fileUrl = 4;
+	uint32 fileSize = 5;
+	bool canShare = 6;
+	bool hotFlag = 7;
+	bool featureKite = 8;  
+	bool featureMusic= 9;  
+	string apkUrl = 10;
+	bool  adShow = 11;
+	int32 itemType = 12;
+}
+//  itemType=0 表示真正的皮肤，1，或者 2 广告模式
+// 皮肤类组，含类组信息（名称+图片url)，是否可查看更多，一个皮肤列表，显示样式
+// 广告位：skinEntity和hasMore略过，bundleTitle为固定的广告标识串"ad-position"
+// 推广运营位：与广告位类似，如"typany-hotline"
+message SkinCatagory
+{
+	string id = 1;
+	string bundleTitle = 2;
+	bool hasMore = 3;
+	repeated SkinItem items = 4;
+	int32 displayMode = 5;
 }
 
-// 皮肤类组，含类组信息（名称+图片url)，是否可查看更多，一个皮肤列表，显示样式
-// 广告位：skinEntity和hasMore略过，bundleName为固定的广告标识串"ad-position"
-// 推广运营位：与广告位类似，如"typany-hotline"
-message SkinCategoryEntity
-{
-	string bundleName = 1;
-	string previewUrl = 2;
-	bool hasMore = 3;
-	repeated SkinEntity skinEntity = 4;
-	int32 displayColumn = 5;
-}
+
 
 // 皮肤类组的集合，含一个类组信息列表(名称+图片url)，可查看更多，名称和显示样式（0一行小圆图片，1-n列每行列表）
-message CollectionItem
+// pass
+message SkinCollectionItem
 {
-	string bundleName = 1;
-	string previewUrl = 2;
+    int32  id = 1
+	string bundleTitle = 2;
+	string previewUrl = 3;
 }
-message SkinCollectionInfo
+//pass 
+message SkinCollectionList
 {
-	string bundleName = 1;
-	repeated CollectionItem collectionItem = 2;
-	bool hasMore = 3;
-	int32 displayColumn = 4;
-}
-
-message SkinHeadLineInfo
-{
-	repeated SkinCollectionInfo skinCollectionInfo = 1;
-	repeated SkinCategoryEntity skinCategory = 2;
+	string bundleTitle = 1;
+	repeated SkinCollectionItem collections = 2;
+	string  moreUrl = 3;   
+	int32 displayMode = 4;
 }
 
-//
-// 获取线上skin首页数据内容
-// url:
-// return : SkinInfoRepository
-//
-message SkinInfoRepository
+message SkinHeaderHome
 {
-    repeated SkinHeadLineInfo skinHeadLineInfo = 1;
-	SkinCategoryEntity skinCategory = 2;
-	string bundleName = 3;
+	repeated SkinHomeHeaderItems  homeItems = 1;
+	string   catagoryId = 2
 }
 
-// 获取线上skin的Collection内容
-// url:
-// return SkinCollectionRepository
-message SkinCollectionRepository
+
+message SkinHomeHeaderItems
 {
-	int32 displayColumn = 1;
-	repeated SkinCollectionInfo skinCollectionInfo = 2;
-	string bundleName = 3;
+	SkinCollectionList collection = 1;
+	SkinCatagory  catagory = 2;
 }
 
-// 获取线上skin的Category内容
-// url:
-// return SkinCategoryRepository
-message SkinCategoryRepository
-{
-	int32 displayColumn = 1;
-	repeated SkinEntity skinEntity = 2;
-	string bundleName = 3;
+
+message SkinCollectionAll
+{   
+    repeated SkinCollectionItem collection = 1;
+    
 }
+
+
+message SkinCatagoryAllItems
+{   
+    repeated SkinItem items = 1;  
+}
+
+
+
+
+
+ 

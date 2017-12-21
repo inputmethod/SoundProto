@@ -1,0 +1,201 @@
+﻿视图
+JSON数据
+ 
+粘贴	
+ 
+ 
+复制	
+ 
+ 
+格式化	
+ 
+ 
+删除空格	
+ 
+ 
+删除空格并转义	
+ 
+ 
+去除转义	
+ 
+ 
+回到首页	
+ 
+ 
+关于	
+ 
+
+{
+  "homeItems": [
+    {
+      "collection": {
+        "bundleTitle": "Collection",
+        "collections": [
+          {
+            "id": 25,
+            "bundleTitle": "Love",
+            "previewUrl": "http://d2ezgnxmilyqe4.cloudfront.net/media/ThemeGroup/LOVE111.png"
+          },
+          {
+            "id": 25,
+            "bundleTitle": "Love",
+            "previewUrl": "http://d2ezgnxmilyqe4.cloudfront.net/media/ThemeGroup/LOVE111.png"
+          },
+          {
+            "id": 25,
+            "bundleTitle": "Love",
+            "previewUrl": "http://d2ezgnxmilyqe4.cloudfront.net/media/ThemeGroup/LOVE111.png"
+          },
+          {
+            "id": 25,
+            "bundleTitle": "Love",
+            "previewUrl": "http://d2ezgnxmilyqe4.cloudfront.net/media/ThemeGroup/LOVE111.png"
+          },
+          {
+            "id": 25,
+            "bundleTitle": "Love",
+            "previewUrl": "http://d2ezgnxmilyqe4.cloudfront.net/media/ThemeGroup/LOVE111.png"
+          },
+          {
+            "id": 25,
+            "bundleTitle": "Love",
+            "previewUrl": "http://d2ezgnxmilyqe4.cloudfront.net/media/ThemeGroup/LOVE111.png"
+          }
+        ],
+        "moreUrl": "http://typany.com",
+        "displayMode": 0
+      },
+      "catagory": {
+        "id": "0001",
+        "bundleTitle": "Trending",
+        "hasMore": true,
+        "items": [
+          {
+            "id": "7000000947",
+            "bundleTitle": "Fire Eye Wolf",
+            "previewUrl": "http://d2ezgnxmilyqe4.cloudfront.net/media/Theme/7000000947_1513080567.png",
+            "fileUrl": "http://d2ezgnxmilyqe4.cloudfront.net/media/Theme/7000000947_1512993960.ssf",
+            "fileSize": 3484267,
+            "canShare": true,
+            "hotFlag": false,
+            "featureKite": true,
+            "featureMusic": false,
+            "apkUrl": "https://play.google.com/store/apps/details?id=fire.eye.wolf.cool.thriller.typany.u7000000947&referrer=tplist",
+            "adShow": true,
+            "itemType": 0
+          },
+          {
+            "id": "7000000947",
+            "bundleTitle": "Fire Eye Wolf",
+            "previewUrl": "http://d2ezgnxmilyqe4.cloudfront.net/media/Theme/7000000947_1513080567.png",
+            "fileUrl": "http://d2ezgnxmilyqe4.cloudfront.net/media/Theme/7000000947_1512993960.ssf",
+            "fileSize": 3484267,
+            "canShare": true,
+            "hotFlag": false,
+            "featureKite": false,
+            "featureMusic": true,
+            "apkUrl": "https://play.google.com/store/apps/details?id=fire.eye.wolf.cool.thriller.typany.u7000000947&referrer=tplist",
+            "adShow": true,
+            "itemType": 0
+          },
+          {
+            "id": "7000000947",
+            "bundleTitle": "Fire Eye Wolf",
+            "previewUrl": "http://d2ezgnxmilyqe4.cloudfront.net/media/Theme/7000000947_1513080567.png",
+            "fileUrl": "http://d2ezgnxmilyqe4.cloudfront.net/media/Theme/7000000947_1512993960.ssf",
+            "fileSize": 3484267,
+            "canShare": true,
+            "hotFlag": false,
+            "featureKite": false,
+            "featureMusic": false,
+            "apkUrl": "https://play.google.com/store/apps/details?id=fire.eye.wolf.cool.thriller.typany.u7000000947&referrer=tplist",
+            "adShow": true,
+            "itemType": 0
+          },
+          {
+            "id": "7000000947",
+            "bundleTitle": "Fire Eye Wolf",
+            "previewUrl": "http://d2ezgnxmilyqe4.cloudfront.net/media/Theme/7000000947_1513080567.png",
+            "fileUrl": "http://d2ezgnxmilyqe4.cloudfront.net/media/Theme/7000000947_1512993960.ssf",
+            "fileSize": 3484267,
+            "canShare": true,
+            "hotFlag": false,
+            "featureKite": true,
+            "featureMusic": true,
+            "apkUrl": "https://play.google.com/store/apps/details?id=fire.eye.wolf.cool.thriller.typany.u7000000947&referrer=tplist",
+            "adShow": true,
+            "itemType": 0
+          }
+        ],
+        "displayMode": 2
+      }
+    },
+    {
+      "catagory": {
+        "id": "0001",
+        "bundleTitle": "Feature",
+        "hasMore": true,
+        "items": [
+          {
+            "id": "7000000947",
+            "bundleTitle": "Fire Eye Wolf",
+            "previewUrl": "http://d2ezgnxmilyqe4.cloudfront.net/media/Theme/7000000947_1513080567.png",
+            "fileUrl": "http://d2ezgnxmilyqe4.cloudfront.net/media/Theme/7000000947_1512993960.ssf",
+            "fileSize": 3484267,
+            "canShare": true,
+            "hotFlag": false,
+            "featureKite": true,
+            "featureMusic": false,
+            "apkUrl": "https://play.google.com/store/apps/details?id=fire.eye.wolf.cool.thriller.typany.u7000000947&referrer=tplist",
+            "adShow": true,
+            "itemType": 0
+          },
+          {
+            "id": "7000000947",
+            "bundleTitle": "Fire Eye Wolf",
+            "previewUrl": "http://d2ezgnxmilyqe4.cloudfront.net/media/Theme/7000000947_1513080567.png",
+            "fileUrl": "http://d2ezgnxmilyqe4.cloudfront.net/media/Theme/7000000947_1512993960.ssf",
+            "fileSize": 3484267,
+            "canShare": true,
+            "hotFlag": false,
+            "featureKite": false,
+            "featureMusic": true,
+            "apkUrl": "https://play.google.com/store/apps/details?id=fire.eye.wolf.cool.thriller.typany.u7000000947&referrer=tplist",
+            "adShow": true,
+            "itemType": 0
+          },
+          {
+            "id": "",
+            "bundleTitle": "",
+            "previewUrl": "",
+            "fileUrl": "",
+            "fileSize": 0,
+            "canShare": false,
+            "hotFlag": false,
+            "featureKite": false,
+            "featureMusic": false,
+            "apkUrl": "",
+            "adShow": false,
+            "itemType": 1
+          },
+          {
+            "id": "7000000947",
+            "bundleTitle": "Fire Eye Wolf",
+            "previewUrl": "http://d2ezgnxmilyqe4.cloudfront.net/media/Theme/7000000947_1513080567.png",
+            "fileUrl": "http://d2ezgnxmilyqe4.cloudfront.net/media/Theme/7000000947_1512993960.ssf",
+            "fileSize": 3484267,
+            "canShare": true,
+            "hotFlag": false,
+            "featureKite": true,
+            "featureMusic": true,
+            "apkUrl": "https://play.google.com/store/apps/details?id=fire.eye.wolf.cool.thriller.typany.u7000000947&referrer=tplist",
+            "adShow": true,
+            "itemType": 0
+          }
+        ],
+        "displayMode": 2
+      }
+    }
+  ],
+  "catagoryId": "25"
+}
