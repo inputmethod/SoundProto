@@ -10,9 +10,9 @@ import com.typany.base.IMEThread;
 import com.typany.http.toolbox.RequestUtil;
 import com.typany.ime.IMEApplicationContext;
 import com.typany.network.Response;
-import com.typany.skin.SkinPersistentRepository.SkinCategoryRepository;
-import com.typany.skin.SkinPersistentRepository.SkinCollectionRepository;
-import com.typany.skin.SkinPersistentRepository.SkinInfoRepository;
+import com.typany.skin.SkinPersistentRepository.SkinCategoryAllItems;
+import com.typany.skin.SkinPersistentRepository.SkinCollectionAll;
+import com.typany.skin.SkinPersistentRepository.SkinHeaderHome;
 import com.typany.skin2.home.model.SkinViewEntity;
 import com.typany.skin2.model.SkinPackage;
 
@@ -47,9 +47,9 @@ public class SkinStorage {
     private File[] skinStorageFolder;
 
     @MainThread
-    public static void init(Context sAppContext) {
+    public static void init(Context sAppContext, String resolution) {
         if (null == _ins) {
-            _ins = new SkinStorage(sAppContext, "1080");
+            _ins = new SkinStorage(sAppContext, resolution);
         }
     }
     @MainThread
@@ -129,14 +129,14 @@ public class SkinStorage {
 //    }
 
     @WorkerThread
-    public void saveSkinInfoResult(SkinInfoRepository request) {
+    public void saveSkinInfoResult(SkinCategoryAllItems request) {
         // TODO: request add to cache
     }
 
-    public LiveData<Response<SkinInfoRepository>> createSkinInfoRequest() {
+    public LiveData<Response<SkinCategoryAllItems>> createSkinInfoRequest() {
         // TODO: complete the API URI with formal url
         return RequestUtil.observalbeRequestProtobuf("http://10.134.73.228/api/skinentry?proto=1", context,
-                SkinInfoRepository.parser());
+                SkinCategoryAllItems.parser());
     }
 
     public static SkinStorage get() {
@@ -147,24 +147,24 @@ public class SkinStorage {
         return _ins;
     }
 
-    public void saveCategoryGroupResult(String groupName, SkinCollectionRepository request) {
+    public void saveCategoryGroupResult(String groupName, SkinHeaderHome request) {
         // TODO request add to cache
     }
 
-    public LiveData<Response<SkinCollectionRepository>> createCategoryGroupRequest(String bundleName) {
+    public LiveData<Response<SkinHeaderHome>> createCategoryGroupRequest(String bundleName) {
         // TODO: complete the API URI with formal url
         return RequestUtil.observalbeRequestProtobuf("http://10.134.73.228/api/skincollection?proto=1&id=" + bundleName, context,
-                SkinCollectionRepository.parser());
+                SkinHeaderHome.parser());
     }
 
-    public void saveCategoryResult(String categoryName, SkinCategoryRepository request) {
+    public void saveCategoryResult(String categoryName, SkinCollectionAll request) {
         // TODO request add to cache
     }
 
-    public LiveData<Response<SkinCategoryRepository>> createCategoryRequest(String bundleName) {
+    public LiveData<Response<SkinCollectionAll>> createCategoryRequest(String bundleName) {
         // TODO: complete the API URI with formal url
         return RequestUtil.observalbeRequestProtobuf("http://10.134.73.228/api/skincategory?proto=1&id=" + bundleName, context,
-                SkinCategoryRepository.parser());
+                SkinCollectionAll.parser());
     }
 
     // todo: save and maintain cache

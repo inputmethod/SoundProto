@@ -19,7 +19,7 @@ public class MyApplication extends Application {
         IMEApplicationContext.application = this;
         IMEApplicationContext.context = getBaseContext();
 
-        SkinStorage.init(getBaseContext());
+        SkinStorage.init(getBaseContext(), "1080");
         SoundStorage.init(getBaseContext());
         IMEThread.initialize();
     }

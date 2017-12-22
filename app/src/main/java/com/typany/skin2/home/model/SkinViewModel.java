@@ -8,9 +8,9 @@ import android.support.annotation.WorkerThread;
 import com.typany.network.NetworkBoundResource;
 import com.typany.network.Response;
 import com.typany.network.StatefulResource;
-import com.typany.skin.SkinPersistentRepository.SkinCategoryRepository;
-import com.typany.skin.SkinPersistentRepository.SkinCollectionRepository;
-import com.typany.skin.SkinPersistentRepository.SkinInfoRepository;
+import com.typany.skin.SkinPersistentRepository.SkinCollectionAll;
+import com.typany.skin.SkinPersistentRepository.SkinHeaderHome;
+import com.typany.skin.SkinPersistentRepository.SkinCategoryAllItems;
 import com.typany.skin2.storage.SkinStorage;
 
 import java.util.List;
@@ -27,13 +27,13 @@ public class SkinViewModel extends ViewModel {
     public SkinViewModel() {
     }
 
-    private static class SkinHomeResource extends NetworkBoundResource<List<SkinViewEntity>, SkinInfoRepository> {
+    private static class SkinHomeResource extends NetworkBoundResource<List<SkinViewEntity>, SkinCategoryAllItems> {
         public SkinHomeResource() {
         }
 
         @Override
         @WorkerThread
-        protected void saveCallResult(SkinInfoRepository request) {
+        protected void saveCallResult(SkinCategoryAllItems request) {
             SkinStorage.get().saveSkinInfoResult(request);
         }
 
@@ -61,11 +61,11 @@ public class SkinViewModel extends ViewModel {
 
         @Nullable
         @Override
-        protected LiveData<Response<SkinInfoRepository>> createCall() {
+        protected LiveData<Response<SkinCategoryAllItems>> createCall() {
             return SkinStorage.get().createSkinInfoRequest();
         }
     }
-    private static class SkinCategoryGroupResource extends NetworkBoundResource<List<SkinViewEntity>, SkinCollectionRepository> {
+    private static class SkinCategoryGroupResource extends NetworkBoundResource<List<SkinViewEntity>, SkinHeaderHome> {
         private String groupName;
         public SkinCategoryGroupResource(String groupName) {
             super(groupName);
@@ -73,7 +73,7 @@ public class SkinViewModel extends ViewModel {
 
         @Override
         @WorkerThread
-        protected void saveCallResult(SkinCollectionRepository request) {
+        protected void saveCallResult(SkinHeaderHome request) {
             SkinStorage.get().saveCategoryGroupResult(groupName, request);
         }
 
@@ -103,12 +103,12 @@ public class SkinViewModel extends ViewModel {
 
         @Nullable
         @Override
-        protected LiveData<Response<SkinCollectionRepository>> createCall() {
+        protected LiveData<Response<SkinHeaderHome>> createCall() {
             return SkinStorage.get().createCategoryGroupRequest(groupName);
         }
     }
 
-    private static class SkinCategoryResource extends NetworkBoundResource<List<SkinViewEntity>, SkinCategoryRepository> {
+    private static class SkinCategoryResource extends NetworkBoundResource<List<SkinViewEntity>, SkinCollectionAll> {
         private String categoryName;
         public SkinCategoryResource(String categoryName) {
             super(categoryName);
@@ -116,7 +116,7 @@ public class SkinViewModel extends ViewModel {
 
         @Override
         @WorkerThread
-        protected void saveCallResult(SkinCategoryRepository request) {
+        protected void saveCallResult(SkinCollectionAll request) {
             SkinStorage.get().saveCategoryResult(categoryName, request);
         }
 
@@ -146,7 +146,7 @@ public class SkinViewModel extends ViewModel {
 
         @Nullable
         @Override
-        protected LiveData<Response<SkinCategoryRepository>> createCall() {
+        protected LiveData<Response<SkinCollectionAll>> createCall() {
             return SkinStorage.get().createCategoryRequest(categoryName);
         }
     }
