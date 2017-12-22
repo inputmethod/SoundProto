@@ -19,6 +19,7 @@ import com.typany.skin2.home.model.SkinCategory;
 import com.typany.skin2.home.model.SkinCategoryGroup;
 import com.typany.skin2.home.model.SkinViewEntity;
 import com.typany.common.RecyclerActivity;
+import com.typany.skin2.home.model.SkinViewTitle;
 import com.typany.soundproto.SkinCategoryActivity;
 import com.typany.soundproto.SkinCategoryGroupActivity;
 
@@ -36,7 +37,9 @@ public class SkinEntityAdapterFactory {
 
     // 广告位占满全部列，否则只占默认列数
     public static int calculateSpanSize(SkinViewEntity viewEntity, int columns) {
-        if (isAdStub(viewEntity.getBundleName())) {
+        if (isAdStub(viewEntity.getBundleName()) ||
+                SkinViewTitle.class.isInstance(viewEntity) ||
+                viewEntity.getDisplayColumn() == 0 || viewEntity.getDisplayColumn() == 1) {
             return columns;
         } else {
             return DEFAULT_SPAN_SIZE;

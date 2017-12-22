@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.support.annotation.MainThread;
 import android.support.annotation.WorkerThread;
+import android.text.TextUtils;
 
 import com.typany.base.IMEThread;
 import com.typany.http.toolbox.RequestUtil;
@@ -14,6 +15,7 @@ import com.typany.skin.SkinPersistentRepository.SkinCategoryAllItems;
 import com.typany.skin.SkinPersistentRepository.SkinCollectionAll;
 import com.typany.skin.SkinPersistentRepository.SkinHeaderHome;
 import com.typany.skin2.home.model.SkinViewEntity;
+import com.typany.skin2.home.model.SkinViewTitle;
 import com.typany.skin2.model.SkinPackage;
 
 import java.io.File;
@@ -114,9 +116,30 @@ public class SkinStorage {
     }
 
     @MainThread
+    private SkinViewTitle parseViewTitle(SkinViewEntity viewEntity) {
+        boolean hasMore = viewEntity.isHasMore();
+        String title = viewEntity.getBundleName();
+        if (!TextUtils.isEmpty(title) || hasMore) {
+            SkinViewTitle viewTitle = new SkinViewTitle();
+            viewTitle.setBundleName(title);
+            viewTitle.setHasMore(hasMore);
+            viewTitle.setTitleOf(viewEntity.getClass().getSimpleName());
+        }
+
+        return null;
+    }
+    @MainThread
     public LiveData<List<SkinViewEntity>> getMockPageList() {
         MutableLiveData<List<SkinViewEntity>> mutableLiveData = new MutableLiveData<>();
-        mutableLiveData.setValue(SkinStorageMock.homeViewEntitiesCache);
+        List<SkinViewEntity> convertedList = new ArrayList<>();
+        for (SkinViewEntity viewEntity : SkinStorageMock.homeViewEntitiesCache) {
+            SkinViewTitle viewTitle = parseViewTitle(viewEntity);
+            if (null != viewTitle) {
+                convertedList.add(viewTitle);
+            }
+            convertedList.add(viewEntity);
+        }
+        mutableLiveData.setValue(convertedList);
         return mutableLiveData;
     }
 
