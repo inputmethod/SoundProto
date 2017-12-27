@@ -78,4 +78,12 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:3.8.0'
 //    annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
+
+    // block begin
+    // add for api testing purpose
+    testImplementation "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofit2Version"
+    testImplementation "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofit2Version"
+    testImplementation "com.squareup.retrofit2:converter-protobuf:$rootProject.ext.retrofit2Version"
+    testImplementation "com.squareup.okhttp3:okhttp:$rootProject.ext.okhttp3Version"
+    // block end
 }
