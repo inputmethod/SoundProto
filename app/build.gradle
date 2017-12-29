@@ -64,7 +64,7 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:1.0.0"
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
     // paging
-    implementation "android.arch.paging:runtime:1.0.0-alpha3"
+    implementation "android.arch.paging:runtime:1.0.0-alpha4-1"
     // zt-zip
     compile 'org.zeroturnaround:zt-zip:1.12'
 
@@ -76,6 +76,17 @@ dependencies {
     implementation 'javax.annotation:javax.annotation-api:1.2'
     protobuf 'com.google.protobuf:protobuf-java:3.3.1'
 
-    implementation 'com.github.bumptech.glide:glide:3.8.0'
+    // block begin
+    // add for api testing purpose
+    implementation "com.squareup.retrofit2:retrofit:${versions.retrofit2Version}"
+    implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit2Version}"
+    implementation "com.squareup.retrofit2:converter-protobuf:${versions.retrofit2Version}"
+    implementation "com.squareup.okhttp3:okhttp:${versions.okhttp3Version}"
+    // block end
+
+//    implementation 'com.github.bumptech.glide:glide:3.8.0'
 //    annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
+
+    implementation "com.github.bumptech.glide:glide:${versions.glide}"
+    annotationProcessor "com.github.bumptech.glide:compiler:${versions.glide}"
 }

@@ -1,0 +1,47 @@
+<!-- Removing focus: http://stackoverflow.com/a/8639921/317928 -->
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:fitsSystemWindows="true"
+    android:focusableInTouchMode="true">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fitsSystemWindows="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/searchResultsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingTop="4dp"
+            android:scrollbars="vertical"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:listitem="@layout/skin_item"/>
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="@null"
+                app:layout_scrollFlags="scroll|enterAlways"/>
+        </android.support.design.widget.AppBarLayout>
+    </android.support.design.widget.CoordinatorLayout>
+
+</android.support.constraint.ConstraintLayout>
