@@ -13,10 +13,12 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.typany.debug.SLog;
 import com.typany.soundproto.R;
@@ -34,25 +36,45 @@ public class LoadingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = View.inflate(getActivity(), R.layout.skin_loading, null);
-        ImageView iv = (ImageView) root.findViewById(R.id.iv);
+        ImageView iv = root.findViewById(R.id.iv);
 //        TextView tv = (TextView) root.findViewById(R.id.tv);
-        Glide.with(getActivity())
-                .load(R.mipmap.loading_animation)
+//        Glide.with(getActivity())
+//                .load(R.mipmap.loading_animation)
+//                .priority(Priority.HIGH)
+//                .skipMemoryCache(true)
+//                .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                .listener(new RequestListener<Integer, GlideDrawable>() {
+//
+//                    @Override
+//                    public boolean onException(Exception arg0, Integer arg1,
+//                                               Target<GlideDrawable> arg2, boolean arg3) {
+//                        return false;
+//                    }
+//
+//                    @Override
+//                    public boolean onResourceReady(GlideDrawable resource,
+//                                                   Integer model, Target<GlideDrawable> target,
+//                                                   boolean isFromMemoryCache, boolean isFirstResource) {
+//                        return false;
+//                    }
+//                })
+//                .into(iv);
+
+        RequestOptions myOptions = new RequestOptions()
                 .priority(Priority.HIGH)
                 .skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .listener(new RequestListener<Integer, GlideDrawable>() {
-
+                .diskCacheStrategy(DiskCacheStrategy.NONE);
+        Glide.with(getActivity())
+                .load(R.mipmap.loading_animation)
+                .apply(myOptions)
+                .listener(new RequestListener<Drawable>() {
                     @Override
-                    public boolean onException(Exception arg0, Integer arg1,
-                                               Target<GlideDrawable> arg2, boolean arg3) {
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                         return false;
                     }
 
                     @Override
-                    public boolean onResourceReady(GlideDrawable resource,
-                                                   Integer model, Target<GlideDrawable> target,
-                                                   boolean isFromMemoryCache, boolean isFirstResource) {
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                         return false;
                     }
                 })
@@ -152,12 +174,21 @@ public class LoadingFragment extends Fragment {
                 animatable.start();
             }
         }
-        Glide.with(getActivity())
-                .load(R.mipmap.loading_animation)
-                .asGif()
+//        Glide.with(getActivity())
+//                .load(R.mipmap.loading_animation)
+//                .asGif()
+//                .placeholder(mImageView.getDrawable())
+//                .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                .into(mImageView);
+        RequestOptions myOptions = new RequestOptions()
                 .placeholder(mImageView.getDrawable())
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .diskCacheStrategy(DiskCacheStrategy.NONE);
+        Glide.with(getActivity())
+                .asGif()
+                .load(R.mipmap.loading_animation)
+                .apply(myOptions)
                 .into(mImageView);
+
         mImageView.setVisibility(View.VISIBLE);
         getView().setVisibility(View.VISIBLE);
 
